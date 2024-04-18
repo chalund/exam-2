@@ -1,14 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-
 import './App.css'
-
-
 
 import HomePage from "./Pages/HomePage"
 import ListOfVenuesPage from "./Pages/VenuesPage"
 import AboutPage from "./Pages/AboutPage"
-import NotFoundPage from "./Pages/NotFoundPage"
+
 import Layout from "./components/Layout"
+import ProfilePage from "./Pages/ProfilePage"
+import LoginPage from "./Pages/LoginPage"
+import NotFoundPage from "./Pages/NotFoundPage"
 
 
 
@@ -20,7 +20,9 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="listings" element={<ListOfVenuesPage />} />
           <Route path="about" element={<AboutPage />} />
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="profile" element={<ProfilePage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="*" element={<NotFoundPage/>} />
 
 
         </Route>
