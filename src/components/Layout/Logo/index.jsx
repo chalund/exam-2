@@ -7,7 +7,7 @@ const Logo = () => {
     <div className=" text-violet-600">
       <Link to="/" className='flex items-center'>
         <RiHome2Line size={40}/>
-        <h1 className="text-2xl">Holidaze</h1>
+        <h1 className="text-2xl mt-2">Holidaze</h1>
       </Link>
     </div>
   )
