@@ -24,7 +24,7 @@ const ListOfVenuesPage = () => {
       <h1 className='text-center mt-3 text-xl text-violet-600'>List of Venues</h1>
       <div>
         {data.data.map((venue) => (
-          <Link to={`/venue/${venue.id}`} key={venue.id} className='block'>
+          <Link to={`/product/${venue.id}`} key={venue.id} className='block'>
             <div className='bg-white border rounded-lg m-4 p-4 sm:flex sm:max-w-[700px] max-w-[400px] mx-auto hover:border-4 hover:border-violet-600'>
               {venue.media && venue.media.length > 0 && (
                 <div className="sm:w-1/3 sm:mr-4">

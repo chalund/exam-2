@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { HiOutlineMenu } from "react-icons/hi";
 import { IoClose } from "react-icons/io5";
 import { AiOutlineUser } from "react-icons/ai";
-import { BsSearch } from "react-icons/bs";
+
 import { BiSearch } from "react-icons/bi";
 
 
