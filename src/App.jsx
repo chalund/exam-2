@@ -10,6 +10,7 @@ import ProfilePage from "./Pages/ProfilePage"
 import LoginPage from "./Pages/LoginPage"
 import NotFoundPage from "./Pages/NotFoundPage"
 import VenueDetailsPage from "./Pages/VenueDetailsPage"
+import RegisterPage from "./Pages/RegisterPage"
 
 
 
@@ -24,6 +25,7 @@ function App() {
           <Route path="about" element={<AboutPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
           <Route path="*" element={<NotFoundPage/>} />
 
 
