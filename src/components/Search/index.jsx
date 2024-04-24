@@ -1,52 +1,49 @@
-import React, { useState, useEffect } from 'react';
-import { BASE_URL, Venues } from '../API';
-import { useFetch } from '../Hooks/useFetch';
-import { IoCloseOutline } from 'react-icons/io5';
-import ProductCard from '../card';
+import { useState } from "react";
+import { FaBed } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
+import EditGuestForm from "./editGuests";
+import { AiOutlineUser } from "react-icons/ai";
 
-export default function Search() {
-    const [searchTerm, setSearchTerm] = useState('');
-    const { data, loading, error } = useFetch(BASE_URL + Venues);
+const EditYourSearch = () => {
+    const [isGuestFormVisible, setIsGuestFormVisible] = useState(false);
 
-    const handleClearInput = () => {
-        setSearchTerm('');
+    const handleInputUserClick = () => {
+        setIsGuestFormVisible(true);
     };
 
-    if (error) {
-        return <div>Error fetching data from the API.</div>;
-    }
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    // Filter the venues based on the search term
-    const filteredVenues = data.data.filter(venue =>
-        venue.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    console.log("Data:", data);
-    console.log("filtered venues" ,filteredVenues)
-
     return (
-        <div>
-            <div className="relative border rounded-xl">
-                <input
-                    type="text"
-                    placeholder="Search venues..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="mx-4 py-2 focus:outline-none"
-                />
-                <IoCloseOutline
-                    size={30}
-                    onClick={handleClearInput} 
-                    className="cursor-pointer absolute right-0 top-0 mt-2 mr-3 text-gray-800"
-                />
-            </div>
-            <div className="w-full max-w-[990px] flex flex-wrap justify-center">
-                <ProductCard venues={filteredVenues} />
-            </div>
-        </div>
+        <>
+            {isGuestFormVisible ? (
+                <EditGuestForm onClose={() => setIsGuestFormVisible(false)} />
+            ) : (
+                <div className="border bg-white relative">
+                    <form>
+                        <IoClose size={30} className="absolute top-0 right-0 mt-2 mr-2 cursor-pointer" />
+                        <h1 className="text-center text-violet-600 font-bold text-lg">Edit your search</h1>
+
+                        <div className="relative flex justify-center mt-4">
+                            <FaBed size={20} className="absolute top-1/2 transform -translate-y-1/2 left-16 text-gray-800" />
+                            <input
+                                type="text"
+                                className="border border-gray-300 rounded-xl pl-8 pr-4 py-1 w-3/4 focus:outline-none cursor-pointer"
+                                
+                            />
+                        </div>
+                        <div className="relative flex justify-center mt-4">
+                            <AiOutlineUser size={20} className="absolute top-1/2 transform -translate-y-1/2 left-16 text-gray-800" />
+                            <input
+                                type="text"
+                                className="border border-gray-300 rounded-xl pl-8 pr-4 py-1 w-3/4 focus:outline-none cursor-pointer"
+                                onClick={handleInputUserClick}
+                            />
+                        </div>
+                    
+                        <button className="border rounded-xl bg-violet-600 text-white py-2 w-3/4 mt-4 mx-auto block">Save</button>
+                    </form>
+                </div>
+            )}
+        </>
     );
-}
+};
+
+export default EditYourSearch;
