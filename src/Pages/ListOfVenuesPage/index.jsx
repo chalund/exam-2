@@ -4,8 +4,7 @@ import { BASE_URL, Venues } from "../../components/API";
 import { useFetch } from "../../components/Hooks/useFetch";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import Search from "../../components/Search/searchBar/index.jsx";
-import EditGuests from "../../components/Search/editGuests";
-import EditYourSearch from "../../components/Search";
+
 
 const ListOfVenuesPage = () => {
   return (
@@ -13,8 +12,6 @@ const ListOfVenuesPage = () => {
       <h1 className="text-center mt-3 text-xl text-violet-600">
         List of Venues
       </h1>
-      <EditYourSearch />
-   
       <Search />
     </div>
   );
