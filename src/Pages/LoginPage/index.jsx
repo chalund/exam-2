@@ -44,7 +44,7 @@ const LoginPage = () => {
   
 
   return (
-    <div className="flex min-h-full flex-col px-10 py-12 sm:border ">
+    <div className="flex min-h-full flex-col px-10 py-12 ">
       <div className="flex justify-end mb-6">
         <button onClick={closeLoginModal}>
           <IoClose size={30} />

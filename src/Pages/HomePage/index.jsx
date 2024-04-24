@@ -34,7 +34,7 @@ const HomePage = () => {
       <h1>Home</h1>
 
   
-      {/* <img src={ travelling} alt=" travel stuff" style={{ width: '100%', height: '300px' }}/> 
+      <img src={ travelling} alt=" travel stuff" style={{ width: '100%', height: '300px' }}/> 
 
 
       <div className='overflow-auto flex mt-10 ms-4' style={{ maxWidth: '100%', overflowX: 'auto' }}>
@@ -57,7 +57,7 @@ const HomePage = () => {
 
     <div>
       
-    </div> */}
+    </div> 
 
     </div>
   );
