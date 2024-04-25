@@ -48,7 +48,7 @@ const Nav = () => {
             <NavLink to="/login" className='bg-violet-600 text-white px-4 py-2 rounded-full uppercase font-semibold mr-3 md:mr-0'>Login</NavLink>
           )}
         </div>
-        <div className="md:hidden flex mr-2 ">
+        <div className="md:hidden flex mr-1 py-2">
           <button onClick={toggleNavbar}>{isOpen ? <IoClose size={30} /> : <HiOutlineMenu size={30} />}</button>
         </div>
       </nav>
