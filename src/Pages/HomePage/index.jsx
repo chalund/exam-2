@@ -6,6 +6,7 @@ import travelling  from '../../assets/travelling.jpg';
 import { BiSearch } from "react-icons/bi";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import { BsCurrencyDollar } from "react-icons/bs";
+import Spinner from '../../components/Spinner/Loader';
 
 
 
@@ -20,7 +21,7 @@ const HomePage = () => {
   console.log("Error:", error);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className='text-center text-2xl'><Spinner /></div>;
   }
 
   if (error) {

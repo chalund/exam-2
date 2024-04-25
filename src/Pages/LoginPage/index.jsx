@@ -32,7 +32,7 @@ const LoginPage = () => {
     })
     .then(response => {
       if (response.ok) {
-        return response.json(); // Parse JSON from response
+        return response.json();
        
       } else {
         throw new Error('Invalid email or password');
@@ -40,8 +40,7 @@ const LoginPage = () => {
     })
     .then(data => {
       navigate('/profile');
-      console.log(data); // Verify the response data
-      // Store access token and user data in local storage
+      console.log(data); 
       localStorage.setItem('accessToken', data.data.accessToken);
       localStorage.setItem('userEmail', data.data.email);
       localStorage.setItem('username', data.data.name);
@@ -57,7 +56,7 @@ const LoginPage = () => {
 
 
   return (
-    <div className="flex min-h-full flex-col px-10 py-12 ">
+    <div className="flex min-h-full flex-col px-6 py-12 max-w-sm mx-auto">
       <div className="flex justify-end mb-6">
         <button>
           <IoClose size={30} onClick={handleCloseIcon} />
@@ -99,7 +98,7 @@ const LoginPage = () => {
           <button className="bg-gradient-to-t from-orange-300 to-orange-400 font-medium p-2 mb-2 text-black uppercase w-full rounded-xl">Login</button>
           {error && <p className="text-red-500">{error}</p>}
         </div>
-        <p>Don't have an account yet? <Link to={'/register'} className='ms-1 underline text-violet-600'>Create an account</Link></p>
+        <p className="text-sm text-center">Don't have an account yet? <Link to={'/register'} className='underline text-violet-600'>Create an account</Link></p>
       </form>
     </div>
   );

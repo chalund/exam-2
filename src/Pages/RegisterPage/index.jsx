@@ -2,19 +2,10 @@ import { FaLock } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
 import { AiOutlineUser } from "react-icons/ai";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Logo from "../../components/Layout/Logo";
 import { useState } from "react";
 import { Register } from "../../components/API";
-
-
-const closeLoginModal = () => {
-  window.location.href = '/';
-};
-
-
-
-
 
 
 
@@ -25,6 +16,10 @@ const RegisterPage = () => {
   const [userType, setUserType] = useState('Guest');
 
   const navigate = useNavigate()
+
+  const closeLoginModal = () => {
+    navigate('/');
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -61,7 +56,7 @@ const RegisterPage = () => {
   
 
   return (
-    <div className="flex min-h-full flex-col px-10 py-12 sm:border ">
+    <div className="flex min-h-full flex-col px-6 py-12 max-w-sm mx-auto">
       <div className="flex justify-end mb-6">
         <button onClick={closeLoginModal}>
           <IoClose size={30} />
@@ -115,6 +110,7 @@ const RegisterPage = () => {
                 onChange={(e) => setUserType(e.target.value)} 
                 name="userType" // Use the same name for both radio buttons in the group
                 value="Guest" 
+                className="form-radio text-indigo-600"
               />
               <label htmlFor="guestRadio"> Guest</label> {/* Associate label with input using htmlFor */}
             </div>
