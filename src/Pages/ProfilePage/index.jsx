@@ -3,7 +3,7 @@ import { BASE_URL, Profile } from '../../components/API';
 import { createApiKey } from '../../components/API/ApiKey';
 import EditProfileButton from '../../components/EditProfile';
 
-async function getProfile(username, apiKey) {
+export async function getProfile(username, apiKey) {
   const accessToken = localStorage.getItem('accessToken');
   const getProfileUrl = `${BASE_URL}${Profile}/${username}`;
 
