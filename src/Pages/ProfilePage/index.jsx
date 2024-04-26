@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { BASE_URL, Profile } from "../../components/API";
 import { createApiKey } from "../../components/API/ApiKey";
-import EditProfileButton from "../../components/EditProfile";
-import MyVenues from "../../components/VenueManager/MyVenues";
-import VenuesBookings from "../../components/VenueManager/VenuesBookings";
+import EditProfileButton from "../../components/Profile/EditProfile";
+import MyVenues from "../../components/Profile/VenueManager/MyVenues";
+import VenuesBookings from "../../components/Profile/VenueManager/VenuesBookings";
+import { Link } from "react-router-dom";
+import { GoSmiley } from "react-icons/go";
 
 export async function getProfile(username, apiKey) {
   const accessToken = localStorage.getItem("accessToken");
@@ -64,7 +66,7 @@ const ProfilePage = () => {
 
   return (
     <div className="mx-auto max-w-screen-md">
-      <div className="border border-black bg-white md:mt-6 md:rounded-xl">
+      <div className="border bg-white md:mt-6 md:rounded-xl">
         {profileData && (
           <div>
             <div className="relative">
@@ -72,7 +74,7 @@ const ProfilePage = () => {
               <img
                 src={profileData.banner.url}
                 alt=""
-                className="h-40 w-full rounded-t-xl object-cover"
+                className="h-40 w-full object-cover md:rounded-t-xl"
               />
 
               {/* Profile image */}
@@ -92,7 +94,9 @@ const ProfilePage = () => {
                   {profileData.venueManager ? "Venue Manager" : "Guest"}
                 </p>
               </div>
-              <EditProfileButton onClick={handleEditProfileClick} />
+              <div className="mt-3">
+                <EditProfileButton onClick={handleEditProfileClick} />
+              </div>
             </div>
 
             {/* Render other profile data as needed */}
@@ -101,24 +105,36 @@ const ProfilePage = () => {
       </div>
 
       {profileData && profileData._count.bookings === 0 ? (
-        <div className="border border-black bg-white  md:rounded-xl">
-          <h2>No bookings available</h2>
+        <div className="mt-6 border bg-white py-6 md:rounded-xl">
+          <h2 className="ms-6 text-xl md:text-2xl font-semibold text-violet-600 uppercase">
+            My bookings
+          </h2>
+          <p className="ms-6 mt-3 text-lg">No bookings available...</p>
+          <div className="mt-1 flex items-center gap-1">
+            <p className="ms-6">Find your next holiday</p>
+            <Link to="/listings" className="text-violet-600 underline">
+              here
+            </Link>
+            <GoSmiley size={0} />
+          </div>
         </div>
       ) : (
-        <div className="border border-black bg-white  md:rounded-xl">
-          <h2>My bookings</h2>
+        <div className="mt-6 border  border-black bg-white py-6  md:rounded-xl">
+           <h2 className="ms-6 text-xl md:text-2xl font-semibold text-violet-600 uppercase">
+            My bookings
+          </h2>
           {/* Render your bookings here */}
         </div>
       )}
 
       {profileData && profileData.venueManager && (
-        <div className="border border-black bg-white  md:rounded-xl">
+        <div className="mt-6 border bg-white py-6  md:rounded-xl">
           <MyVenues />
         </div>
       )}
 
       {profileData && profileData.venueManager && (
-        <div className="border border-black bg-white  md:rounded-xl">
+        <div className="mt-6 border bg-white py-6  md:rounded-xl">
           <VenuesBookings />
         </div>
       )}

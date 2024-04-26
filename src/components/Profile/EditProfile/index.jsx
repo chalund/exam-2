@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { updateProfile } from "../Hooks/updateUser";
-import { createApiKey } from "../API/ApiKey";
+import { updateProfile } from "../../Hooks/updateUser";
+import { createApiKey } from "../../API/ApiKey";
 
 const EditProfileForm = () => {
   const [avatarUrl, setAvatarUrl] = useState("");
