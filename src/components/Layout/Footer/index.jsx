@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
 const Footer = () => {
   return (
-    <div className='bg-gray-700 p-3 text-white text-center'>
+    <div className="bg-gray-700 p-3 text-center text-white">
       Designed By Charlotte Lund
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

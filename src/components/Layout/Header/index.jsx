@@ -1,15 +1,15 @@
-import Logo from "../Logo"
-import Nav from "../Nav"
+import Logo from "../Logo";
+import Nav from "../Nav";
 
 const Header = () => {
   return (
-    <div className='bg-zinc-50 sticky top-0 z-[20] flex-wrap mx-auto flex w-full items-center justify-between border-b-2'>
-       <div className="mx-auto max-w-screen-lg px-4 py-2 flex w-full items-center justify-between flex-wrap">
-      <Logo />
-      <Nav />
+    <div className="sticky top-0 z-[20] mx-auto flex w-full flex-wrap items-center justify-between border-b-2 bg-zinc-50">
+      <div className="mx-auto flex w-full max-w-screen-lg flex-wrap items-center justify-between px-4 py-2">
+        <Logo />
+        <Nav />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

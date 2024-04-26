@@ -1,18 +1,16 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
 
-import HomePage from "./Pages/HomePage"
-import ListOfVenuesPage from "./Pages/ListOfVenuesPage"
-import AboutPage from "./Pages/AboutPage"
+import HomePage from "./Pages/HomePage";
+import ListOfVenuesPage from "./Pages/ListOfVenuesPage";
+import AboutPage from "./Pages/AboutPage";
 
-import Layout from "./components/Layout"
-import ProfilePage from "./Pages/ProfilePage"
-import LoginPage from "./Pages/LoginPage"
-import NotFoundPage from "./Pages/NotFoundPage"
-import VenueDetailsPage from "./Pages/VenueDetailsPage"
-import RegisterPage from "./Pages/RegisterPage"
-
-
+import Layout from "./components/Layout";
+import ProfilePage from "./Pages/ProfilePage";
+import LoginPage from "./Pages/LoginPage";
+import NotFoundPage from "./Pages/NotFoundPage";
+import VenueDetailsPage from "./Pages/VenueDetailsPage";
+import RegisterPage from "./Pages/RegisterPage";
 
 function App() {
   return (
@@ -26,13 +24,11 @@ function App() {
           <Route path="profile" element={<ProfilePage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
-          <Route path="*" element={<NotFoundPage/>} />
-
-
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </Router>
- )
+  );
 }
 
-export default App
+export default App;

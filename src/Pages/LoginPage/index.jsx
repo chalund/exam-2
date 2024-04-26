@@ -3,76 +3,75 @@ import React, { useState } from "react";
 import { FaLock } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../components/Layout/Logo";
 import { Login } from "../../components/API";
 
-
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
   const handleCloseIcon = () => {
-    navigate('/');
-  }
+    navigate("/");
+  };
 
   const onLoginFormSubmit = async (event) => {
     event.preventDefault();
-    console.log('login form submitted');
-  
+    console.log("login form submitted");
+
     fetch(Login, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ email, password }),
     })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-       
-      } else {
-        throw new Error('Invalid email or password');
-      }
-    })
-    .then(data => {
-      navigate('/profile');
-      console.log(data); 
-      localStorage.setItem('accessToken', data.data.accessToken);
-      localStorage.setItem('userEmail', data.data.email);
-      localStorage.setItem('username', data.data.name);
-
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      setError('Invalid email or password');
-    });
-  }
-
-
-
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Invalid email or password");
+        }
+      })
+      .then((data) => {
+        navigate("/profile");
+        console.log(data);
+        localStorage.setItem("accessToken", data.data.accessToken);
+        localStorage.setItem("userEmail", data.data.email);
+        localStorage.setItem("username", data.data.name);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setError("Invalid email or password");
+      });
+  };
 
   return (
-    <div className="flex min-h-full flex-col px-6 py-12 max-w-sm mx-auto">
-      <div className="flex justify-end mb-6">
+    <div className="mx-auto flex min-h-full max-w-sm flex-col px-6 py-12">
+      <div className="mb-6 flex justify-end">
         <button>
           <IoClose size={30} onClick={handleCloseIcon} />
         </button>
       </div>
-      <div className="flex justify-center mb-4">
+      <div className="mb-4 flex justify-center">
         <Logo />
       </div>
-      <div className='mb-6'>
-        <h1 className='font-semibold text-lg py-2'>Sign in or create an account</h1>
-        <p>Easily keep track of prices and plan your travels, or switch gears to become a Venue Manager and rent out your spaces hassle-free.</p>
+      <div className="mb-6">
+        <h1 className="py-2 text-lg font-semibold">
+          Sign in or create an account
+        </h1>
+        <p>
+          Easily keep track of prices and plan your travels, or switch gears to
+          become a Venue Manager and rent out your spaces hassle-free.
+        </p>
       </div>
       <form onSubmit={onLoginFormSubmit}>
         <div>
           <div>
-            <div className="flex items-center text-lg mb-6">
+            <div className="mb-6 flex items-center text-lg">
               <MdOutlineEmail className="absolute ml-3" size={24} />
               <input
                 name="email"
@@ -80,9 +79,10 @@ const LoginPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
-                className="border rounded-xl pl-12 py-2  focus:outline-none w-full" />
+                className="w-full rounded-xl border py-2  pl-12 focus:outline-none"
+              />
             </div>
-            <div className="flex items-center text-lg mb-6">
+            <div className="mb-6 flex items-center text-lg">
               <FaLock className="absolute ml-3" size={24} />
               <input
                 name="password"
@@ -90,19 +90,24 @@ const LoginPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
-          
-                className="border rounded-xl pl-12 py-2  focus:outline-none w-full"
+                className="w-full rounded-xl border py-2  pl-12 focus:outline-none"
               />
             </div>
           </div>
-          <button className="bg-gradient-to-t from-orange-300 to-orange-400 font-medium p-2 mb-2 text-black uppercase w-full rounded-xl">Login</button>
+          <button className="mb-2 w-full rounded-xl bg-gradient-to-t from-orange-300 to-orange-400 p-2 font-medium uppercase text-black">
+            Login
+          </button>
           {error && <p className="text-red-500">{error}</p>}
         </div>
-        <p className="text-sm text-center">Don't have an account yet? <Link to={'/register'} className='underline text-violet-600'>Create an account</Link></p>
+        <p className="text-center text-sm">
+          Don't have an account yet?{" "}
+          <Link to={"/register"} className="text-violet-600 underline">
+            Create an account
+          </Link>
+        </p>
       </form>
     </div>
   );
 };
-
 
 export default LoginPage;

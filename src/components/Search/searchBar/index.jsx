@@ -22,7 +22,7 @@ export default function Search() {
 
   // Filter the venues based on the search term
   const filteredVenues = data.data.filter((venue) =>
-    venue.name.toLowerCase().includes(searchTerm.toLowerCase())
+    venue.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   console.log("Data:", data);
@@ -30,7 +30,7 @@ export default function Search() {
 
   return (
     <div>
-      <div className="relative border rounded-xl">
+      <div className="relative rounded-xl border">
         <input
           type="text"
           placeholder="Search venues..."
@@ -41,10 +41,10 @@ export default function Search() {
         <IoCloseOutline
           size={30}
           onClick={handleClearInput}
-          className="cursor-pointer absolute right-0 top-0 mt-2 mr-3 text-gray-800"
+          className="absolute right-0 top-0 mr-3 mt-2 cursor-pointer text-gray-800"
         />
       </div>
-      <div className="w-full max-w-[990px] flex flex-wrap justify-center">
+      <div className="flex w-full max-w-[990px] flex-wrap justify-center">
         <ProductCard venues={filteredVenues} />
       </div>
     </div>
