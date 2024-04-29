@@ -1,35 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { BASE_URL, Profile } from "../../components/API/index.jsx";
+
 import { createApiKey } from "../../components/API/ApiKey";
 import EditProfileButton from "../../components/Profile/EditProfile";
 import MyVenues from "../../components/Profile/VenueManager/MyVenues";
 import VenuesBookings from "../../components/Profile/VenueManager/VenuesBookings";
 import { Link } from "react-router-dom";
 import { GoSmiley } from "react-icons/go";
-
-export async function getProfile(username, apiKey) {
-  const accessToken = localStorage.getItem("accessToken");
-  const getProfileUrl = `${BASE_URL}${Profile}/${username}?_bookings=true&_venues=true`;
-
-  const options = {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      "X-Noroff-API-Key": apiKey,
-    },
-  };
-
-  try {
-    const response = await fetch(getProfileUrl, options);
-    if (!response.ok) {
-      throw new Error("Failed to fetch profile");
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching profile:", error);
-    throw error;
-  }
-}
+import { getProfile } from "../../components/API/Profile/getProfile";
 
 const ProfilePage = () => {
   const [profileData, setProfileData] = useState("");
@@ -48,7 +25,7 @@ const ProfilePage = () => {
 
         // Fetch profile with the created API key
         const profile = await getProfile(username, apiKey);
-        console.log("Profile data:", profile); // Add this line to check profileData
+        console.log("Profile data Profile page:", profile); // Add this line to check profileData
         setProfileData(profile.data);
       } catch (error) {
         console.error("Error fetching profile:", error);
@@ -128,16 +105,18 @@ const ProfilePage = () => {
       )}
 
       {profileData && profileData.venueManager && (
-        <div className="mt-6 border bg-white py-6  md:rounded-xl">
+        <div className="my-6 border bg-white py-6  md:rounded-xl">
           <MyVenues />
         </div>
       )}
 
-      {profileData && profileData.venueManager && (
-        <div className="mt-6 border bg-white py-6  md:rounded-xl">
-          <VenuesBookings />
-        </div>
-      )}
+      {profileData &&
+        profileData.venueManager &&
+        profileData.venues.length > 0 && (
+          <div className="my-6 border bg-white py-6  md:rounded-xl">
+            <VenuesBookings />
+          </div>
+        )}
     </div>
   );
 };

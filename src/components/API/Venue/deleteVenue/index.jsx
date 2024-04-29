@@ -17,7 +17,14 @@ export async function deleteVenue(id, apiKey) {
     if (!response.ok) {
       throw new Error("Failed to delete venue");
     }
-    const data = await response.json();
+    // Check if response body is empty
+    const responseData = await response.text();
+    if (responseData.trim().length === 0) {
+      // If response body is empty, return a success message
+      return { success: true, message: "Venue deleted successfully" };
+    }
+    // Parse response body as JSON
+    const data = JSON.parse(responseData);
     return data;
   } catch (error) {
     console.error("Error deleting venue:", error);
