@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { createApiKey } from "../../../API/ApiKey";
+import { createVenue } from "../../../API/Venue/createVenue";
 
 const CreateNewVenueForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,20 +19,55 @@ const CreateNewVenueForm = () => {
   const handleCreateNewVenueForm = async (e) => {
     e.preventDefault();
 
+    // Basic input validation
+    if (
+      !name ||
+      !description ||
+      !address ||
+      !postCode ||
+      !city ||
+      !country ||
+      isNaN(price) ||
+      isNaN(maxGuests)
+    ) {
+      alert(
+        "Please fill out all required fields and ensure that Price and Max Guests are numeric.",
+      );
+      return;
+    }
+
+    // More advanced input validation can be added here
+
+    let metaObject = {};
+    meta.forEach((item) => {
+      metaObject[item] = true;
+    });
+
     let newData = {
       name,
       description,
       imageUrls,
-      meta,
-      maxGuests,
-      price,
+      meta: metaObject, 
+      maxGuests: parseInt(maxGuests), // Parse maxGuests as a number
+      price: parseFloat(price), // Parse price as a number
       rating,
       address,
       postCode,
       city,
       country,
     };
-    console.log(newData);
+
+    try {
+      const apiKeyData = await createApiKey("User profile key");
+      const apiKey = apiKeyData.data.key;
+
+      await createVenue(newData, apiKey);
+      console.log("Venue created successfully");
+      console.log(newData);
+    } catch (error) {
+      console.error("Error creating new venue:", error);
+      alert("Failed to create venue. Please try again later.");
+    }
   };
 
   const openModal = () => {
@@ -174,7 +211,7 @@ const CreateNewVenueForm = () => {
                       <input
                         value={price}
                         onChange={(e) => setprice(e.target.value)}
-                        type="text"
+                        type="number"
                         name="price"
                         placeholder="Price.."
                         className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
@@ -184,7 +221,7 @@ const CreateNewVenueForm = () => {
                       <input
                         value={maxGuests}
                         onChange={(e) => setMaxGuests(e.target.value)}
-                        type="text"
+                        type="number"
                         name="maxGuests"
                         placeholder="Max guests.."
                         className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
@@ -295,8 +332,8 @@ const CreateNewVenueForm = () => {
                         type="checkbox"
                         id="1"
                         name="rating"
-                        checked={rating === "1"}
-                        onChange={() => setRating("1")}
+                        checked={rating === 1}
+                        onChange={() => setRating(1)}
                         className="mr-2"
                       />
                       <label htmlFor="rating">1</label>
@@ -306,8 +343,8 @@ const CreateNewVenueForm = () => {
                         type="checkbox"
                         id="2"
                         name="rating"
-                        checked={rating === "2"}
-                        onChange={() => setRating("2")}
+                        checked={rating === 2}
+                        onChange={() => setRating(2)}
                         className="mr-2"
                       />
                       <label htmlFor="rating">2</label>
@@ -317,8 +354,8 @@ const CreateNewVenueForm = () => {
                         type="checkbox"
                         id="3"
                         name="rating"
-                        checked={rating === "3"}
-                        onChange={() => setRating("3")}
+                        checked={rating === 3}
+                        onChange={() => setRating(3)}
                         className="mr-2"
                       />
                       <label htmlFor="rating">3</label>
@@ -328,8 +365,8 @@ const CreateNewVenueForm = () => {
                         type="checkbox"
                         id="4"
                         name="rating"
-                        checked={rating === "4"}
-                        onChange={() => setRating("4")}
+                        checked={rating === 4}
+                        onChange={() => setRating(4)}
                         className="mr-2"
                       />
                       <label htmlFor="rating">4</label>
@@ -339,8 +376,8 @@ const CreateNewVenueForm = () => {
                         type="checkbox"
                         id="5"
                         name="rating"
-                        checked={rating === "5"}
-                        onChange={() => setRating("5")}
+                        checked={rating === 5}
+                        onChange={() => setRating(5)}
                         className="mr-2"
                       />
                       <label htmlFor="rating">5</label>

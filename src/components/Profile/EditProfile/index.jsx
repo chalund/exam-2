@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { updateProfile } from "../../Hooks/updateUser";
+import { updateProfile } from "../../API/Profile/updateUser";
 import { createApiKey } from "../../API/ApiKey";
 
 const EditProfileForm = () => {

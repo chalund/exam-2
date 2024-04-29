@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BASE_URL, Profile } from "../../components/API";
+import { BASE_URL, Profile } from "../../components/API/index.jsx";
 import { createApiKey } from "../../components/API/ApiKey";
 import EditProfileButton from "../../components/Profile/EditProfile";
 import MyVenues from "../../components/Profile/VenueManager/MyVenues";
@@ -9,7 +9,7 @@ import { GoSmiley } from "react-icons/go";
 
 export async function getProfile(username, apiKey) {
   const accessToken = localStorage.getItem("accessToken");
-  const getProfileUrl = `${BASE_URL}${Profile}/${username}`;
+  const getProfileUrl = `${BASE_URL}${Profile}/${username}?_bookings=true&_venues=true`;
 
   const options = {
     headers: {
@@ -106,7 +106,7 @@ const ProfilePage = () => {
 
       {profileData && profileData._count.bookings === 0 ? (
         <div className="mt-6 border bg-white py-6 md:rounded-xl">
-          <h2 className="ms-6 text-xl md:text-2xl font-semibold text-violet-600 uppercase">
+          <h2 className="ms-6 text-xl font-semibold uppercase text-violet-600 md:text-2xl">
             My bookings
           </h2>
           <p className="ms-6 mt-3 text-lg">No bookings available...</p>
@@ -120,7 +120,7 @@ const ProfilePage = () => {
         </div>
       ) : (
         <div className="mt-6 border  border-black bg-white py-6  md:rounded-xl">
-           <h2 className="ms-6 text-xl md:text-2xl font-semibold text-violet-600 uppercase">
+          <h2 className="ms-6 text-xl font-semibold uppercase text-violet-600 md:text-2xl">
             My bookings
           </h2>
           {/* Render your bookings here */}

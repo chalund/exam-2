@@ -5,7 +5,7 @@ import { MdOutlineEmail } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../components/Layout/Logo";
-import { Login } from "../../components/API";
+import { loginUser } from "../../components/API/Auth/Login";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -22,31 +22,17 @@ const LoginPage = () => {
     event.preventDefault();
     console.log("login form submitted");
 
-    fetch(Login, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error("Invalid email or password");
-        }
-      })
-      .then((data) => {
-        navigate("/profile");
-        console.log(data);
-        localStorage.setItem("accessToken", data.data.accessToken);
-        localStorage.setItem("userEmail", data.data.email);
-        localStorage.setItem("username", data.data.name);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setError("Invalid email or password");
-      });
+    try {
+      const data = await loginUser(email, password);
+      navigate("/profile");
+      console.log(data); //remove this line
+      localStorage.setItem("accessToken", data.data.accessToken);
+      localStorage.setItem("userEmail", data.data.email);
+      localStorage.setItem("username", data.data.name);
+    } catch (error) {
+      console.error("Error:", error);
+      setError("Invalid email or password");
+    }
   };
 
   return (

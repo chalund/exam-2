@@ -1,4 +1,4 @@
-import { CreateApiKeyUrl } from "..";
+import { CreateApiKeyUrl } from "../index.jsx";
 
 export async function createApiKey(name = "") {
   const accessToken = localStorage.getItem("accessToken");

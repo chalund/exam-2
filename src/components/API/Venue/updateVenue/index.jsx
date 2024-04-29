@@ -1,8 +1,8 @@
-import { BASE_URL, Profile } from "../../API";
+import { BASE_URL, Venues } from "../..";
 
-export async function updateProfile(username, newData, apiKey) {
+export async function updateVenue(id, newData, apiKey) {
   const accessToken = localStorage.getItem("accessToken");
-  const updateProfileUrl = `${BASE_URL}${Profile}/${username}`;
+  const updateVenueUrl = `${BASE_URL}${Venues}/${id}`;
 
   const options = {
     method: "PUT",
@@ -15,14 +15,14 @@ export async function updateProfile(username, newData, apiKey) {
   };
 
   try {
-    const response = await fetch(updateProfileUrl, options);
+    const response = await fetch(updateVenueUrl, options);
     if (!response.ok) {
       throw new Error("Failed to update profile");
     }
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error updating profile:", error);
+    console.error("Error updating venue:", error);
     throw error;
   }
 }
