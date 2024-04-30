@@ -11,7 +11,7 @@ const EditProfileForm = () => {
   const [bio, setBio] = useState("");
   const [userType, setUserType] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [input, setInput] = useState("");
+
 
   const handleClearAvatarUrl = () => {
     setAvatarUrl("");

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createApiKey } from "../../../API/ApiKey";
 import { createVenue } from "../../../API/Venue/createVenue";
+import { IoCloseOutline } from "react-icons/io5";
 
 const CreateNewVenueForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,9 +31,7 @@ const CreateNewVenueForm = () => {
       isNaN(price) ||
       isNaN(maxGuests)
     ) {
-      alert(
-        "Please fill out all required fields and ensure that Price and Max Guests are numeric.",
-      );
+      alert("Please fill out all required fields");
       return;
     }
 
@@ -47,7 +46,7 @@ const CreateNewVenueForm = () => {
       name,
       description,
       imageUrls,
-      meta: metaObject, 
+      meta: metaObject,
       maxGuests: parseInt(maxGuests), // Parse maxGuests as a number
       price: parseFloat(price), // Parse price as a number
       rating,
@@ -102,6 +101,13 @@ const CreateNewVenueForm = () => {
     } else {
       setMeta([...meta, option]);
     }
+  };
+
+  const handleRemoveImageUrl = (indexToRemove) => {
+    console.log("Image URL changed");
+    setImageUrls((prevUrls) =>
+      prevUrls.filter((_, index) => index !== indexToRemove),
+    );
   };
 
   return (
@@ -189,18 +195,26 @@ const CreateNewVenueForm = () => {
                       </button>
                     </div>
 
-                    <div className="mb-3">
+                    <div className="relative mb-3">
                       {imageUrls.map((url, index) => (
-                        <input
-                          key={index}
-                          value={url}
-                          onChange={(e) =>
-                            handleImageUrlChange(index, e.target.value)
-                          }
-                          type="url"
-                          placeholder={`Image URL ${index + 1}`}
-                          className="mb-2 w-full rounded-xl border py-1 pl-3 focus:outline-none"
-                        />
+                        <div key={index} className="relative mb-2">
+                          <input
+                            value={url}
+                            onChange={(e) =>
+                              handleImageUrlChange(index, e.target.value)
+                            }
+                            type="url"
+                            placeholder={`Image URL ${index + 1}`}
+                            className="w-full rounded-xl border py-1 pl-3 pr-10 focus:outline-none" // Add pr-10 for right padding
+                          />
+                          {(index > 0 || imageUrls.length > 0) && (
+                            <IoCloseOutline
+                              size={24}
+                              onClick={() => handleRemoveImageUrl(index)}
+                              className="absolute right-3 top-2 cursor-pointer text-gray-800" // Adjust position as needed
+                            />
+                          )}
+                        </div>
                       ))}
                     </div>
                   </div>

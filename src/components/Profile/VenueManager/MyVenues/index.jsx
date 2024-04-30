@@ -71,7 +71,7 @@ const MyVenues = () => {
         <h1 className="ms-6 items-center text-xl font-semibold uppercase text-orange-600 md:text-2xl">
           My venues
         </h1>
-        <div className="mr-3 flex flex-col">
+        <div className="mr-2 md:mr-7 flex flex-col">
           <CreateNewVenueButton onClick={handleCreateNewVenueForm} />
         </div>
       </div>
