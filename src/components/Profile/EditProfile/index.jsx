@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { updateProfile } from "../../API/Profile/updateUser";
 import { createApiKey } from "../../API/ApiKey";
+import { IoCloseOutline } from "react-icons/io5";
 
 const EditProfileForm = () => {
   const [avatarUrl, setAvatarUrl] = useState("");
@@ -10,6 +11,27 @@ const EditProfileForm = () => {
   const [bio, setBio] = useState("");
   const [userType, setUserType] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [input, setInput] = useState("");
+
+  const handleClearAvatarUrl = () => {
+    setAvatarUrl("");
+  };
+
+  const handleClearAvatarSrc = () => {
+    setAvatarSrc("");
+  };
+
+  const handleClearBannerUrl = () => {
+    setBannerUrl("");
+  };
+
+  const handleClearBannerSrc = () => {
+    setBannerSrc("");
+  };
+
+  const handleClearBio = () => {
+    setBio("");
+  };
 
   const handleEditForm = async (e) => {
     e.preventDefault();
@@ -66,6 +88,8 @@ const EditProfileForm = () => {
     // closeModal();
   };
 
+
+
   return (
     <div style={{ position: "relative" }}>
       <button
@@ -113,7 +137,7 @@ const EditProfileForm = () => {
               </h2>
 
               <div>
-                <div className="mb-4 flex items-center text-lg">
+                <div className="relative mb-4 flex items-center text-lg">
                   <input
                     value={avatarUrl}
                     onChange={(e) => setAvatarUrl(e.target.value)}
@@ -122,8 +146,13 @@ const EditProfileForm = () => {
                     placeholder="Avatar URL..."
                     className="w-full rounded-xl border py-2 pl-3 focus:outline-none"
                   />
+                  <IoCloseOutline
+                    size={30}
+                    onClick={handleClearAvatarUrl}
+                    className="absolute right-0 top-0 mr-3 mt-2 cursor-pointer text-gray-800"
+                  />
                 </div>
-                <div className="mb-4 flex items-center text-lg">
+                <div className="relative mb-4 flex items-center text-lg">
                   <input
                     value={avatarSrc}
                     onChange={(e) => setAvatarSrc(e.target.value)}
@@ -132,8 +161,13 @@ const EditProfileForm = () => {
                     placeholder="Avatar Text..."
                     className="w-full rounded-xl border py-2 pl-3 focus:outline-none"
                   />
+                     <IoCloseOutline
+                    size={30}
+                    onClick={handleClearAvatarSrc}
+                    className="absolute right-0 top-0 mr-3 mt-2 cursor-pointer text-gray-800"
+                  />
                 </div>
-                <div className="mb-4 flex items-center text-lg">
+                <div className="relative mb-4 flex items-center text-lg">
                   <input
                     value={bannerUrl}
                     onChange={(e) => setBannerUrl(e.target.value)}
@@ -142,8 +176,13 @@ const EditProfileForm = () => {
                     placeholder="Banner URL..."
                     className="w-full rounded-xl border py-2 pl-3 focus:outline-none"
                   />
+                     <IoCloseOutline
+                    size={30}
+                    onClick={handleClearBannerUrl}
+                    className="absolute right-0 top-0 mr-3 mt-2 cursor-pointer text-gray-800"
+                  />
                 </div>
-                <div className="mb-4 flex items-center text-lg">
+                <div className=" relative mb-4 flex items-center text-lg">
                   <input
                     value={bannerSrc}
                     onChange={(e) => setBannerSrc(e.target.value)}
@@ -152,14 +191,24 @@ const EditProfileForm = () => {
                     placeholder="Banner Text..."
                     className="w-full rounded-xl border py-2 pl-3 focus:outline-none"
                   />
+                     <IoCloseOutline
+                    size={30}
+                    onClick={handleClearBannerSrc}
+                    className="absolute right-0 top-0 mr-3 mt-2 cursor-pointer text-gray-800"
+                  />
                 </div>
-                <div className="mb-4 flex items-center text-lg">
+                <div className="relative mb-4 flex items-center text-lg">
                   <textarea
                     value={bio}
                     onChange={(e) => setBio(e.target.value)}
                     name="bio"
                     placeholder="Update Bio"
                     className="w-full rounded-xl border py-2 pl-3 focus:outline-none"
+                  />
+                     <IoCloseOutline
+                    size={30}
+                    onClick={handleClearBio}
+                    className="absolute right-0 top-0 mr-3 mt-2 cursor-pointer text-gray-800"
                   />
                 </div>
                 <div className="mb-3 flex gap-4">
@@ -170,7 +219,7 @@ const EditProfileForm = () => {
                       id="guestRadio"
                       checked={userType === "Guest"}
                       onChange={(e) => setUserType("Guest")}
-                      className="form-radio text-indigo-600"
+                      className="form-radio mr-2"
                     />
                     <label htmlFor="guestRadio">Guest</label>
                   </div>
@@ -181,7 +230,7 @@ const EditProfileForm = () => {
                       name="userType"
                       checked={userType === "Venue Manager"}
                       onChange={(e) => setUserType("Venue Manager")}
-                      className="form-radio text-indigo-600"
+                      className="form-radio mr-2"
                     />
                     <label htmlFor="venueManagerRadio">Venue Manager</label>
                   </div>
