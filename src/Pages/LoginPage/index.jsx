@@ -80,10 +80,13 @@ const LoginPage = () => {
               />
             </div>
           </div>
+          {error && <p className="mb-2 text-red-500">{error}</p>}
+
+        
           <button className="mb-2 w-full rounded-xl bg-gradient-to-t from-orange-300 to-orange-400 p-2 font-medium uppercase text-black">
             Login
           </button>
-          {error && <p className="text-red-500">{error}</p>}
+       
         </div>
         <p className="text-center text-sm">
           Don't have an account yet?{" "}
