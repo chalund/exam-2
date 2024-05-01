@@ -43,7 +43,7 @@ const ProfilePage = () => {
 
   return (
     <div className="mx-auto max-w-screen-md">
-      <div className="border bg-white md:mt-6 md:rounded-xl">
+      <div className="border bg-white md:mt-10 md:rounded-xl">
         {profileData && (
           <div>
             <div className="relative">

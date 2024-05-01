@@ -55,7 +55,7 @@ const VenueDetailsPage = () => {
   } = data.data;
 
   return (
-    <div className="mt-4">
+    <div className="mx-auto max-w-screen-md mt-4 ">
       <div className="flex items-center gap-2">
         <FaArrowLeft />
         <Link to={`/listings`} className="underline">
@@ -64,13 +64,64 @@ const VenueDetailsPage = () => {
       </div>
 
       <div className="mt-4 border border-green-400">
-        {media && media.length > 0 && (
+        {/* {media && media.length > 0 && (
           <img
             src={media[0].url}
             alt={media[0].alt}
             className="h-48 w-full object-cover "
           />
+        )} */}
+
+{media && media.length > 0 && (
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-6 md:h-screen ">
+    {media.length === 1 ? (
+      <div className="col-span-2 md:col-span-4 flexitems-center">
+        <img
+          src={media[0].url}
+          alt={`Image 1`}
+          className="max-h-96 w-full object-cover mb-2 md:rounded-xl"
+        />
+      </div>
+    ) : (
+      <div className="col-span-2 md:col-span-3 relative">
+        <img
+          src={media[0].url}
+          alt={`Image 1`}
+          className="max-h-96 md:h-2/5 w-full object-cover mb-2 rounded-xl"
+        />
+        {/* Conditionally render the button */}
+        {media.length > 1 && (
+          <button className="absolute bottom-6 right-4 px-3 py-2 bg-white text-gray-700 rounded-lg uppercase text-sm md:hidden">
+            View All
+          </button>
         )}
+      </div>
+    )}
+    {media.length > 1 && (
+      <div className="hidden col-span-1 md:col-span-1 md:flex flex-col gap-2">
+        <img
+          src={media[1].url}
+          alt={`Image 2`}
+          className="h-1/6 w-full object-cover mb-5 rounded-xl"
+        />
+        <div className="relative h-1/5 w-full">
+          <img
+            src={media[2].url}
+            alt={`Image 3`}
+            className="h-full w-full object-cover rounded-xl"
+          />
+          {/* Conditionally render the button */}
+          <button className="absolute bottom-2 right-2 px-3 py-1 bg-white text-gray-700 rounded-lg uppercase text-xs">
+            View All
+          </button>
+        </div>
+      </div>
+    )}
+  </div>
+)}
+
+
+
 
         <div className="m-2">
           <div className="flex justify-between">

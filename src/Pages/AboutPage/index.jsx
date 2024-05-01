@@ -5,10 +5,10 @@ import Logo from "../../components/Layout/Logo";
 const AboutPage = () => {
   return (
     <div className="mx-auto max-w-screen-md">
-      <h1 className="mt-4 text-center text-xl uppercase text-violet-600">
+      <h1 className="mt-4 text-center text-2xl uppercase font-bold text-violet-600 md:mt-12">
         About
       </h1>
-      <div className="sm:p-2">
+      <div className="mx-5 sm:p-2">
         <div className="py-4">
           <p className="mb-3">
             Welcome to Holidaze, your ultimate destination for hassle-free
@@ -29,7 +29,7 @@ const AboutPage = () => {
             src={Travel}
             alt="Travelling things, passport, sunglasses and camera"
             style={{ width: "100%", height: "300px" }}
-            className="md:rounded-lg"
+            className="rounded-lg"
           />
         </div>
         <div className="py-4">

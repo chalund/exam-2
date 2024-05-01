@@ -7,7 +7,7 @@ const CreateNewVenueForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [imageUrls, setImageUrls] = useState([]);
+  const [media, setMedia] = useState([]);
   const [meta, setMeta] = useState([]);
   const [maxGuests, setMaxGuests] = useState("");
   const [price, setprice] = useState("");
@@ -45,15 +45,17 @@ const CreateNewVenueForm = () => {
     let newData = {
       name,
       description,
-      imageUrls,
+      media,
       meta: metaObject,
       maxGuests: parseInt(maxGuests), // Parse maxGuests as a number
       price: parseFloat(price), // Parse price as a number
       rating,
-      address,
-      postCode,
-      city,
-      country,
+      location: {
+        address,
+        postCode,
+        city,
+        country,
+      },
     };
 
     try {
@@ -83,18 +85,6 @@ const CreateNewVenueForm = () => {
     // closeModal();
   };
 
-  const handleAddImageUrl = () => {
-    // Clone the existing imageUrls array and append an empty string for a new URL
-    setImageUrls([...imageUrls, ""]);
-  };
-
-  const handleImageUrlChange = (index, value) => {
-    // Update the corresponding image URL in the array
-    const updatedImageUrls = [...imageUrls];
-    updatedImageUrls[index] = value;
-    setImageUrls(updatedImageUrls);
-  };
-
   const handleCheckboxChangeMeta = (option) => {
     if (meta.includes(option)) {
       setMeta(meta.filter((item) => item !== option));
@@ -103,12 +93,30 @@ const CreateNewVenueForm = () => {
     }
   };
 
-  const handleRemoveImageUrl = (indexToRemove) => {
-    console.log("Image URL changed");
-    setImageUrls((prevUrls) =>
-      prevUrls.filter((_, index) => index !== indexToRemove),
-    );
+  const handleMediaChange = (e) => {
+    const newMediaUrl = e.target.value;
+    setMedia([...media, { url: newMediaUrl }]);
   };
+
+  const handleMediaChangeAtIndex = (e, index) => {
+    const newMediaUrl = e.target.value;
+    const updatedMedia = [...media];
+    updatedMedia[index] = { url: newMediaUrl };
+    setMedia(updatedMedia);
+  };
+
+  const handleAddMedia = () => {
+    setMedia([...media, { url: '' }]);
+  };
+  
+  const removeMediaAtIndex = (index) => {
+    const updatedMedia = [...media];
+    updatedMedia.splice(index, 1);
+    setMedia(updatedMedia);
+  };
+  
+  
+  
 
   return (
     <div style={{ position: "relative" }}>
@@ -174,51 +182,40 @@ const CreateNewVenueForm = () => {
                     type="text"
                     name="description"
                     placeholder="Description.."
-                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
+                    className="w-full rounded-xl border py-2 pl-3  focus:outline-none"
                   />
                 </div>
-                <div>
-                  <div className="flex flex-col ">
-                    <div className="mb-4 flex items-center justify-between">
-                      <label>
-                        Upload images{" "}
-                        <p className="text-xs">
-                          (ex. https://images.unsplash.com/photo-1579 )
-                        </p>
-                      </label>
-                      <button
-                        type="button"
-                        onClick={handleAddImageUrl}
-                        className="rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-8 py-1 font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white"
-                      >
-                        Add
-                      </button>
-                    </div>
 
-                    <div className="relative mb-3">
-                      {imageUrls.map((url, index) => (
-                        <div key={index} className="relative mb-2">
-                          <input
-                            value={url}
-                            onChange={(e) =>
-                              handleImageUrlChange(index, e.target.value)
-                            }
-                            type="url"
-                            placeholder={`Image URL ${index + 1}`}
-                            className="w-full rounded-xl border py-1 pl-3 pr-10 focus:outline-none" // Add pr-10 for right padding
-                          />
-                          {(index > 0 || imageUrls.length > 0) && (
-                            <IoCloseOutline
-                              size={24}
-                              onClick={() => handleRemoveImageUrl(index)}
-                              className="absolute right-3 top-2 cursor-pointer text-gray-800" // Adjust position as needed
-                            />
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                <div>
+  {media.map((item, index) => (
+    <div key={index} className="mb-4 flex items-center justify-between">
+      <input
+        value={item.url}
+        onChange={(e) => handleMediaChangeAtIndex(e, index)}
+        type="url"
+        name={`url-${index}`}
+        placeholder="Image URL.."
+        className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
+      />
+      <button
+        type="button"
+        onClick={() => removeMediaAtIndex(index)}
+        className="rounded-full bg-gradient-to-t from-red-300 to-red-400 px-4 py-1 font-semibold uppercase hover:from-red-400 hover:to-red-500 hover:text-white"
+      >
+        Remove
+      </button>
+    </div>
+  ))}
+  <button
+    type="button"
+    onClick={handleAddMedia}
+    className="rounded-full bg-gradient-to-t from-green-300 to-green-400 px-4 py-1 font-semibold uppercase hover:from-green-400 hover:to-green-500 hover:text-white"
+  >
+    Add Image
+  </button>
+</div>
+
+
                 <div>
                   <div className="flex gap-5">
                     <div className="mb-4 flex items-center ">

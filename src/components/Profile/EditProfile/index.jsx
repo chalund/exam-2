@@ -144,12 +144,12 @@ const EditProfileForm = () => {
                     type="url"
                     name="avatarUrl"
                     placeholder="Avatar URL..."
-                    className="w-full rounded-xl border py-2 pl-3 focus:outline-none"
+                    className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none"
                   />
                   <IoCloseOutline
                     size={30}
                     onClick={handleClearAvatarUrl}
-                    className="absolute right-0 top-0 mr-3 mt-2 cursor-pointer text-gray-800"
+                    className="absolute right-0 top-0 mr-3 mt-2  cursor-pointer text-gray-800"
                   />
                 </div>
                 <div className="relative mb-4 flex items-center text-lg">
@@ -159,7 +159,7 @@ const EditProfileForm = () => {
                     type="text"
                     name="avatarText"
                     placeholder="Avatar Text..."
-                    className="w-full rounded-xl border py-2 pl-3 focus:outline-none"
+                    className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none"
                   />
                      <IoCloseOutline
                     size={30}
@@ -174,7 +174,7 @@ const EditProfileForm = () => {
                     type="url"
                     name="bannerUrl"
                     placeholder="Banner URL..."
-                    className="w-full rounded-xl border py-2 pl-3 focus:outline-none"
+                    className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none"
                   />
                      <IoCloseOutline
                     size={30}
@@ -189,7 +189,7 @@ const EditProfileForm = () => {
                     type="text"
                     name="bannerText"
                     placeholder="Banner Text..."
-                    className="w-full rounded-xl border py-2 pl-3 focus:outline-none"
+                    className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none"
                   />
                      <IoCloseOutline
                     size={30}
@@ -203,7 +203,7 @@ const EditProfileForm = () => {
                     onChange={(e) => setBio(e.target.value)}
                     name="bio"
                     placeholder="Update Bio"
-                    className="w-full rounded-xl border py-2 pl-3 focus:outline-none"
+                    className="w-full rounded-xl border py-2 pl-3 pr-8 focus:outline-none"
                   />
                      <IoCloseOutline
                     size={30}
