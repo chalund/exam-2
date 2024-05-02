@@ -29,7 +29,7 @@ export default function Search() {
   console.log("filtered venues", filteredVenues);
 
   return (
-    <div>
+    <div className="">
       <div className="relative rounded-xl border">
         <input
           type="text"
