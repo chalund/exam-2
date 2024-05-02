@@ -55,7 +55,7 @@ const VenueDetailsPage = () => {
   } = data.data;
 
   return (
-    <div className="mx-auto max-w-screen-md mt-4 ">
+    <div className="mx-auto mt-4 max-w-screen-md ">
       <div className="flex items-center gap-2">
         <FaArrowLeft />
         <Link to={`/listings`} className="underline">
@@ -63,56 +63,50 @@ const VenueDetailsPage = () => {
         </Link>
       </div>
 
-      <div className="mt-4 border border-green-400">
-        {/* {media && media.length > 0 && (
-          <img
-            src={media[0].url}
-            alt={media[0].alt}
-            className="h-48 w-full object-cover "
-          />
-        )} */}
-
+      <div className="mt-4 border">
+     
 {media && media.length > 0 && (
-  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-6 md:h-screen ">
+  <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-6 ">
     {media.length === 1 ? (
-      <div className="col-span-2 md:col-span-4 flexitems-center">
+      <div className="flex items-center col-span-2 md:col-span-4">
         <img
           src={media[0].url}
           alt={`Image 1`}
-          className="max-h-96 w-full object-cover mb-2 md:rounded-xl"
+          className=" h-full w-full object-cover md:rounded-xl"
+          
         />
       </div>
     ) : (
-      <div className="col-span-2 md:col-span-3 relative">
+      <div className="relative flex items-center col-span-2 md:col-span-3">
         <img
           src={media[0].url}
           alt={`Image 1`}
-          className="max-h-96 md:h-2/5 w-full object-cover mb-2 rounded-xl"
+          className=" h-full w-full object-cover md:rounded-xl"
         />
-        {/* Conditionally render the button */}
         {media.length > 1 && (
-          <button className="absolute bottom-6 right-4 px-3 py-2 bg-white text-gray-700 rounded-lg uppercase text-sm md:hidden">
-            View All
+          <button className="absolute bottom-6 right-4 rounded-lg bg-orange-300 px-3 py-2 text-sm uppercase  md:hidden">
+              <Link to={`/venue/images/${id}`}>View all</Link>
           </button>
         )}
       </div>
     )}
-    {media.length > 1 && (
-      <div className="hidden col-span-1 md:col-span-1 md:flex flex-col gap-2">
-        <img
-          src={media[1].url}
-          alt={`Image 2`}
-          className="h-1/6 w-full object-cover mb-5 rounded-xl"
-        />
-        <div className="relative h-1/5 w-full">
+    {media.length > 2 && (
+      <div className="hidden md:flex-col md:gap-4 md:col-span-1 md:flex">
+        <div className="relative w-full" style={{ height: "calc(50% - 2px)" }}>
+          <img
+            src={media[1].url}
+            alt={`Image 2`}
+            className="h-full w-full rounded-xl object-cover"
+          />
+        </div>
+        <div className="relative w-full" style={{ height: "calc(50% - 2px)" }}>
           <img
             src={media[2].url}
             alt={`Image 3`}
-            className="h-full w-full object-cover rounded-xl"
+            className="h-full w-full rounded-xl object-cover"
           />
-          {/* Conditionally render the button */}
-          <button className="absolute bottom-2 right-2 px-3 py-1 bg-white text-gray-700 rounded-lg uppercase text-xs">
-            View All
+          <button className="absolute bottom-2 right-3 rounded-lg bg-orange-300 px-3 py-2 text-xs uppercase">
+            <Link to={`/venue/images/${id}`}>View all</Link>
           </button>
         </div>
       </div>
@@ -123,8 +117,10 @@ const VenueDetailsPage = () => {
 
 
 
+       
+
         <div className="m-2">
-          <div className="flex justify-between">
+          <div className="flex gap-3">
             <h1 className="text-lg font-bold">{name}</h1>
             <div className="flex items-center py-1">
               {rating ? (

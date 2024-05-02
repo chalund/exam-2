@@ -11,6 +11,7 @@ import LoginPage from "./Pages/LoginPage";
 import NotFoundPage from "./Pages/NotFoundPage";
 import VenueDetailsPage from "./Pages/VenueDetailsPage";
 import RegisterPage from "./Pages/RegisterPage";
+import VenueImages from "./Pages/VenueDetailsPage/ImageCarousel"
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="listings" element={<ListOfVenuesPage />} />
           <Route path="venue/:id" element={<VenueDetailsPage />} />
+          <Route path="venue/images/:id" element={<VenueImages />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="login" element={<LoginPage />} />
