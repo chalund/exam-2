@@ -12,12 +12,11 @@ import { MdBreakfastDining } from "react-icons/md";
 import { useEffect } from "react";
 import StarRate from "../../components/StarRating";
 import formatDate from "../../components/DateFormatter";
+import EditVenueLink from "../../components/Search/searchMobile";
 
 const VenueDetailsPage = () => {
   const { id } = useParams();
-  const { data, loading, error } = useFetch(
-    `${BASE_URL}/venues/${id}?_owner=true`,
-  );
+  const { data, loading, error } = useFetch(`${BASE_URL}/venues/${id}?_owner=true`);
   console.log("Data:", data);
 
   useEffect(() => {}, []);
@@ -47,15 +46,15 @@ const VenueDetailsPage = () => {
     created,
     updated,
     meta: { wifi, parking, breakfast, pets },
-    owner: {
-      name: ownerName,
-      email: ownerEmail,
-      avatar: { url: ownerAvatarUrl },
-    },
+    owner: { name: ownerName, email: ownerEmail, avatar: { url: ownerAvatarUrl } },
   } = data.data;
 
+  const handleEditLinkClick = () => {
+    console.log( "edit link clicked")
+  }
+
   return (
-    <div className="mx-auto mt-4 max-w-screen-md ">
+    <div className="mx-auto mt-4 max-w-screen-md">
       <div className="flex items-center gap-2">
         <FaArrowLeft />
         <Link to={`/listings`} className="underline">
@@ -63,126 +62,77 @@ const VenueDetailsPage = () => {
         </Link>
       </div>
 
-      <div className="mt-4 border">
-     
-{media && media.length > 0 && (
-  <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-6 ">
-    {media.length === 1 ? (
-      <div className="flex items-center col-span-2 md:col-span-4">
-        <img
-          src={media[0].url}
-          alt={`Image 1`}
-          className=" h-full w-full object-cover md:rounded-xl"
-          
-        />
-      </div>
-    ) : (
-      <div className="relative flex items-center col-span-2 md:col-span-3">
-        <img
-          src={media[0].url}
-          alt={`Image 1`}
-          className=" h-full w-full object-cover md:rounded-xl"
-        />
-        {media.length > 1 && (
-          <button className="absolute bottom-6 right-4 rounded-lg bg-orange-300 px-3 py-2 text-sm uppercase  md:hidden">
-              <Link to={`/venue/images/${id}`}>View all</Link>
-          </button>
+      <div className="my-6 border rounded-xl">
+        {media && media.length > 0 && (
+          <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-6 ">
+            {media.length === 1 ? (
+              <div className="col-span-2 flex items-center md:col-span-4">
+                <img
+                  src={media[0].url}
+                  alt={`Image 1`}
+                  className="h-full w-full max-h-[400px]  md:rounded-xl"
+                />
+              </div>
+            ) : (
+              <div className="relative col-span-2 flex items-center md:col-span-4">
+                <img
+                  src={media[0].url}
+                  alt={`Image 1`}
+                  className="h-full max-h-[400px] w-full  md:rounded-xl"
+                />
+                {media.length > 1 && (
+                  <button className="absolute bottom-6 right-4 rounded-lg bg-orange-300 px-3 py-2 text-sm uppercase">
+                    <Link to={`/venue/images/${id}`}>View all</Link>
+                  </button>
+                )}
+              </div>
+            )}
+        
+          </div>
         )}
-      </div>
-    )}
-    {media.length > 2 && (
-      <div className="hidden md:flex-col md:gap-4 md:col-span-1 md:flex">
-        <div className="relative w-full" style={{ height: "calc(50% - 2px)" }}>
-          <img
-            src={media[1].url}
-            alt={`Image 2`}
-            className="h-full w-full rounded-xl object-cover"
-          />
-        </div>
-        <div className="relative w-full" style={{ height: "calc(50% - 2px)" }}>
-          <img
-            src={media[2].url}
-            alt={`Image 3`}
-            className="h-full w-full rounded-xl object-cover"
-          />
-          <button className="absolute bottom-2 right-3 rounded-lg bg-orange-300 px-3 py-2 text-xs uppercase">
-            <Link to={`/venue/images/${id}`}>View all</Link>
-          </button>
-        </div>
-      </div>
-    )}
-  </div>
-)}
 
-
-
-
-       
-
-        <div className="m-2">
-          <div className="flex gap-3">
-            <h1 className="text-lg font-bold">{name}</h1>
-            <div className="flex items-center py-1">
-              {rating ? (
-                <StarRate rating={rating} size={20} />
-              ) : (
-                <StarRate size={20} />
-              )}
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          <div className="m-2">
+            <div className="flex gap-3">
+              <h1 className="text-lg font-bold">{name}</h1>
+              <div className="flex items-center py-1">
+                {rating ? <StarRate rating={rating} size={20} /> : <StarRate size={20} />}
+              </div>
             </div>
-          </div>
 
-          <p className="mt-5 font-semibold">Description</p>
-          <p>{description}</p>
-          <div className="mt-1 flex items-center gap-1">
-            <FaBed size={20} />
-            <p>{maxGuests} Guests</p>
-          </div>
+            <div className="flex gap-1">
+            <p>date </p>
+            <EditVenueLink onClick={handleEditLinkClick}/>
+            </div>
+            
 
-          <div className="py-3">
-            <p>Facilities</p>
-            <ul className="flex gap-2">
-              {wifi && (
-                <li>
-                  <FaWifi size={30} />
-                </li>
-              )}
-              {breakfast && (
-                <li>
-                  <MdBreakfastDining size={30} />
-                </li>
-              )}
-              {parking && (
-                <li>
-                  <FaParking size={30} />
-                </li>
-              )}
-              {pets && (
-                <li>
-                  <MdOutlinePets size={30} />
-                </li>
-              )}
-            </ul>
-          </div>
+            <p className="mt-5 font-semibold">Description</p>
+            <p>{description}</p>
+            <div className="mt-1 flex items-center gap-1">
+              <FaBed size={20} />
+              <p>{maxGuests} Guests</p>
+            </div>
 
-          <p>
-            Price: <strong>${price}</strong> pr night
-          </p>
+            <div className="py-6">
+              <p>Facilities</p>
+              <ul className="flex gap-2">
+                {wifi && <li><FaWifi size={30} /></li>}
+                {breakfast && <li><MdBreakfastDining size={30} /></li>}
+                {parking && <li><FaParking size={30} /></li>}
+                {pets && <li><MdOutlinePets size={30} /></li>}
+              </ul>
+            </div>
 
-          <div className="py-2">
-            <p className=" font-semibold">Location</p>
-            <p>Address: {location.address}</p>
-            <p>City: {location.city} </p>
-            <p>Country: {location.country} </p>
-          </div>
+            <p>Price: <strong>${price}</strong> pr night</p>
 
-          <button className="border bg-orange-300 p-2 uppercase">
-            Book now
-          </button>
+            <div className="py-4">
+              <p className="font-semibold">Location</p>
+              <p>Address: {location.address}</p>
+              <p>City: {location.city}</p>
+              <p>Country: {location.country}</p>
+            </div>
 
-          <p>Created: {formatDate(created)}</p>
-          <p>Updated: {formatDate(updated)}</p>
-
-          <div className="py-2">
+            <div className="py-4">
             <p className="font-semibold">Hosted by</p>
             <div className="mt-2 flex items-center gap-4 rounded-xl border p-3">
               <img
@@ -199,6 +149,40 @@ const VenueDetailsPage = () => {
               </div>
             </div>
           </div>
+          <div className="">
+              <p className="text-xs">Venue added: {formatDate(created)}</p>
+              <p className="text-xs">Updated: {formatDate(updated)}</p>
+            </div>
+       
+
+
+        
+          </div>
+
+          <div className="hidden md:block border bg-orange-100 grid-cols-6 p-2">
+
+            <div className="border bg-blue-100 mt-6 p-4">
+              <p>${price} per night</p>
+              <form action="">
+                <div className="bg-green-100 border">
+                  <div className="flex">
+                    <input type="text" className="border w-36 h-10" />
+                    <input type="text" className="border w-36 h-10"/>
+                  </div>
+                  <input type="text" className="w-72 h-10"/>
+                </div>
+               
+                <button
+       
+        className="mb-5 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-8 py-2 font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white"
+      >
+        Edit Profile
+      </button>
+              </form>
+            </div>
+           
+          </div>
+       
         </div>
       </div>
     </div>

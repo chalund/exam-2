@@ -49,53 +49,56 @@ const VenueImages = () => {
             key={index}
             src={image.url}
             alt={`Image ${index}`}
-            className="w-full h-72 md:max-h-72 cursor-pointer"
+            className="w-full h-72 md:max-h-72 md:cursor-pointer md:block lg:block"
             onClick={() => openModal(image.url)}
           />
         ))}
       </div>
 
       {isModalOpen && (
-        <div
-          className="modal "
-          style={{
-            position: "fixed",
-            top: -60,
-            left: 0,
-            width: "100%",
-            height: "100vh",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            zIndex: 999,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <div
-            className="modal-content"
-            style={{
-              backgroundColor: "white",
-              padding: "20px",
-              borderRadius: "8px",
-              width: "80%",
-              maxWidth: "800px",
-            }}
-          >
-            <span
-              className="close flex cursor-pointer justify-end text-2xl"
-              onClick={closeModal}
-            >
-              &times;
-            </span>
-            <img
-              src={selectedImage}
-              alt="Selected"
-              className="w-full h-auto mt-4 rounded-xl"
-              style={{ maxHeight: "calc(100vh - 200px)" }}
-            />
-          </div>
-        </div>
-      )}
+  <div
+    className="modal"
+    style={{
+      position: "fixed",
+      top: -60,
+      left: 0,
+      width: "100%",
+      height: "110vh",
+      zIndex: 999,
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "rgba(0, 0, 0, 0.5)", // Apply background color only when modal is open
+    }}
+  >
+    <div
+      className="modal-content hidden md:block lg:block"
+      style={{
+        backgroundColor: "white",
+        padding: "20px",
+        borderRadius: "8px",
+        width: "80%",
+        maxWidth: "800px",
+      }}
+    >
+      <span
+        className="close flex cursor-pointer justify-end text-2xl"
+        onClick={closeModal}
+      >
+        &times;
+      </span>
+
+      <img
+        src={selectedImage}
+        alt="Selected"
+        className="w-full h-auto mt-4 rounded-xl"
+        style={{ maxHeight: "calc(100vh - 200px)" }}
+      />
+    </div>
+  </div>
+)}
+
+
     </div>
   );
 };
