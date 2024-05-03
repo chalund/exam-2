@@ -2,10 +2,15 @@ import { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { BiUser } from "react-icons/bi";
 import { Link, Navigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { IoCalendarNumberOutline } from "react-icons/io5";
 
 const EditVenueLink = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [guest, setGuest] = useState("");
+  const [guest, setGuest] = useState(2);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -17,6 +22,8 @@ const EditVenueLink = () => {
 
   const handleSave = () => {
     console.log("guests number", guest);
+    console.log("start date", startDate);
+    console.log("end date",endDate)
     // Add logic to save edited profile data
     // closeModal();
   };
@@ -27,8 +34,8 @@ const EditVenueLink = () => {
 
   return (
     <div style={{ position: "relative" }}>
-      <button onClick={openModal} className="text-violet-600 underline">
-        Edit Link
+      <button onClick={openModal} className="text-violet-600 underline uppercase">
+        Book your stay
       </button>
       {isModalOpen && (
         <div
@@ -54,6 +61,7 @@ const EditVenueLink = () => {
               padding: "20px",
               borderRadius: "8px",
               width: "100%",
+              maxWidth: "500px",
             }}
           >
             <span
@@ -63,33 +71,48 @@ const EditVenueLink = () => {
               &times;
             </span>
 
-            <form onSubmit={handleEditVenueLink} className="mx-6">
-              <h2 className="py-3 text-center text-lg font-bold uppercase text-violet-600">
+            <form onSubmit={handleEditVenueLink} className="">
+              <h2 className="mb-4 py-3 text-center text-lg font-bold uppercase text-violet-600">
                 Edit Search
               </h2>
-              
+              <div className="mb-3 flex items-center justify-between">
+                <p>Select check-in</p>
+                <div className="w-46 rounded-xl border py-1 pl-3 flex items-center gap-2">
+               
+                  <DatePicker
+                  showIcon
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                  />
+                </div>
+              </div>
+              <div className="mb-3 flex items-center justify-between">
+                <p>Select check-out</p>
+                <div className="w-46 rounded-xl border py-1 pl-3 flex items-center gap-2">
+                 
+                  <DatePicker
+                showIcon
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
+                  />
+                </div>
+              </div>
 
-              <div className="relative mb-4 flex items-center ">
-  <div className="relative">
-    <span className="absolute inset-y-0 left-2 flex items-center pl-2 text-gray-600">Guests:</span>
-    <input
-      value={guest}
-      onChange={(e) => setGuest(e.target.value)}
-      name="guests"
-      type="number"
-      placeholder="Enter number of guests"
-      className="w-full rounded-xl border py-2 pl-20 pr-12 focus:outline-none"
-    />
-  </div>
-</div>
-
-
-              <button
-                onClick={handleSave}
-                className="mb-5 w-full rounded-xl bg-violet-600 py-2 text-lg uppercase text-white"
-              >
-                Save
-              </button>
+              <div className="mb-3 flex items-center justify-between">
+                <p>Number of Guests</p>
+                <input
+                  value={guest}
+                  onChange={(e) => setGuest(e.target.value)}
+                  name="guests"
+                  type="number"
+                  className="w-46 rounded-xl border py-2 pr-7 pl-5"
+                />
+              </div>
+              <div className="flex justify-center">
+                <button className="my-5 w-44 rounded-xl bg-violet-600 py-2 text-lg uppercase text-white" onClick={handleSave}>
+                  Save
+                </button>
+              </div>
             </form>
           </div>
         </div>
