@@ -11,7 +11,7 @@ import LoginPage from "./Pages/LoginPage";
 import NotFoundPage from "./Pages/NotFoundPage";
 import VenueDetailsPage from "./Pages/VenueDetailsPage";
 import RegisterPage from "./Pages/RegisterPage";
-import VenueImages from "./Pages/VenueDetailsPage/ImageCarousel"
+import VenueImages from "./Pages/VenueDetailsPage/ImageCarousel";
 
 function App() {
   return (

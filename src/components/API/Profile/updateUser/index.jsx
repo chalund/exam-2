@@ -4,7 +4,7 @@ export async function updateProfile(username, newData, apiKey) {
   const accessToken = localStorage.getItem("accessToken");
   const updateProfileUrl = `${BASE_URL}${Profile}/${username}`;
 
-  console.log(updateProfileUrl)
+  console.log(updateProfileUrl);
 
   const options = {
     method: "PUT",

@@ -106,17 +106,14 @@ const CreateNewVenueForm = () => {
   };
 
   const handleAddMedia = () => {
-    setMedia([...media, { url: '' }]);
+    setMedia([...media, { url: "" }]);
   };
-  
+
   const removeMediaAtIndex = (index) => {
     const updatedMedia = [...media];
     updatedMedia.splice(index, 1);
     setMedia(updatedMedia);
   };
-  
-  
-  
 
   return (
     <div style={{ position: "relative" }}>
@@ -187,34 +184,36 @@ const CreateNewVenueForm = () => {
                 </div>
 
                 <div>
-  {media.map((item, index) => (
-    <div key={index} className="mb-4 flex items-center justify-between">
-      <input
-        value={item.url}
-        onChange={(e) => handleMediaChangeAtIndex(e, index)}
-        type="url"
-        name={`url-${index}`}
-        placeholder="Image URL.."
-        className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
-      />
-      <button
-        type="button"
-        onClick={() => removeMediaAtIndex(index)}
-        className="rounded-full bg-gradient-to-t from-red-300 to-red-400 px-4 py-1 font-semibold uppercase hover:from-red-400 hover:to-red-500 hover:text-white"
-      >
-        Remove
-      </button>
-    </div>
-  ))}
-  <button
-    type="button"
-    onClick={handleAddMedia}
-    className="rounded-full bg-gradient-to-t from-green-300 to-green-400 px-4 py-1 font-semibold uppercase hover:from-green-400 hover:to-green-500 hover:text-white"
-  >
-    Add Image
-  </button>
-</div>
-
+                  {media.map((item, index) => (
+                    <div
+                      key={index}
+                      className="mb-4 flex items-center justify-between"
+                    >
+                      <input
+                        value={item.url}
+                        onChange={(e) => handleMediaChangeAtIndex(e, index)}
+                        type="url"
+                        name={`url-${index}`}
+                        placeholder="Image URL.."
+                        className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeMediaAtIndex(index)}
+                        className="rounded-full bg-gradient-to-t from-red-300 to-red-400 px-4 py-1 font-semibold uppercase hover:from-red-400 hover:to-red-500 hover:text-white"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={handleAddMedia}
+                    className="rounded-full bg-gradient-to-t from-green-300 to-green-400 px-4 py-1 font-semibold uppercase hover:from-green-400 hover:to-green-500 hover:text-white"
+                  >
+                    Add Image
+                  </button>
+                </div>
 
                 <div>
                   <div className="flex gap-5">

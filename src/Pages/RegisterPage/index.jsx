@@ -134,11 +134,9 @@ const RegisterPage = () => {
                 }`}
                 placeholder="Name"
               />
-                 {nameError && (
-              <p className="mt-1 text-red-700">{nameError}</p>
-            )}
+              {nameError && <p className="mt-1 text-red-700">{nameError}</p>}
             </div>
-         
+
             <div className="mb-5 flex flex-col text-lg">
               <MdOutlineEmail className="absolute ml-4 mt-3" size={24} />
               <input
@@ -152,11 +150,9 @@ const RegisterPage = () => {
                 }`}
                 placeholder="Email address"
               />
-              {emailError && (
-              <p className="mt-1  text-red-700">{emailError}</p>
-            )}
+              {emailError && <p className="mt-1  text-red-700">{emailError}</p>}
             </div>
-            
+
             <div className="mb-5 flex flex-col text-lg">
               <FaLock className="absolute ml-4 mt-3" size={24} />
               <input
@@ -170,12 +166,11 @@ const RegisterPage = () => {
                 }`}
                 placeholder="Password"
               />
-                 {passwordError && (
-              <p className="mt-1 text-red-700">{passwordError}</p>
-            )}
+              {passwordError && (
+                <p className="mt-1 text-red-700">{passwordError}</p>
+              )}
             </div>
-         
-       
+
             <div className="mb-3 flex gap-4">
               <div>
                 <input
@@ -209,14 +204,13 @@ const RegisterPage = () => {
             Submit
           </button>
           {loggedIn && (
-  <div className="mt-3">
-    <p>Registration was successful!! Please login:</p>
-    <button
-      className="mt-2 w-full rounded-xl bg-gradient-to-t from-violet-400 to-violet-600 text-white p-2 font-medium uppercase text-black"
-    ><Link to="/login">Login</Link>
-    </button>
-  </div>
-)}
+            <div className="mt-3">
+              <p>Registration was successful!! Please login:</p>
+              <button className="mt-2 w-full rounded-xl bg-gradient-to-t from-violet-400 to-violet-600 p-2 font-medium uppercase text-black text-white">
+                <Link to="/login">Login</Link>
+              </button>
+            </div>
+          )}
         </div>
       </form>
     </div>

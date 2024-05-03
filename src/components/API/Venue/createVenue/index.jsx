@@ -6,17 +6,17 @@ export const createVenue = async (newData, apiKey) => {
   const createVenueUrl = `${BASE_URL}${Venues}`;
 
   const options = {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "X-Noroff-API-Key": apiKey,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newData),
-    };
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "X-Noroff-API-Key": apiKey,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newData),
+  };
 
-    try {
-      const response = await fetch(createVenueUrl, options);
+  try {
+    const response = await fetch(createVenueUrl, options);
 
     if (!response.ok) {
       throw new Error("Failed to create venue");
@@ -29,4 +29,3 @@ export const createVenue = async (newData, apiKey) => {
     throw error;
   }
 };
-

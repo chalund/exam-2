@@ -23,7 +23,7 @@ const EditVenueLink = () => {
   const handleSave = () => {
     console.log("guests number", guest);
     console.log("start date", startDate);
-    console.log("end date",endDate)
+    console.log("end date", endDate);
     // Add logic to save edited profile data
     // closeModal();
   };
@@ -34,7 +34,10 @@ const EditVenueLink = () => {
 
   return (
     <div style={{ position: "relative" }}>
-      <button onClick={openModal} className="text-violet-600 underline uppercase">
+      <button
+        onClick={openModal}
+        className="uppercase text-violet-600 underline"
+      >
         Book your stay
       </button>
       {isModalOpen && (
@@ -77,10 +80,9 @@ const EditVenueLink = () => {
               </h2>
               <div className="mb-3 flex items-center justify-between">
                 <p>Select check-in</p>
-                <div className="w-46 rounded-xl border py-1 pl-3 flex items-center gap-2">
-               
+                <div className="w-46 flex items-center gap-2 rounded-xl border py-1 pl-3">
                   <DatePicker
-                  showIcon
+                    showIcon
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
                   />
@@ -88,10 +90,9 @@ const EditVenueLink = () => {
               </div>
               <div className="mb-3 flex items-center justify-between">
                 <p>Select check-out</p>
-                <div className="w-46 rounded-xl border py-1 pl-3 flex items-center gap-2">
-                 
+                <div className="w-46 flex items-center gap-2 rounded-xl border py-1 pl-3">
                   <DatePicker
-                showIcon
+                    showIcon
                     selected={endDate}
                     onChange={(date) => setEndDate(date)}
                   />
@@ -105,11 +106,14 @@ const EditVenueLink = () => {
                   onChange={(e) => setGuest(e.target.value)}
                   name="guests"
                   type="number"
-                  className="w-46 rounded-xl border py-2 pr-7 pl-5"
+                  className="w-46 rounded-xl border py-2 pl-5 pr-7"
                 />
               </div>
               <div className="flex justify-center">
-                <button className="my-5 w-44 rounded-xl bg-violet-600 py-2 text-lg uppercase text-white" onClick={handleSave}>
+                <button
+                  className="my-5 w-44 rounded-xl bg-violet-600 py-2 text-lg uppercase text-white"
+                  onClick={handleSave}
+                >
                   Save
                 </button>
               </div>

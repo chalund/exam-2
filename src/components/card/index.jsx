@@ -4,12 +4,12 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 
 const ProductCard = ({ venues }) => {
   return (
-    <div className="mx-auto max-w-screen-lg grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4 m-2">
+    <div className="m-2 mx-auto grid max-w-screen-lg grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4">
       {venues.map((venue) => (
         <Link to={`/venue/${venue.id}`} key={venue.id} className="block ">
-          <div className="m-4 mx-auto min-w-min max-w-[300px] rounded-lg border bg-white p-4 hover:border-4 hover:border-violet-600 flex flex-col justify-between h-full">
+          <div className="m-4 mx-auto flex h-full min-w-min max-w-[300px] flex-col justify-between rounded-lg border bg-white p-4 hover:border-4 hover:border-violet-600">
             {venue.media && venue.media.length > 0 && (
-              <div className="w-full h-32 sm:h-48 block">
+              <div className="block h-32 w-full sm:h-48">
                 <img
                   src={venue.media[0].url}
                   alt={venue.media[0].alt}
@@ -18,20 +18,22 @@ const ProductCard = ({ venues }) => {
               </div>
             )}
             <div>
-              <h2 className="font-bold mt-1">{venue.name}</h2>
+              <h2 className="mt-1 font-bold">{venue.name}</h2>
               <div className="flex items-center gap-1 border-b-2 border-violet-600 pb-2">
                 {venue.location.city && (
                   <p>
                     <FaMapMarkerAlt />
                   </p>
                 )}
-                <p className="text-sm md:text-md">{venue.location?.city}</p>
-                <p className="text-sm md:text-md">{venue.location?.country}</p>
+                <p className="md:text-md text-sm">{venue.location?.city}</p>
+                <p className="md:text-md text-sm">{venue.location?.country}</p>
               </div>
             </div>
-            <div className="flex items-center justify-between mt-1">
-              <p>Price <b>${venue.price}</b></p>
-              <button className="text-sm rounded-full bg-violet-600 text-white px-3 py-1 font-semibold uppercase">
+            <div className="mt-1 flex items-center justify-between">
+              <p>
+                Price <b>${venue.price}</b>
+              </p>
+              <button className="rounded-full bg-violet-600 px-3 py-1 text-sm font-semibold uppercase text-white">
                 View deal
               </button>
             </div>

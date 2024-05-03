@@ -37,7 +37,7 @@ const VenuesBookings = () => {
             <p className="ms-6 text-lg">No venues available...</p>
           ) : (
             <>
-              <h1 className="ms-6 text-xl md:text-2xl font-semibold uppercase text-orange-600 items-center">
+              <h1 className="ms-6 items-center text-xl font-semibold uppercase text-orange-600 md:text-2xl">
                 Bookings in venues
               </h1>
               {profileData && profileData.bookings.length === 0 ? (
@@ -49,7 +49,6 @@ const VenuesBookings = () => {
       </div>
     </div>
   );
-  
 };
 
 export default VenuesBookings;

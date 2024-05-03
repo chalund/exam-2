@@ -5,7 +5,7 @@ import Logo from "../../components/Layout/Logo";
 const AboutPage = () => {
   return (
     <div className="mx-auto max-w-screen-md">
-      <h1 className="mt-4 text-center text-2xl uppercase font-bold text-violet-600 md:mt-12">
+      <h1 className="mt-4 text-center text-2xl font-bold uppercase text-violet-600 md:mt-12">
         About
       </h1>
       <div className="mx-5 sm:p-2">

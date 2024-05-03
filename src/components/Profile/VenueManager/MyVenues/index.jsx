@@ -79,40 +79,45 @@ const MyVenues = () => {
       {profileData && profileData.venues.length === 0 ? (
         <p className="ms-6 text-lg">No venues available...</p>
       ) : (
-<div className="border rounded-xl m-6">
-
-{profileData &&
-  profileData.venues.map((venue) => (
-    <div key={venue.id} className="flex flex-col sm:flex-row items-center  hover:bg-zinc-100">
-      <div className="px-6 py-4">
-        {venue.media && venue.media.length > 0 && (
-          <Link to={`/venue/${venue.id}`} key={venue.id} className="block">
-            <img
-              src={venue.media[0].url}
-              alt={venue.media[0].alt}
-              className="h-24 w-24 rounded-xl"
-            />
-          </Link>
-        )}
-      </div>
-      <div className="mb-2 sm:ms-4 text-lg">{venue.name}</div>
-      <div className="sm:ml-auto sm:flex sm:items-end sm:mr-12"> {/* Add ml-auto to push buttons to the end */}
-        <button className="mb-2 mr-2 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-4 py-2 text-xs font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white w-24 h-8">
-          Edit
-        </button>
-        <button
-          onClick={() => handleDeleteVenue(venue.id)}
-          className="mb-2 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-4 py-2 text-xs font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white w-24 h-8"
-        >
-          Delete
-        </button>
-      </div>
-    </div>
-  ))}
-</div>
-
-
-
+        <div className="m-6 rounded-xl border">
+          {profileData &&
+            profileData.venues.map((venue) => (
+              <div
+                key={venue.id}
+                className="flex flex-col items-center hover:bg-zinc-100  sm:flex-row"
+              >
+                <div className="px-6 py-4">
+                  {venue.media && venue.media.length > 0 && (
+                    <Link
+                      to={`/venue/${venue.id}`}
+                      key={venue.id}
+                      className="block"
+                    >
+                      <img
+                        src={venue.media[0].url}
+                        alt={venue.media[0].alt}
+                        className="h-24 w-24 rounded-xl"
+                      />
+                    </Link>
+                  )}
+                </div>
+                <div className="mb-2 text-lg sm:ms-4">{venue.name}</div>
+                <div className="sm:ml-auto sm:mr-12 sm:flex sm:items-end">
+                  {" "}
+                  {/* Add ml-auto to push buttons to the end */}
+                  <button className="mb-2 mr-2 h-8 w-24 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-4 py-2 text-xs font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white">
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDeleteVenue(venue.id)}
+                    className="mb-2 h-8 w-24 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-4 py-2 text-xs font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+        </div>
       )}
     </div>
   );

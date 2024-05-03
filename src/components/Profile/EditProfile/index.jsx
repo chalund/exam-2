@@ -12,7 +12,6 @@ const EditProfileForm = () => {
   const [userType, setUserType] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-
   const handleClearAvatarUrl = () => {
     setAvatarUrl("");
   };
@@ -88,8 +87,6 @@ const EditProfileForm = () => {
     // closeModal();
   };
 
-
-
   return (
     <div style={{ position: "relative" }}>
       <button
@@ -161,7 +158,7 @@ const EditProfileForm = () => {
                     placeholder="Avatar Text..."
                     className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none"
                   />
-                     <IoCloseOutline
+                  <IoCloseOutline
                     size={30}
                     onClick={handleClearAvatarSrc}
                     className="absolute right-0 top-0 mr-3 mt-2 cursor-pointer text-gray-800"
@@ -176,7 +173,7 @@ const EditProfileForm = () => {
                     placeholder="Banner URL..."
                     className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none"
                   />
-                     <IoCloseOutline
+                  <IoCloseOutline
                     size={30}
                     onClick={handleClearBannerUrl}
                     className="absolute right-0 top-0 mr-3 mt-2 cursor-pointer text-gray-800"
@@ -191,7 +188,7 @@ const EditProfileForm = () => {
                     placeholder="Banner Text..."
                     className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none"
                   />
-                     <IoCloseOutline
+                  <IoCloseOutline
                     size={30}
                     onClick={handleClearBannerSrc}
                     className="absolute right-0 top-0 mr-3 mt-2 cursor-pointer text-gray-800"
@@ -205,7 +202,7 @@ const EditProfileForm = () => {
                     placeholder="Update Bio"
                     className="w-full rounded-xl border py-2 pl-3 pr-8 focus:outline-none"
                   />
-                     <IoCloseOutline
+                  <IoCloseOutline
                     size={30}
                     onClick={handleClearBio}
                     className="absolute right-0 top-0 mr-3 mt-2 cursor-pointer text-gray-800"

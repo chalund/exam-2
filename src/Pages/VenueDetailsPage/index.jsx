@@ -62,15 +62,15 @@ const VenueDetailsPage = () => {
   };
 
   return (
-    <div className="mx-auto my-6 max-w-screen-md rounded-xl border bg-white">
-      <div className="mt-4 flex items-center gap-2 ms-2">
+    <div className="mx-auto max-w-screen-md rounded-xl border bg-white md:my-6">
+      <div className="ms-2 mt-4 flex items-center gap-2">
         <FaArrowLeft />
         <Link to={`/listings`} className="underline">
           Back to List of Venues
         </Link>
       </div>
 
-      <div className="md:px-6 py-4">
+      <div className="py-4 md:px-6">
         {media && media.length > 0 && (
           <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-6 ">
             {media.length === 1 ? (
@@ -165,7 +165,7 @@ const VenueDetailsPage = () => {
               <p>Country: {location.country}</p>
             </div>
 
-            <div className="py-4 md:hidden max-w-sm">
+            <div className="max-w-sm py-4 md:hidden">
               <p className="font-semibold">Hosted by</p>
               <div className="mt-2 flex  items-center gap-4 rounded-xl border p-3">
                 <img
@@ -192,9 +192,7 @@ const VenueDetailsPage = () => {
 
           <div className="hidden grid-cols-6 p-2 md:block">
             <div className="mt-6 rounded-xl border border-gray-600 bg-white p-4">
-              <p className="mb-4">
-                ${price} per night
-              </p>
+              <p className="mb-4">${price} per night</p>
               <form action="">
                 <div className="">
                   <div className="flex">
@@ -224,8 +222,8 @@ const VenueDetailsPage = () => {
                   <p>${price} x SELECTED NIGHTS</p>
                   <p>$total</p>
                 </div>
-                <div className="mr-3 flex justify-between mt-4 font-bold">
-                <p>total</p>
+                <div className="mr-3 mt-4 flex justify-between font-bold">
+                  <p>total</p>
                   <p>$8888</p>
                 </div>
               </form>
@@ -240,16 +238,21 @@ const VenueDetailsPage = () => {
                   className="h-20 w-20 rounded-full"
                 />
                 <div>
-                  <p className="font-semibold truncate" style={{ maxWidth: "200px" }}>{ownerName}</p>
+                  <p
+                    className="truncate font-semibold"
+                    style={{ maxWidth: "200px" }}
+                  >
+                    {ownerName}
+                  </p>
                   <div className="flex items-center gap-1">
                     <MdOutlineEmail size={20} />
-                    <p className="truncate" style={{ maxWidth: "200px" }}>{ownerEmail}</p>
+                    <p className="truncate" style={{ maxWidth: "200px" }}>
+                      {ownerEmail}
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
-
-
           </div>
         </div>
       </div>
