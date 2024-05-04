@@ -3,6 +3,7 @@ import { BASE_URL, Venues } from "../../API";
 import { useFetch } from "../../Hooks/useFetch";
 import { IoCloseOutline } from "react-icons/io5";
 import ProductCard from "../../card";
+import Spinner from "../../Spinner/Loader";
 
 export default function Search() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,7 +18,11 @@ export default function Search() {
   }
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="text-center text-2xl">
+        <Spinner/>
+      </div>
+    );
   }
 
   // Filter the venues based on the search term

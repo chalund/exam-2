@@ -191,7 +191,7 @@ const VenueDetailsPage = () => {
           </div>
 
           <div className="hidden grid-cols-6 p-2 md:block">
-            <div className="mt-6 rounded-xl border border-gray-600 bg-white p-4">
+            <div className="mt-6 rounded-xl border bg-white p-4">
               <p className="mb-4">${price} per night</p>
               <form action="">
                 <div className="">
