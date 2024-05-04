@@ -129,7 +129,7 @@ const EditProfileForm = () => {
             </span>
 
             <form onSubmit={handleEditForm}>
-              <h2 className="py-3 font-semibold uppercase text-violet-600">
+              <h2 className="py-3 font-semibold uppercase text-violet-700">
                 Edit Profile
               </h2>
 

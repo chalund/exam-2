@@ -36,7 +36,7 @@ const EditVenueLink = () => {
     <div style={{ position: "relative" }}>
       <button
         onClick={openModal}
-        className="uppercase text-violet-600 underline"
+        className="uppercase text-violet-700 underline"
       >
         Book your stay
       </button>
@@ -75,7 +75,7 @@ const EditVenueLink = () => {
             </span>
 
             <form onSubmit={handleEditVenueLink} className="">
-              <h2 className="mb-4 py-3 text-center text-lg font-bold uppercase text-violet-600">
+              <h2 className="mb-4 py-3 text-center text-lg font-bold uppercase text-violet-700">
                 Edit Search
               </h2>
               <div className="mb-3 flex items-center justify-between">
@@ -111,7 +111,7 @@ const EditVenueLink = () => {
               </div>
               <div className="flex justify-center">
                 <button
-                  className="my-5 w-44 rounded-xl bg-violet-600 py-2 text-lg uppercase text-white"
+                  className="my-5 w-44 rounded-xl bg-violet-700 py-2 text-lg uppercase text-white"
                   onClick={handleSave}
                 >
                   Save

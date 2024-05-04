@@ -8,7 +8,7 @@ import Search from "../../components/Search/searchBar/index.jsx";
 const ListOfVenuesPage = () => {
   return (
     <div className="mx-auto max-w-screen-lg">
-      <h1 className="py-4 text-center text-xl text-violet-600">
+      <h1 className="py-4 text-center text-xl text-violet-700">
         List of Venues
       </h1>
       <Search />

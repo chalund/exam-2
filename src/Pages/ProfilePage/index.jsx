@@ -66,7 +66,7 @@ const ProfilePage = () => {
               <p>{profileData.email}</p>
               <p>{profileData.bio}</p>
               <div className="flex items-center justify-center gap-1 py-2">
-                <p className="h-5 w-5 rounded-full bg-violet-600 "></p>
+                <p className="h-5 w-5 rounded-full bg-violet-700 "></p>
                 <p className="uppercase">
                   {profileData.venueManager ? "Venue Manager" : "Guest"}
                 </p>
@@ -83,13 +83,13 @@ const ProfilePage = () => {
 
       {profileData && profileData._count.bookings === 0 ? (
         <div className="mt-6 border bg-white py-6 md:rounded-xl">
-          <h2 className="ms-6 text-xl font-semibold uppercase text-violet-600 md:text-2xl">
+          <h2 className="ms-6 text-xl font-semibold uppercase text-violet-700 md:text-2xl">
             My bookings
           </h2>
           <p className="ms-6 mt-3 text-lg">No bookings available...</p>
           <div className="mt-1 flex items-center gap-1">
             <p className="ms-6">Find your next holiday</p>
-            <Link to="/listings" className="text-violet-600 underline">
+            <Link to="/listings" className="text-violet-700 underline">
               here
             </Link>
             <GoSmiley size={0} />
@@ -97,7 +97,7 @@ const ProfilePage = () => {
         </div>
       ) : (
         <div className="mt-6 border  border-black bg-white py-6  md:rounded-xl">
-          <h2 className="ms-6 text-xl font-semibold uppercase text-violet-600 md:text-2xl">
+          <h2 className="ms-6 text-xl font-semibold uppercase text-violet-700 md:text-2xl">
             My bookings
           </h2>
           {/* Render your bookings here */}

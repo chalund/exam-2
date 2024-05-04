@@ -51,7 +51,7 @@ const EditGuestForm = ({ onClose }) => {
           onClick={handleCloseButton}
           className="absolute right-0 top-0 mr-2 mt-2"
         />
-        <h1 className="py-2 text-center text-lg font-bold text-violet-600">
+        <h1 className="py-2 text-center text-lg font-bold text-violet-700">
           Edit guests
         </h1>
         <div className="flex justify-between py-1">
@@ -59,7 +59,7 @@ const EditGuestForm = ({ onClose }) => {
           <div>
             <button
               type="button"
-              className="rounded-full border border-violet-600 px-2"
+              className="rounded-full border border-violet-700 px-2"
               onClick={() => handleDecrement("adults")}
             >
               -
@@ -72,7 +72,7 @@ const EditGuestForm = ({ onClose }) => {
             />
             <button
               type="button"
-              className="rounded-full border border-violet-600 px-2"
+              className="rounded-full border border-violet-700 px-2"
               onClick={() => handleIncrement("adults")}
             >
               +
@@ -84,7 +84,7 @@ const EditGuestForm = ({ onClose }) => {
           <div>
             <button
               type="button"
-              className="rounded-full border border-violet-600 px-2"
+              className="rounded-full border border-violet-700 px-2"
               onClick={() => handleDecrement("children")}
             >
               -
@@ -97,7 +97,7 @@ const EditGuestForm = ({ onClose }) => {
             />
             <button
               type="button"
-              className="rounded-full border border-violet-600 px-2"
+              className="rounded-full border border-violet-700 px-2"
               onClick={() => handleIncrement("children")}
             >
               +
@@ -109,7 +109,7 @@ const EditGuestForm = ({ onClose }) => {
           <div>
             <button
               type="button"
-              className="rounded-full border border-violet-600 px-2"
+              className="rounded-full border border-violet-700 px-2"
               onClick={() => handleDecrement("rooms")}
             >
               -
@@ -122,14 +122,14 @@ const EditGuestForm = ({ onClose }) => {
             />
             <button
               type="button"
-              className="rounded-full border border-violet-600 px-2"
+              className="rounded-full border border-violet-700 px-2"
               onClick={() => handleIncrement("rooms")}
             >
               +
             </button>
           </div>
         </div>
-        <button className="mx-auto mt-4 block w-3/4 rounded-xl border bg-violet-600 py-2 text-white">
+        <button className="mx-auto mt-4 block w-3/4 rounded-xl border bg-violet-700 py-2 text-white">
           Save
         </button>
       </form>

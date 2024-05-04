@@ -14,26 +14,26 @@ const NavLinks = ({ isOpen }) => {
       {isOpen && isLoggedIn() && (
         <NavLink
           to="/profile"
-          className="mb-2 p-2 text-xl uppercase hover:bg-violet-600 hover:text-white md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-600"
+          className="mb-2 p-2 text-xl uppercase hover:bg-violet-700 hover:text-white md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700"
         >
           Profile
         </NavLink>
       )}
       <NavLink
         to="/"
-        className="mb-2 p-2 text-xl uppercase hover:bg-violet-600 hover:text-white md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-600"
+        className="mb-2 p-2 text-xl uppercase hover:bg-violet-700 hover:text-white md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700"
       >
         Home
       </NavLink>
       <NavLink
         to="/listings"
-        className="mb-2 p-2 text-xl  uppercase hover:bg-violet-600 hover:text-white md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-600"
+        className="mb-2 p-2 text-xl  uppercase hover:bg-violet-700 hover:text-white md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700"
       >
         Venues
       </NavLink>
       <NavLink
         to="/about"
-        className="p-2 text-xl  uppercase hover:bg-violet-600 hover:text-white  md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-600"
+        className="p-2 text-xl  uppercase hover:bg-violet-700 hover:text-white  md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700"
       >
         About
       </NavLink>
@@ -73,7 +73,7 @@ const Nav = () => {
           ) : (
             <NavLink
               to="/login"
-              className="mr-3 rounded-full bg-violet-600 px-4 py-2 font-semibold uppercase text-white md:mr-0"
+              className="mr-3 rounded-full bg-violet-700 px-4 py-2 font-semibold uppercase text-white md:mr-0"
             >
               Login
             </NavLink>

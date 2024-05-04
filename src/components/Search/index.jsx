@@ -22,7 +22,7 @@ const EditYourSearch = () => {
               size={30}
               className="absolute right-0 top-0 mr-2 mt-2 cursor-pointer"
             />
-            <h1 className="text-center text-lg font-bold text-violet-600">
+            <h1 className="text-center text-lg font-bold text-violet-700">
               Edit your search
             </h1>
 
@@ -48,7 +48,7 @@ const EditYourSearch = () => {
               />
             </div>
 
-            <button className="mx-auto mt-4 block w-3/4 rounded-xl border bg-violet-600 py-2 text-white">
+            <button className="mx-auto mt-4 block w-3/4 rounded-xl border bg-violet-700 py-2 text-white">
               Save
             </button>
           </form>

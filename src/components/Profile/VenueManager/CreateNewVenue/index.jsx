@@ -158,7 +158,7 @@ const CreateNewVenueForm = () => {
             </span>
 
             <form onSubmit={handleCreateNewVenueForm}>
-              <h2 className=" mb-2 text-center text-xl font-semibold uppercase text-violet-600">
+              <h2 className=" mb-2 text-center text-xl font-semibold uppercase text-violet-700">
                 Create new venue
               </h2>
               <div>
@@ -291,7 +291,7 @@ const CreateNewVenueForm = () => {
                   </div>
                 </div>
 
-                <h3 className="mb-2 text-lg font-semibold uppercase text-violet-600">
+                <h3 className="mb-2 text-lg font-semibold uppercase text-violet-700">
                   Location
                 </h3>
                 <div className="mb-4 flex items-center">
