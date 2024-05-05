@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import StarRate from "../../components/StarRating";
 import formatDate from "../../components/DateFormatter";
 import EditVenueLink from "../../components/Search/searchMobile";
+import BookingForm from "../../components/BookingForm";
 
 const VenueDetailsPage = () => {
   const { id } = useParams();
@@ -190,10 +191,12 @@ const VenueDetailsPage = () => {
             </div>
           </div>
 
-          <div className="hidden grid-cols-6 p-2 md:block">
+          <div className="hidden grid-cols-6 p-2 md:block ">
             <div className="mt-6 rounded-xl border bg-white p-4">
-              <p className="mb-4">${price} per night</p>
-              <form action="">
+      
+              <BookingForm price={price} />
+              
+              {/* <form action="">
                 <div className="">
                   <div className="flex">
                     <input
@@ -226,7 +229,7 @@ const VenueDetailsPage = () => {
                   <p>total</p>
                   <p>$8888</p>
                 </div>
-              </form>
+              </form> */}
             </div>
 
             <div className="mt-3 hidden py-4 md:block">
