@@ -90,7 +90,8 @@ const VenueDetailsPage = () => {
                   className="h-full max-h-[300px] w-full  md:rounded-xl"
                 />
                 {media.length > 1 && (
-                  <button className="absolute bottom-6 right-4 rounded-lg bg-orange-300 px-3 py-2 text-sm uppercase">
+                  <button className="mb-5 rounded-full bg-gradient-to-r  text-violet-700 py-2 font-semibold uppercase hover:from-orange-300 hover:to-orange-500 hover:text-white
+                   absolute bottom-1 right-4  bg-white px-3 text-sm ">
                     <Link to={`/venue/images/${id}`}>View all</Link>
                   </button>
                 )}
@@ -196,40 +197,7 @@ const VenueDetailsPage = () => {
       
               <BookingForm price={price} />
               
-              {/* <form action="">
-                <div className="">
-                  <div className="flex">
-                    <input
-                      type="text"
-                      placeholder="check-in"
-                      className="h-10 w-1/2 rounded-tl-xl border pl-2 text-sm uppercase focus:outline-none"
-                    />
-                    <input
-                      type="text"
-                      placeholder="check-out"
-                      className="h-10  w-1/2 rounded-tr-xl border pl-2 text-sm uppercase focus:outline-none"
-                    />
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Guests"
-                    className="h-10  w-full rounded-b-xl border pl-2 text-sm uppercase focus:outline-none"
-                  />
-                </div>
-                <div className="mt-4 flex justify-center">
-                  <button className="mb-5  w-full rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-8 py-2 font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white">
-                    Book now
-                  </button>
-                </div>
-                <div className="mr-3 flex justify-between border-b pb-2">
-                  <p>${price} x SELECTED NIGHTS</p>
-                  <p>$total</p>
-                </div>
-                <div className="mr-3 mt-4 flex justify-between font-bold">
-                  <p>total</p>
-                  <p>$8888</p>
-                </div>
-              </form> */}
+        
             </div>
 
             <div className="mt-3 hidden py-4 md:block">

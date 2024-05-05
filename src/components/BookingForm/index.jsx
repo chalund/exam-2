@@ -25,11 +25,10 @@ const BookingForm = ({ price }) => {
     const days = calculateDays();
     const pricePerDay = price || 1; // Set default price per day to 1 if no price is provided or if price is falsy
     const totalPrice = pricePerDay * days; // Calculate total price based on price per day
-  
+
     // If days is 0, set total price to price per day
     setTotal(days === 0 ? pricePerDay : totalPrice);
   };
-  
 
   return (
     <div className="m-5">
@@ -57,28 +56,32 @@ const BookingForm = ({ price }) => {
           </div>
         </div>
         <div className="relative">
-  <input
-    type="number"
-    placeholder="Guests"
-    value={guests}
-    onChange={(e) => setGuests(e.target.value)}
-    min={1}
-    className="h-10 w-full rounded-xl border  pl-6 pr-4 focus:outline-none"
-  />
-  <span className="absolute inset-y-0 left-10 flex items-center pr-2 text-gray-500">Guest(s)</span>
-</div>
+          <input
+            type="number"
+            placeholder="Guests"
+            value={guests}
+            onChange={(e) => setGuests(e.target.value)}
+            min={1}
+            className="h-10 w-full rounded-xl border  pl-6 pr-4 focus:outline-none"
+          />
+          <span className="absolute inset-y-0 left-10 flex items-center pr-2 text-gray-500">
+            Guest(s)
+          </span>
+        </div>
         <div className="mt-4 flex justify-center">
           <button
             type="submit"
-            className="mb-5  w-full rounded-full bg-gradient-to-t from-violet-500 to-violet-700 text-white px-8 py-2 font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white"
+            className="mb-5  w-full rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-8 py-2 font-semibold uppercase text-white hover:from-orange-400 hover:to-orange-500 hover:text-white"
           >
             Book now
           </button>
         </div>
       </form>
       <div className="mr-3 flex justify-between border-b pb-2">
-      <p>${price} per day x {calculateDays() ? `${calculateDays()} days` : '1 day'}</p>
-
+        <p>
+          ${price} per day x{" "}
+          {calculateDays() ? `${calculateDays()} days` : "1 day"}
+        </p>
 
         <p>${total}</p>
       </div>

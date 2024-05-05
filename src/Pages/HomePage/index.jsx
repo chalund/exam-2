@@ -11,6 +11,7 @@ import { IoCalendarNumberOutline } from "react-icons/io5";
 import { BsCurrencyDollar } from "react-icons/bs";
 import Spinner from "../../components/Spinner/Loader";
 
+
 const HomePage = () => {
   const { data, loading, error } = useFetch(BASE_URL + Venues);
 
@@ -30,6 +31,9 @@ const HomePage = () => {
   if (error) {
     return <div>Error fetching data: {error.message}</div>;
   }
+
+
+
 
   return (
     <div className="mx-auto max-w-screen-md">
@@ -55,6 +59,9 @@ const HomePage = () => {
       </button>
   </div>
 </div>
+
+
+
 
 
       <div className="my-12 flex overflow-auto">

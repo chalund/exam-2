@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
+
+
 const ProductCard = ({ venues }) => {
   return (
     <div className="m-2 mx-auto grid max-w-screen-lg grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4">
