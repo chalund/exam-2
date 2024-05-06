@@ -2,34 +2,50 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import NoImage from "../../assets/no_image.jpg"
+import StarRatingCard from "../StarRating/StarRatingCards";
 
 
 
 const ProductCard = ({ venues }) => {
   return (
-    <div className="m-2 mx-auto grid max-w-screen-lg grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4">
+    <div className=" mx-auto grid max-w-screen-lg grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3">
       {venues.map((venue) => (
         <Link to={`/venue/${venue.id}`} key={venue.id} className="block ">
           <div className="m-4 mx-auto max-w-[300px] flex h-full min-w-min flex-col justify-between rounded-lg border bg-white p-4 hover:border-4 hover:border-violet-700">
           {venue.media && venue.media.length > 0 ? (
-  <div className="block h-32 w-full sm:h-48">
-    <img
-      src={venue.media[0].url}
-      alt={venue.media[0].alt}
-      className="h-full w-full rounded-lg object-cover"
-      onError={(e) => {
-        e.target.onerror = null; // Prevent infinite loop
-        e.target.src = NoImage; // Set placeholder image
-      }}
-    />
-  </div>
+  <div className="block relative h-32 w-full sm:h-48">
+  <img
+    src={venue.media[0].url}
+    alt={venue.media[0].alt}
+    className="h-full w-full rounded-lg object-cover"
+    onError={(e) => {
+      e.target.onerror = null; // Prevent infinite loop
+      e.target.src = NoImage; // Set placeholder image
+    }}
+  />
+  
+  {/* Rating component */}
+  {venue.rating > 0 && (
+    <div className="absolute top-2 left-2">
+      <StarRatingCard rating={venue.rating} size={20} />
+    </div>
+  )}
+</div>
+
 ) : (
+  <div className="block h-32 w-full sm:h-48">
   <img
     src={NoImage}
     alt="No Image"
-    className="h-full max-h-[300px] w-full md:rounded-xl"
+    className="h-full max-h-[300px] w-full md:rounded-xl border"
   />
+  </div>
 )}
+
+
+
+
+
 
 
             <div>

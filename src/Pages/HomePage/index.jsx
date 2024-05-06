@@ -10,13 +10,16 @@ import { BiSearch } from "react-icons/bi";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import { BsCurrencyDollar } from "react-icons/bs";
 import Spinner from "../../components/Spinner/Loader";
+import ProductCard from "../../components/card";
+import LastTreeCards from "../../components/lastTreeCards";
+
 
 
 const HomePage = () => {
   const { data, loading, error } = useFetch(BASE_URL + Venues);
 
   // Log the data, loading, and error states to check if they are being set correctly
-  // console.log("Data:", data);
+  console.log("Data homepage:", data);
   // console.log("Loading:", loading);
   // console.log("Error:", error);
 
@@ -28,9 +31,27 @@ const HomePage = () => {
     );
   }
 
-  if (error) {
-    return <div>Error fetching data: {error.message}</div>;
-  }
+  // if (!Array.isArray(data.data) || data.data.length === 0) {
+  //   // Handle the case where data.data is not an array or is empty
+  //   return <div>Error: Data is not in the expected format or is empty</div>;
+  // }
+  
+  
+  
+  // // Sort the array of venues based on the created timestamp
+  // const sortedData = data.data.sort((a, b) => {
+  //   return new Date(b.created) - new Date(a.created);
+  // });
+
+  // console.log("sorted date" ,sortedData)
+  
+  // // Get the first three newest venues
+  // const newestVenues = sortedData.slice(0, 3);
+
+  // console.log("newest venues " ,newestVenues)
+  
+
+
 
 
 
@@ -59,6 +80,11 @@ const HomePage = () => {
       </button>
   </div>
 </div>
+
+<LastTreeCards />
+
+
+
 
 
 

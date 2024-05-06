@@ -7,9 +7,11 @@ import VenuesBookings from "../../components/Profile/VenueManager/VenuesBookings
 import { Link } from "react-router-dom";
 import { GoSmiley } from "react-icons/go";
 import { getProfile } from "../../components/API/Profile/getProfile";
+import Spinner from "../../components/Spinner/Loader";
 
 const ProfilePage = () => {
-  const [profileData, setProfileData] = useState("");
+  const [profileData, setProfileData] = useState(null); // Initialize with null
+  const [isLoading, setIsLoading] = useState(true); // Loading state
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -27,6 +29,7 @@ const ProfilePage = () => {
         const profile = await getProfile(username, apiKey);
         console.log("Profile data Profile page:", profile); // Add this line to check profileData
         setProfileData(profile.data);
+        setIsLoading(false); // Set loading to false when data is fetched
       } catch (error) {
         console.error("Error fetching profile:", error);
         // Handle error
@@ -35,6 +38,15 @@ const ProfilePage = () => {
 
     fetchProfile();
   }, []);
+
+  if (isLoading) {
+    // Show loading spinner or message
+    return (
+      <div className="text-center text-2xl">
+        <Spinner />
+      </div>
+    );
+  }
 
   const handleEditProfileClick = () => {
     console.log("Edit profile button clicked");

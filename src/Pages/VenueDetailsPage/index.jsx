@@ -19,6 +19,7 @@ import BookingForm from "../../components/BookingForm";
 import NoImage from "../../assets/no_image.jpg"
 import Spinner from "../../components/Spinner/Loader";
 
+
 const VenueDetailsPage = () => {
   const { id } = useParams();
   const { data, loading, error } = useFetch(
@@ -110,11 +111,13 @@ const VenueDetailsPage = () => {
           </div>
         )}
         {!media || media.length === 0 && (
+          <div className="relative col-span-2 flex items-center md:col-span-4">
           <img
             src={NoImage}
             alt="No Image"
-            className="mx-auto max-h-[300px]  md:rounded-xl"
+            className="mx-auto max-h-[300px]  md:rounded-xl border"
           />
+          </div>
         )}
         
 
@@ -130,6 +133,7 @@ const VenueDetailsPage = () => {
                 )}
               </div>
             </div>
+      
 
             <div className="flex items-center gap-1 md:hidden">
               <IoCalendarNumberOutline />
