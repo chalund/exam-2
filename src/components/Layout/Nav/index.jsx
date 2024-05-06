@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { HiOutlineMenu } from "react-icons/hi";
 import { IoClose, IoConstructOutline } from "react-icons/io5";
 
@@ -7,39 +7,51 @@ export function isLoggedIn() {
   const userToken = localStorage.getItem("accessToken");
   return !!userToken;
 }
-
 const NavLinks = ({ isOpen }) => {
+  const { pathname } = useLocation();
+
+  // Function to determine if a NavLink should be active
+  const isActiveNavLink = (path) => {
+    return pathname === path ? "text-violet-700 font-bold" : "text-black";
+  };
+
+  console.log(pathname)
+
   return (
     <>
       {isOpen && isLoggedIn() && (
         <NavLink
           to="/profile"
-          className="mb-2 p-2 text-xl uppercase hover:bg-violet-700 hover:text-white md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700"
+          className={`mb-2 p-2 text-xl uppercase md:text-lg md:px-4 hover:bg-violet-700 hover:text-white md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700 ${isActiveNavLink("/profile")}`}
         >
           Profile
         </NavLink>
       )}
-      <NavLink
-        to="/"
-        className="mb-2 p-2 text-xl uppercase hover:bg-violet-700 hover:text-white md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700"
-      >
-        Home
-      </NavLink>
-      <NavLink
-        to="/listings"
-        className="mb-2 p-2 text-xl  uppercase hover:bg-violet-700 hover:text-white md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700"
-      >
-        Venues
-      </NavLink>
+<NavLink
+  to="/"
+  className={`mb-2 p-2 text-xl uppercase md:text-lg md:px-4 hover:bg-violet-700 hover:text-white md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700 ${isActiveNavLink("/")}`}
+  exact="true"
+>
+  Home
+</NavLink>
+
+<NavLink
+  to="/listings"
+  className={`mb-2 p-2 text-xl uppercase md:text-lg md:px-4 hover:bg-violet-700 hover:text-white md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700 ${isActiveNavLink("/listings")}`}
+>
+  Venues
+</NavLink>
+
       <NavLink
         to="/about"
-        className="p-2 text-xl  uppercase hover:bg-violet-700 hover:text-white  md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700"
+        className={`p-2 text-xl uppercase md:text-lg md:px-4 hover:bg-violet-700 hover:text-white md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700 ${isActiveNavLink("/about")}`}
       >
         About
       </NavLink>
     </>
   );
 };
+
 
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,8 +65,7 @@ const Nav = () => {
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     navigate("/");
-    window.location.reload()
-    
+    window.location.reload();
   };
 
   return (

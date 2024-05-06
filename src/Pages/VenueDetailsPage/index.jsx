@@ -17,6 +17,7 @@ import formatDate from "../../components/DateFormatter";
 import EditVenueLink from "../../components/Search/searchMobile";
 import BookingForm from "../../components/BookingForm";
 import NoImage from "../../assets/no_image.jpg"
+import Spinner from "../../components/Spinner/Loader";
 
 const VenueDetailsPage = () => {
   const { id } = useParams();
@@ -27,8 +28,13 @@ const VenueDetailsPage = () => {
 
   useEffect(() => {}, []);
 
+
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="text-center text-2xl">
+        <Spinner />
+      </div>
+    );
   }
 
   if (error) {

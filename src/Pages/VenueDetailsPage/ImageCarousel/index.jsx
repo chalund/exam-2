@@ -3,6 +3,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { BASE_URL } from "../../../components/API";
 import { useFetch } from "../../../components/Hooks/useFetch";
 import { useState } from "react";
+import Spinner from "../../../components/Spinner/Loader";
 
 const VenueImages = () => {
   const { id } = useParams();
@@ -11,7 +12,11 @@ const VenueImages = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="text-center text-2xl">
+        <Spinner />
+      </div>
+    );
   }
 
   if (error) {
