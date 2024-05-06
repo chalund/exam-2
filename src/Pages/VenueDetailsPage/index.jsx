@@ -16,6 +16,7 @@ import StarRate from "../../components/StarRating";
 import formatDate from "../../components/DateFormatter";
 import EditVenueLink from "../../components/Search/searchMobile";
 import BookingForm from "../../components/BookingForm";
+import NoImage from "../../assets/no_image.jpg"
 
 const VenueDetailsPage = () => {
   const { id } = useParams();
@@ -72,14 +73,18 @@ const VenueDetailsPage = () => {
       </div>
 
       <div className="py-4 md:px-6">
-        {media && media.length > 0 && (
-          <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-6 ">
+      {media && media.length > 0 && (
+          <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-6">
             {media.length === 1 ? (
               <div className="col-span-2 flex items-center md:col-span-4">
                 <img
                   src={media[0].url}
                   alt={`Image 1`}
-                  className="h-full max-h-[300px] w-full  md:rounded-xl"
+                  className="h-full max-h-[300px] w-full md:rounded-xl"
+                  onError={(e) => {
+                    e.target.onerror = null; // Prevent infinite loop
+                    e.target.src = NoImage; // Set placeholder image
+                  }}
                 />
               </div>
             ) : (
@@ -87,11 +92,10 @@ const VenueDetailsPage = () => {
                 <img
                   src={media[0].url}
                   alt={`Image 1`}
-                  className="h-full max-h-[300px] w-full  md:rounded-xl"
+                  className="h-full max-h-[300px] w-full md:rounded-xl"
                 />
                 {media.length > 1 && (
-                  <button className="mb-5 rounded-full bg-gradient-to-r  text-violet-700 py-2 font-semibold uppercase hover:from-orange-300 hover:to-orange-500 hover:text-white
-                   absolute bottom-1 right-4  bg-white px-3 text-sm ">
+                  <button className="mb-5 rounded-full bg-gradient-to-r text-violet-700 py-2 font-semibold uppercase hover:from-orange-300 hover:to-orange-500 hover:text-white absolute bottom-1 right-4 bg-white px-3 text-sm">
                     <Link to={`/venue/images/${id}`}>View all</Link>
                   </button>
                 )}
@@ -99,11 +103,19 @@ const VenueDetailsPage = () => {
             )}
           </div>
         )}
+        {!media || media.length === 0 && (
+          <img
+            src={NoImage}
+            alt="No Image"
+            className="mx-auto max-h-[300px]  md:rounded-xl"
+          />
+        )}
+        
 
         <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="m-4 mt-4">
             <div className="flex gap-3">
-              <h1 className="text-lg font-bold">{name}</h1>
+              <h1 className="text-lg font-bold truncate">{name}</h1>
               <div className="flex items-center py-1">
                 {rating ? (
                   <StarRate rating={rating} size={20} />
@@ -121,7 +133,7 @@ const VenueDetailsPage = () => {
 
             <p className="mt-5 font-semibold">Description</p>
             <p>{description}</p>
-            <div className="mt-1 flex items-center gap-1">
+            <div className="mt-1 flex items-center gap-1 truncate">
               <FaBed size={20} />
               <p>{maxGuests} Guests</p>
             </div>
@@ -160,11 +172,11 @@ const VenueDetailsPage = () => {
               </p>
             </div>
 
-            <div className="py-4">
+            <div className="py-4 ">
               <p className="font-semibold">Location</p>
-              <p>Address: {location.address}</p>
-              <p>City: {location.city}</p>
-              <p>Country: {location.country}</p>
+              <p className="truncate">Address: {location.address}</p>
+              <p className="truncate">City: {location.city}</p>
+              <p className="truncate">Country: {location.country}</p>
             </div>
 
             <div className="max-w-sm py-4 md:hidden">

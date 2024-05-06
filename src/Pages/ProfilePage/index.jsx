@@ -113,7 +113,7 @@ const ProfilePage = () => {
       {profileData &&
         profileData.venueManager &&
         profileData.venues.length > 0 && (
-          <div className="my-6 border bg-white py-6  md:rounded-xl">
+          <div className="my-6 border bg-white py-6  md:rounded-xl md:mb-12">
             <VenuesBookings />
           </div>
         )}

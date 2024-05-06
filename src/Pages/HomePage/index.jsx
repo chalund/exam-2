@@ -16,9 +16,9 @@ const HomePage = () => {
   const { data, loading, error } = useFetch(BASE_URL + Venues);
 
   // Log the data, loading, and error states to check if they are being set correctly
-  console.log("Data:", data);
-  console.log("Loading:", loading);
-  console.log("Error:", error);
+  // console.log("Data:", data);
+  // console.log("Loading:", loading);
+  // console.log("Error:", error);
 
   if (loading) {
     return (
