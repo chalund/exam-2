@@ -18,6 +18,7 @@ import EditVenueLink from "../../components/Search/searchMobile";
 import BookingForm from "../../components/BookingForm";
 import NoImage from "../../assets/no_image.jpg"
 import Spinner from "../../components/Spinner/Loader";
+import VenueBookings from "../../components/Booking";
 
 
 const VenueDetailsPage = () => {
@@ -72,6 +73,13 @@ const VenueDetailsPage = () => {
 
   return (
     <div className="mx-auto max-w-screen-md rounded-xl border bg-white md:my-6">
+
+
+
+
+
+
+
       <div className="ms-2 mt-4 flex items-center gap-2">
         <FaArrowLeft />
         <Link to={`/listings`} className="underline">
@@ -217,7 +225,8 @@ const VenueDetailsPage = () => {
           <div className="hidden grid-cols-6 p-2 md:block ">
             <div className="mt-6 rounded-xl border bg-white p-4">
       
-              <BookingForm price={price} />
+            <BookingForm price={price} venueId={id} />
+
               
         
             </div>

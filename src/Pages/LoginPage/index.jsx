@@ -20,7 +20,7 @@ const LoginPage = () => {
 
   const onLoginFormSubmit = async (event) => {
     event.preventDefault();
-    console.log("login form submitted");
+
 
     try {
       const data = await loginUser(email, password);

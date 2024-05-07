@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { createApiKey } from "../API/ApiKey";
+import { createBooking } from "../API/Bookings/createBookings";
 
-const BookingForm = ({ price }) => {
+const BookingForm = ({ price, venueId }) => {
   // State variables to manage form inputs and total price
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -13,21 +15,52 @@ const BookingForm = ({ price }) => {
     const start = startDate.getTime();
     const end = endDate.getTime();
     const dayDifference = Math.ceil((end - start) / (1000 * 60 * 60 * 24)); // Calculate day difference
-    console.log("Start Date:", startDate);
-    console.log("End Date:", endDate);
-    console.log("Number of Guests:", guests);
-    console.log("Day Difference:", dayDifference);
     return dayDifference;
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault(); // Prevent default form submission behavior
     const days = calculateDays();
     const pricePerDay = price || 1; // Set default price per day to 1 if no price is provided or if price is falsy
     const totalPrice = pricePerDay * days; // Calculate total price based on price per day
 
+
+    const newVenueId = venueId ? (venueId.startsWith("/venue/") ? venueId.substring(7) : venueId) : '';
+
+    const newData = {
+      dateFrom: startDate.toISOString(),
+      dateTo: endDate.toISOString(),
+      guests,
+      venueId: newVenueId,
+    }
+
+console.log(newVenueId)
+
+
+ 
+
+    try {
+      const apiKeyData = await createApiKey("User profile key");
+      const apiKey = apiKeyData.data.key;
+
+      await createBooking(newData, apiKey);
+      console.log("Booking successful");
+      console.log(newData);
+    } catch (error) {
+      console.error("Error creating booking:", error);
+      // Handle error
+    }
+
     // If days is 0, set total price to price per day
     setTotal(days === 0 ? pricePerDay : totalPrice);
+    console.log(
+      "Form submitted - Guests:",
+      guests,
+      "Start Date:",
+      startDate,
+      "End Date:",
+      endDate,
+    );
   };
 
   return (
@@ -51,6 +84,7 @@ const BookingForm = ({ price }) => {
                 showIcon
                 selected={endDate}
                 onChange={(date) => setEndDate(date)}
+                minDate={startDate} // Disable dates before the selected check-in date
               />
             </div>
           </div>
@@ -82,7 +116,6 @@ const BookingForm = ({ price }) => {
           ${price} per day x{" "}
           {calculateDays() ? `${calculateDays()} days` : "1 day"}
         </p>
-
         <p>${total}</p>
       </div>
       <div className="mr-3 mt-4 flex justify-between font-bold">

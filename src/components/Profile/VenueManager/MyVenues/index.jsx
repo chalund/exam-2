@@ -105,9 +105,13 @@ const MyVenues = () => {
                 <div className="sm:ml-auto sm:mr-12 sm:flex sm:items-end">
                   {" "}
                   {/* Add ml-auto to push buttons to the end */}
-                  <button className="mb-2 mr-2 h-8 w-24 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-4 py-2 text-xs font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white">
+                 <Link to={`/venue/bookings/${venue.id}`}>
+                  <button
+                  
+                   className="mb-2 mr-2 h-8 w-24 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-4 py-2 text-xs font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white">
                     Edit
                   </button>
+                  </Link>
                   <button
                     onClick={() => handleDeleteVenue(venue.id)}
                     className="mb-2 h-8 w-24 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-4 py-2 text-xs font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white"

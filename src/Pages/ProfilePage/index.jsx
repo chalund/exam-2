@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { GoSmiley } from "react-icons/go";
 import { getProfile } from "../../components/API/Profile/getProfile";
 import Spinner from "../../components/Spinner/Loader";
+import formatDate from "../../components/DateFormatter";
 
 const ProfilePage = () => {
   const [profileData, setProfileData] = useState(null); // Initialize with null
@@ -108,12 +109,32 @@ const ProfilePage = () => {
           </div>
         </div>
       ) : (
-        <div className="mt-6 border  border-black bg-white py-6  md:rounded-xl">
-          <h2 className="ms-6 text-xl font-semibold uppercase text-violet-700 md:text-2xl">
-            My bookings
-          </h2>
-          {/* Render your bookings here */}
-        </div>
+        <div className="mt-6 border bg-white py-6 md:rounded-xl">
+        <h2 className="ms-6 text-xl font-semibold uppercase text-violet-700 md:text-2xl">
+          My bookings
+        </h2>
+        {profileData && profileData.bookings.length > 0 ? (
+          <ul >
+            {profileData.bookings.map((booking) => (
+              <li key={booking.id} className="border m-2 gap-2 flex">
+                {/* <img src={booking.venue.media[0].url} alt="" className="h-20 w-20" /> */}
+                <p>{booking.venue.name }</p>
+              <div>
+              <p>Date From: {formatDate(booking.dateFrom)}</p>
+                <p>Date To: {formatDate(booking.dateTo)}</p>
+              
+                <p>Number of Guests: {booking.guests}</p>
+                <p>price per night{booking.venue.price}</p>
+              </div>
+          
+                {/* Render other booking details as needed */}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No bookings available.</p>
+        )}
+      </div>
       )}
 
       {profileData && profileData.venueManager && (
@@ -122,13 +143,13 @@ const ProfilePage = () => {
         </div>
       )}
 
-      {profileData &&
+      {/* {profileData &&
         profileData.venueManager &&
         profileData.venues.length > 0 && (
           <div className="my-6 border bg-white py-6  md:rounded-xl md:mb-12">
             <VenuesBookings />
           </div>
-        )}
+        )} */}
     </div>
   );
 };
