@@ -1,31 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { updateProfile } from "../../API/Profile/updateUser";
 import { createApiKey } from "../../API/ApiKey";
+import { getProfile } from "../../API/Profile/getProfile";
 import { IoCloseOutline } from "react-icons/io5";
 
 const EditProfileForm = () => {
   const [avatarUrl, setAvatarUrl] = useState("");
-  const [avatarSrc, setAvatarSrc] = useState("");
+  const [avatarAlt, setAvatarAlt] = useState("");
   const [bannerUrl, setBannerUrl] = useState("");
-  const [bannerSrc, setBannerSrc] = useState("");
+  const [bannerAlt, setBannerAlt] = useState("");
   const [bio, setBio] = useState("");
   const [userType, setUserType] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [originalBio, setOriginalBio] = useState("");
 
   const handleClearAvatarUrl = () => {
     setAvatarUrl("");
   };
 
-  const handleClearAvatarSrc = () => {
-    setAvatarSrc("");
+  const handleClearAvatarAlt = () => {
+    setAvatarAlt("");
   };
 
   const handleClearBannerUrl = () => {
     setBannerUrl("");
   };
 
-  const handleClearBannerSrc = () => {
-    setBannerSrc("");
+  const handleClearBannerAlt = () => {
+    setBannerAlt("");
   };
 
   const handleClearBio = () => {
@@ -36,20 +38,20 @@ const EditProfileForm = () => {
     e.preventDefault();
 
     let newData = {
-      bio,
+      bio: bio !== "" ? bio : originalBio,
       userType,
     };
 
     if (avatarUrl.trim() !== "") {
       newData.avatar = { url: avatarUrl };
-      if (avatarSrc.trim() !== "") {
-        newData.avatar.src = avatarSrc;
+      if (avatarAlt.trim() !== "") {
+        newData.avatar.alt = avatarAlt;
       }
     }
     if (bannerUrl.trim() !== "") {
       newData.banner = { url: bannerUrl };
-      if (bannerSrc.trim() !== "") {
-        newData.banner.src = bannerSrc;
+      if (bannerAlt.trim() !== "") {
+        newData.banner.alt = bannerAlt;
       }
     }
 
@@ -73,8 +75,24 @@ const EditProfileForm = () => {
     }
   };
 
-  const openModal = () => {
-    setIsModalOpen(true);
+  const openModal = async () => {
+    try {
+      const username = localStorage.getItem("username");
+      if (!username) {
+        throw new Error("Username not found in local storage");
+      }
+
+      const apiKeyData = await createApiKey("User profile key");
+      const apiKey = apiKeyData.data.key;
+      const profile = await getProfile(username, apiKey);
+
+      setOriginalBio(profile.data.bio);
+      setBio(profile.data.bio); // Set the bio to the current value from the profile
+
+      setIsModalOpen(true);
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+    }
   };
 
   const closeModal = () => {
@@ -151,16 +169,16 @@ const EditProfileForm = () => {
                 </div>
                 <div className="relative mb-4 flex items-center text-lg">
                   <input
-                    value={avatarSrc}
-                    onChange={(e) => setAvatarSrc(e.target.value)}
+                    value={avatarAlt}
+                    onChange={(e) => setAvatarAlt(e.target.value)}
                     type="text"
-                    name="avatarText"
-                    placeholder="Avatar Text..."
+                    name="avatarAlt"
+                    placeholder="Avatar Alt Text..."
                     className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none"
                   />
                   <IoCloseOutline
                     size={30}
-                    onClick={handleClearAvatarSrc}
+                    onClick={handleClearAvatarAlt}
                     className="absolute right-0 top-0 mr-3 mt-2 cursor-pointer text-gray-800"
                   />
                 </div>
@@ -181,16 +199,16 @@ const EditProfileForm = () => {
                 </div>
                 <div className=" relative mb-4 flex items-center text-lg">
                   <input
-                    value={bannerSrc}
-                    onChange={(e) => setBannerSrc(e.target.value)}
+                    value={bannerAlt}
+                    onChange={(e) => setBannerAlt(e.target.value)}
                     type="text"
-                    name="bannerText"
-                    placeholder="Banner Text..."
+                    name="bannerAlt"
+                    placeholder="Banner Alt Text..."
                     className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none"
                   />
                   <IoCloseOutline
                     size={30}
-                    onClick={handleClearBannerSrc}
+                    onClick={handleClearBannerAlt}
                     className="absolute right-0 top-0 mr-3 mt-2 cursor-pointer text-gray-800"
                   />
                 </div>
