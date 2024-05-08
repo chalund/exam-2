@@ -20,7 +20,7 @@ export default function Search() {
   if (loading) {
     return (
       <div className="text-center text-2xl">
-        <Spinner/>
+        <Spinner />
       </div>
     );
   }

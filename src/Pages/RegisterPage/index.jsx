@@ -206,7 +206,7 @@ const RegisterPage = () => {
           {loggedIn && (
             <div className="mt-3">
               <p>Registration was successful!! Please login:</p>
-              <button className="mt-2 w-full rounded-xl bg-gradient-to-t from-violet-400 to-violet-700 p-2 font-medium uppercase text-black text-white">
+              <button className="mt-2 w-full rounded-xl bg-gradient-to-t from-violet-400 to-violet-700 p-2 font-medium uppercase text-black">
                 <Link to="/login">Login</Link>
               </button>
             </div>

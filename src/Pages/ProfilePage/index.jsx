@@ -1,6 +1,3 @@
-
-
-
 import EditProfileButton from "../../components/Profile/EditProfile";
 import MyVenues from "../../components/Profile/VenueManager/MyVenues";
 
@@ -92,19 +89,19 @@ const ProfilePage = () => {
         </div>
       ) : (
         <div className="mt-6 border bg-white py-6 md:rounded-xl">
-          <div className="flex gap-4 items-baseline">
+          <div className="flex items-baseline gap-4">
             <h2 className="ms-6 text-xl font-semibold uppercase text-violet-700 md:text-2xl">
-              My bookings 
+              My bookings
             </h2>
             <p>({profileData._count.bookings} bookings available)</p>
           </div>
-      
+
           {profileData && sortedBookings.length > 0 ? (
             <ul>
               {sortedBookings.map((booking) => (
-                <li key={booking.id} className="border m-2 gap-2 flex">
+                <li key={booking.id} className="m-2 flex gap-2 border">
                   {/* <img src={booking.venue.media[0].url} alt="" className="h-20 w-20" /> */}
-                  <p>{booking.venue.name }</p>
+                  <p>{booking.venue.name}</p>
                   <div>
                     <p>Date From: {formatDate(booking.dateFrom)}</p>
                     <p>Date To: {formatDate(booking.dateTo)}</p>

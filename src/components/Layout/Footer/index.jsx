@@ -14,72 +14,70 @@ export function isLoggedIn() {
 const Footer = () => {
   return (
     <div className="bg-zinc-700 p-6 text-white">
-      <div className="flex md:flex-row justify-evenly md:justify-between items-center">
-        <div className="flex flex-col w-1/4 items-center">
+      <div className="flex items-center justify-evenly md:flex-row md:justify-between">
+        <div className="flex w-1/4 flex-col items-center">
           <Logo colorClass="text-violet-400" />
-          <div className="flex gap-3 mt-2">
+          <div className="mt-2 flex gap-3">
             <FaFacebook size={24} />
             <FaInstagram size={24} />
             <FaSnapchat size={24} />
           </div>
         </div>
 
-        <div className="text-center flex-3">
-          <ul className="flex flex-col text-start md:flex-row md:gap-6 gap-2 uppercase text-xl">
-          {isLoggedIn() ? (
+        <div className="flex-3 text-center">
+          <ul className="flex flex-col gap-2 text-start text-xl uppercase md:flex-row md:gap-6">
+            {isLoggedIn() ? (
               <NavLink
                 to="/profile"
-                className="hover:text-violet-400 hover:font-bold"
+                className="hover:font-bold hover:text-violet-400"
               >
                 Profile
               </NavLink>
             ) : (
               <NavLink
                 to="/login"
-                className="hover:text-violet-400 hover:font-bold"
+                className="hover:font-bold hover:text-violet-400"
               >
                 Login
               </NavLink>
-    )}
-            <NavLink to="/" className="hover:text-violet-400 hover:font-bold">
+            )}
+            <NavLink to="/" className="hover:font-bold hover:text-violet-400">
               Home
             </NavLink>
             <NavLink
               to="/listings"
-              className="hover:text-violet-400 hover:font-bold"
+              className="hover:font-bold hover:text-violet-400"
             >
               Listings
             </NavLink>
             <NavLink
               to="/about"
-              className="hover:text-violet-400 hover:font-bold"
+              className="hover:font-bold hover:text-violet-400"
             >
               About
             </NavLink>
-      
-        
           </ul>
         </div>
 
-        <div className="hidden md:flex flex-col justify-center w-1/4">
+        <div className="hidden w-1/4 flex-col justify-center md:flex">
           {/* Flex container for Subscribe */}
           <p className="text-sm uppercase">Subscribe to Holidaze</p>
-          <form action="" className="flex gap-1 mt-2">
+          <form action="" className="mt-2 flex gap-1">
             {/* Align Subscribe and input button horizontally */}
             <input
               type="email"
-              className="border bg-white rounded-full w-36 focus:outline-none"
+              className="w-36 rounded-full border bg-white focus:outline-none"
             />
             <button
               type="submit"
-              className="rounded-full bg-violet-700 border hover:bg-gradient-to-t hover:from-orange-300 hover:to-orange-400 hover:text-black border-violet-300 text-white py-1 px-3 text-sm font-semibold uppercase"
+              className="rounded-full border border-violet-300 bg-violet-700 px-3 py-1 text-sm font-semibold uppercase text-white hover:bg-gradient-to-t hover:from-orange-300 hover:to-orange-400 hover:text-black"
             >
               Submit
             </button>
           </form>
         </div>
       </div>
-      <div className="text-center text-sm mt-6 md:mt-3">
+      <div className="mt-6 text-center text-sm md:mt-3">
         &copy; 2024 Designed by Charlotte Lund
       </div>
     </div>

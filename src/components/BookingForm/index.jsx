@@ -70,7 +70,9 @@ const BookingForm = ({ price, venueId }) => {
     const pricePerDay = price || 1;
     const totalPrice = pricePerDay * days;
 
-    const newVenueId = venueId.startsWith("/venue/") ? venueId.substring(7) : venueId;
+    const newVenueId = venueId.startsWith("/venue/")
+      ? venueId.substring(7)
+      : venueId;
 
     const newData = {
       dateFrom: startDate.toISOString(),
@@ -103,7 +105,9 @@ const BookingForm = ({ price, venueId }) => {
   if (!isLoggedIn) {
     return (
       <div className="m-4">
-        <h2 className="text-lg font-bold text-violet-700 hover:underline mb-2"><Link to="/login">Log in or Register</Link></h2>
+        <h2 className="mb-2 text-lg font-bold text-violet-700 hover:underline">
+          <Link to="/login">Log in or Register</Link>
+        </h2>
         <p>A registered user account is required to make a booking.</p>
       </div>
     );
@@ -127,7 +131,7 @@ const BookingForm = ({ price, venueId }) => {
                   return unavailableDates.some(
                     (unavailableDate) =>
                       unavailableDate.toISOString().split("T")[0] ===
-                      formattedDate
+                      formattedDate,
                   )
                     ? "bg-red-500 text-white"
                     : undefined;
@@ -151,7 +155,7 @@ const BookingForm = ({ price, venueId }) => {
                   return unavailableDates.some(
                     (unavailableDate) =>
                       unavailableDate.toISOString().split("T")[0] ===
-                      formattedDate
+                      formattedDate,
                   )
                     ? "redDate"
                     : undefined;

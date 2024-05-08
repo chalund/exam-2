@@ -15,43 +15,42 @@ const NavLinks = ({ isOpen }) => {
     return pathname === path ? "text-violet-700 font-bold" : "text-black";
   };
 
-  console.log(pathname)
+  console.log(pathname);
 
   return (
     <>
       {isOpen && isLoggedIn() && (
         <NavLink
           to="/profile"
-          className={`mb-2 p-2 text-xl uppercase md:text-lg md:px-4 hover:bg-violet-700 hover:text-white md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700 ${isActiveNavLink("/profile")}`}
+          className={`mb-2 p-2 text-xl uppercase hover:bg-violet-700 hover:text-white md:px-4 md:text-lg md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700 ${isActiveNavLink("/profile")}`}
         >
           Profile
         </NavLink>
       )}
-<NavLink
-  to="/"
-  className={`mb-2 p-2 text-xl uppercase md:text-lg md:px-4 hover:bg-violet-700 hover:text-white md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700 ${isActiveNavLink("/")}`}
-  exact="true"
->
-  Home
-</NavLink>
+      <NavLink
+        to="/"
+        className={`mb-2 p-2 text-xl uppercase hover:bg-violet-700 hover:text-white md:px-4 md:text-lg md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700 ${isActiveNavLink("/")}`}
+        exact="true"
+      >
+        Home
+      </NavLink>
 
-<NavLink
-  to="/listings"
-  className={`mb-2 p-2 text-xl uppercase md:text-lg md:px-4 hover:bg-violet-700 hover:text-white md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700 ${isActiveNavLink("/listings")}`}
->
-  Venues
-</NavLink>
+      <NavLink
+        to="/listings"
+        className={`mb-2 p-2 text-xl uppercase hover:bg-violet-700 hover:text-white md:px-4 md:text-lg md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700 ${isActiveNavLink("/listings")}`}
+      >
+        Venues
+      </NavLink>
 
       <NavLink
         to="/about"
-        className={`p-2 text-xl uppercase md:text-lg md:px-4 hover:bg-violet-700 hover:text-white md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700 ${isActiveNavLink("/about")}`}
+        className={`p-2 text-xl uppercase hover:bg-violet-700 hover:text-white md:px-4 md:text-lg md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700 ${isActiveNavLink("/about")}`}
       >
         About
       </NavLink>
     </>
   );
 };
-
 
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);

@@ -1,12 +1,12 @@
 import { BASE_URL, Venues } from "../..";
 
-export async function getVenueById (venueId, apiKey) {
-      const accessToken = localStorage.getItem("accessToken");
-      const getVenueByIdUrl = `${BASE_URL}${Venues}/${venueId}?_bookings=true`
+export async function getVenueById(venueId, apiKey) {
+  const accessToken = localStorage.getItem("accessToken");
+  const getVenueByIdUrl = `${BASE_URL}${Venues}/${venueId}?_bookings=true`;
 
-    //   console.log("Fetching venue by ID with URL API call:", getVenueByIdUrl);
+  //   console.log("Fetching venue by ID with URL API call:", getVenueByIdUrl);
 
-        const options = {
+  const options = {
     headers: {
       Authorization: `Bearer ${accessToken}`,
       "X-Noroff-API-Key": apiKey,
@@ -20,7 +20,6 @@ export async function getVenueById (venueId, apiKey) {
     }
     const data = await response.json();
     return data;
-
   } catch (error) {
     console.error("Error fetching venue id:", error);
     throw error;

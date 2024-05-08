@@ -21,7 +21,6 @@ const LoginPage = () => {
   const onLoginFormSubmit = async (event) => {
     event.preventDefault();
 
-
     try {
       const data = await loginUser(email, password);
       navigate("/profile");

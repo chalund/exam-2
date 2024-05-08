@@ -16,10 +16,9 @@ import StarRate from "../../components/StarRating";
 import formatDate from "../../components/DateFormatter";
 import EditVenueLink from "../../components/Search/searchMobile";
 import BookingForm from "../../components/BookingForm";
-import NoImage from "../../assets/no_image.jpg"
+import NoImage from "../../assets/no_image.jpg";
 import Spinner from "../../components/Spinner/Loader";
 import VenueBookings from "../../components/Booking";
-
 
 const VenueDetailsPage = () => {
   const { id } = useParams();
@@ -27,10 +26,9 @@ const VenueDetailsPage = () => {
     `${BASE_URL}/venues/${id}?_owner=true&_bookings=true?`,
   );
   console.log("Data:", data);
-  console.log()
+  console.log();
 
   useEffect(() => {}, []);
-
 
   if (loading) {
     return (
@@ -74,13 +72,6 @@ const VenueDetailsPage = () => {
 
   return (
     <div className="mx-auto max-w-screen-md rounded-xl border bg-white md:my-6">
-
-
-
-
-
-
-
       <div className="ms-2 mt-4 flex items-center gap-2">
         <FaArrowLeft />
         <Link to={`/listings`} className="underline">
@@ -89,7 +80,7 @@ const VenueDetailsPage = () => {
       </div>
 
       <div className="py-4 md:px-6">
-      {media && media.length > 0 && (
+        {media && media.length > 0 && (
           <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-6">
             {media.length === 1 ? (
               <div className="col-span-2 flex items-center md:col-span-4">
@@ -111,7 +102,7 @@ const VenueDetailsPage = () => {
                   className="h-full max-h-[300px] w-full md:rounded-xl"
                 />
                 {media.length > 1 && (
-                  <button className="mb-5 rounded-full bg-gradient-to-r text-violet-700 py-2 font-semibold uppercase hover:from-orange-300 hover:to-orange-500 hover:text-white absolute bottom-1 right-4 bg-white px-3 text-sm">
+                  <button className="absolute bottom-1 right-4 mb-5 rounded-full bg-white bg-gradient-to-r px-3 py-2 text-sm font-semibold uppercase text-violet-700 hover:from-orange-300 hover:to-orange-500 hover:text-white">
                     <Link to={`/venue/images/${id}`}>View all</Link>
                   </button>
                 )}
@@ -119,21 +110,21 @@ const VenueDetailsPage = () => {
             )}
           </div>
         )}
-        {!media || media.length === 0 && (
-          <div className="relative col-span-2 flex items-center md:col-span-4">
-          <img
-            src={NoImage}
-            alt="No Image"
-            className="mx-auto max-h-[300px]  md:rounded-xl border"
-          />
-          </div>
-        )}
-        
+        {!media ||
+          (media.length === 0 && (
+            <div className="relative col-span-2 flex items-center md:col-span-4">
+              <img
+                src={NoImage}
+                alt="No Image"
+                className="mx-auto max-h-[300px]  border md:rounded-xl"
+              />
+            </div>
+          ))}
 
         <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="m-4 mt-4">
             <div className="flex gap-3">
-              <h1 className="text-lg font-bold truncate">{name}</h1>
+              <h1 className="truncate text-lg font-bold">{name}</h1>
               <div className="flex items-center py-1">
                 {rating ? (
                   <StarRate rating={rating} size={20} />
@@ -142,7 +133,6 @@ const VenueDetailsPage = () => {
                 )}
               </div>
             </div>
-      
 
             <div className="flex items-center gap-1 md:hidden">
               <IoCalendarNumberOutline />
@@ -225,11 +215,7 @@ const VenueDetailsPage = () => {
 
           <div className="hidden grid-cols-6 p-2 md:block ">
             <div className="mt-6 rounded-xl border bg-white p-4">
-      
-            <BookingForm price={price} venueId={id} />
-
-              
-        
+              <BookingForm price={price} venueId={id} />
             </div>
 
             <div className="mt-3 hidden py-4 md:block">

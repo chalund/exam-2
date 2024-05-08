@@ -106,16 +106,14 @@ const MyVenues = () => {
                 <div className="sm:ml-auto sm:mr-12 sm:flex sm:items-end">
                   {" "}
                   {/* Add ml-auto to push buttons to the end */}
-                 <Link to={`/venue/bookings/${venue.id}`}>
-                  <button
-                  
-                   className="mb-2 mr-2  rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-4 py-2 text-xs font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white">
-                    View bookings
-                  </button>
+                  <Link to={`/venue/bookings/${venue.id}`}>
+                    <button className="mb-2 mr-2  rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-4 py-2 text-xs font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white">
+                      View bookings
+                    </button>
                   </Link>
                   <button
                     onClick={() => handleDeleteVenue(venue.id)}
-                    className="flex items-center gap-1 mb-2 h-8 w-24 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-4 py-2 text-xs font-semibold uppercase hover:from-red-500 hover:to-red-700 hover:text-white"
+                    className="mb-2 flex h-8 w-24 items-center gap-1 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-4 py-2 text-xs font-semibold uppercase hover:from-red-500 hover:to-red-700 hover:text-white"
                   >
                     <GoTrash size={14} />
                     Delete

@@ -5,7 +5,6 @@ export default function formatDate(timestamp) {
     year: "numeric",
     month: "long",
     day: "numeric",
-
   };
 
   return formattedDate.toLocaleString("en-US", options);

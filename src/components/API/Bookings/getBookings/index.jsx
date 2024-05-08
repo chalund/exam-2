@@ -1,4 +1,4 @@
-import { BASE_URL, Bookings,  } from "../..";
+import { BASE_URL, Bookings } from "../..";
 
 export async function getBookings(apiKey) {
   const accessToken = localStorage.getItem("accessToken");
