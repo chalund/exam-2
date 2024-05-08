@@ -24,9 +24,10 @@ import VenueBookings from "../../components/Booking";
 const VenueDetailsPage = () => {
   const { id } = useParams();
   const { data, loading, error } = useFetch(
-    `${BASE_URL}/venues/${id}?_owner=true`,
+    `${BASE_URL}/venues/${id}?_owner=true&_bookings=true?`,
   );
   console.log("Data:", data);
+  console.log()
 
   useEffect(() => {}, []);
 

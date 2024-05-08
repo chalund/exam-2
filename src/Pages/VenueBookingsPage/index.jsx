@@ -3,7 +3,7 @@ import VenueBookings from '../../components/Booking'
 
 const VenueBookingPage = () => {
   return (
-    <div>
+    <div className="mx-auto max-w-screen-md ">
      <VenueBookings />
     </div>
   )

@@ -4,6 +4,7 @@ import { getProfile } from "../../../API/Profile/getProfile";
 import { createApiKey } from "../../../API/ApiKey";
 import { Link } from "react-router-dom";
 import { deleteVenue } from "../../../API/Venue/deleteVenue";
+import { GoTrash } from "react-icons/go";
 
 const MyVenues = () => {
   const [profileData, setProfileData] = useState("");
@@ -108,14 +109,15 @@ const MyVenues = () => {
                  <Link to={`/venue/bookings/${venue.id}`}>
                   <button
                   
-                   className="mb-2 mr-2 h-8 w-24 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-4 py-2 text-xs font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white">
-                    Edit
+                   className="mb-2 mr-2  rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-4 py-2 text-xs font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white">
+                    View bookings
                   </button>
                   </Link>
                   <button
                     onClick={() => handleDeleteVenue(venue.id)}
-                    className="mb-2 h-8 w-24 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-4 py-2 text-xs font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white"
+                    className="flex items-center gap-1 mb-2 h-8 w-24 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-4 py-2 text-xs font-semibold uppercase hover:from-red-500 hover:to-red-700 hover:text-white"
                   >
+                    <GoTrash size={14} />
                     Delete
                   </button>
                 </div>
