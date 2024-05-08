@@ -9,7 +9,7 @@ const StarRatingCard = ({ rating, size }) => {
   }, [rating]);
 
   return (
-    <div className="flex items-center rounded-full w-12 justify-center bg-violet-700  text-white">
+    <div className="flex items-center rounded-full w-14 justify-center bg-violet-700  text-white">
       {ratingValue !== null && ratingValue !== 0 ?  (
         <>
           <label>

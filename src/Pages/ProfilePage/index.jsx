@@ -1,53 +1,35 @@
-import React, { useEffect, useState } from "react";
 
-import { createApiKey } from "../../components/API/ApiKey";
+
+
 import EditProfileButton from "../../components/Profile/EditProfile";
 import MyVenues from "../../components/Profile/VenueManager/MyVenues";
-import VenuesBookings from "../../components/Profile/VenueManager/VenuesBookings";
+
 import { Link } from "react-router-dom";
 import { GoSmiley } from "react-icons/go";
-import { getProfile } from "../../components/API/Profile/getProfile";
+
 import Spinner from "../../components/Spinner/Loader";
 import formatDate from "../../components/DateFormatter";
+import useFetchProfile from "../../components/Hooks/useFetchProfile";
 
 const ProfilePage = () => {
-  const [profileData, setProfileData] = useState(null); // Initialize with null
-  const [isLoading, setIsLoading] = useState(true); // Loading state
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const username = localStorage.getItem("username");
-        if (!username) {
-          throw new Error("Username not found in local storage");
-        }
-
-        // Create API key first
-        const apiKeyData = await createApiKey("User profile key");
-        const apiKey = apiKeyData.data.key;
-
-        // Fetch profile with the created API key
-        const profile = await getProfile(username, apiKey);
-        console.log("Profile data Profile page:", profile); // Add this line to check profileData
-        setProfileData(profile.data);
-        setIsLoading(false); // Set loading to false when data is fetched
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-        // Handle error
-      }
-    };
-
-    fetchProfile();
-  }, []);
+  const { profileData, isLoading, error } = useFetchProfile();
 
   if (isLoading) {
-    // Show loading spinner or message
     return (
       <div className="text-center text-2xl">
         <Spinner />
       </div>
     );
   }
+
+  if (error) {
+    return <div className="text-center text-red-600">{`Error: ${error}`}</div>;
+  }
+
+  // Sort bookings by dateFrom in ascending order
+  const sortedBookings = profileData.bookings.sort((a, b) => {
+    return new Date(a.dateFrom) - new Date(b.dateFrom);
+  });
 
   const handleEditProfileClick = () => {
     console.log("Edit profile button clicked");
@@ -110,31 +92,33 @@ const ProfilePage = () => {
         </div>
       ) : (
         <div className="mt-6 border bg-white py-6 md:rounded-xl">
-        <h2 className="ms-6 text-xl font-semibold uppercase text-violet-700 md:text-2xl">
-          My bookings
-        </h2>
-        {profileData && profileData.bookings.length > 0 ? (
-          <ul >
-            {profileData.bookings.map((booking) => (
-              <li key={booking.id} className="border m-2 gap-2 flex">
-                {/* <img src={booking.venue.media[0].url} alt="" className="h-20 w-20" /> */}
-                <p>{booking.venue.name }</p>
-              <div>
-              <p>Date From: {formatDate(booking.dateFrom)}</p>
-                <p>Date To: {formatDate(booking.dateTo)}</p>
-              
-                <p>Number of Guests: {booking.guests}</p>
-                <p>price per night{booking.venue.price}</p>
-              </div>
-          
-                {/* Render other booking details as needed */}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No bookings available.</p>
-        )}
-      </div>
+          <div className="flex gap-4 items-baseline">
+            <h2 className="ms-6 text-xl font-semibold uppercase text-violet-700 md:text-2xl">
+              My bookings 
+            </h2>
+            <p>({profileData._count.bookings} bookings available)</p>
+          </div>
+      
+          {profileData && sortedBookings.length > 0 ? (
+            <ul>
+              {sortedBookings.map((booking) => (
+                <li key={booking.id} className="border m-2 gap-2 flex">
+                  {/* <img src={booking.venue.media[0].url} alt="" className="h-20 w-20" /> */}
+                  <p>{booking.venue.name }</p>
+                  <div>
+                    <p>Date From: {formatDate(booking.dateFrom)}</p>
+                    <p>Date To: {formatDate(booking.dateTo)}</p>
+                    <p>Number of Guests: {booking.guests}</p>
+                    <p>Price per night: {booking.venue.price}</p>
+                  </div>
+                  {/* Render other booking details as needed */}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No bookings available.</p>
+          )}
+        </div>
       )}
 
       {profileData && profileData.venueManager && (
@@ -142,14 +126,6 @@ const ProfilePage = () => {
           <MyVenues />
         </div>
       )}
-
-      {/* {profileData &&
-        profileData.venueManager &&
-        profileData.venues.length > 0 && (
-          <div className="my-6 border bg-white py-6  md:rounded-xl md:mb-12">
-            <VenuesBookings />
-          </div>
-        )} */}
     </div>
   );
 };
