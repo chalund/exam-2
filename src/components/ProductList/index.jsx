@@ -84,7 +84,7 @@ function ProductList() {
             placeholder="Search by product name or location..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full rounded-full border-0 py-2 pl-12 pr-16"
+            className="w-full rounded-full border-0 py-2 pl-12 pr-16 focus:outline-none"
           />
           <IoCloseOutline
             size={30}

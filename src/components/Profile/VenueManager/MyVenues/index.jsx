@@ -1,38 +1,27 @@
-import React, { useEffect, useState } from "react";
 import CreateNewVenueButton from "../CreateNewVenue";
-import { getProfile } from "../../../API/Profile/getProfile";
 import { createApiKey } from "../../../API/ApiKey";
 import { Link } from "react-router-dom";
 import { deleteVenue } from "../../../API/Venue/deleteVenue";
 import { GoTrash } from "react-icons/go";
+import useFetchProfile from "../../../Hooks/useFetchProfile";
+import Spinner from "../../../Spinner/Loader";
 
 const MyVenues = () => {
-  const [profileData, setProfileData] = useState("");
+  const { profileData, isLoading, error } = useFetchProfile();
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const username = localStorage.getItem("username");
-        if (!username) {
-          throw new Error("Username not found in local storage");
-        }
+  console.log(profileData);
 
-        // Create API key first
-        const apiKeyData = await createApiKey("User profile key");
-        const apiKey = apiKeyData.data.key;
+  if (isLoading) {
+    return (
+      <div className="text-center text-2xl">
+        <Spinner />
+      </div>
+    );
+  }
 
-        // Fetch profile with the created API key
-        const profile = await getProfile(username, apiKey);
-        console.log("Profile data, My venue:", profile); // Add this line to check profileData
-        setProfileData(profile.data);
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-        // Handle error
-      }
-    };
-
-    fetchProfile();
-  }, []);
+  if (error) {
+    return <div className="text-center text-red-600">{`Error: ${error}`}</div>;
+  }
 
   const handleDeleteVenue = async (id) => {
     try {

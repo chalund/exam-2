@@ -18,6 +18,15 @@ const LoginPage = () => {
     navigate("/");
   };
 
+  const handleClearEmail = () => {
+    setEmail("");
+    console.log("clicked");
+  };
+
+  const handleClearPassword = () => {
+    setPassword("");
+  };
+
   const onLoginFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -56,7 +65,7 @@ const LoginPage = () => {
       <form onSubmit={onLoginFormSubmit}>
         <div>
           <div>
-            <div className="mb-6 flex items-center text-lg">
+            <div className=" relative mb-6 flex items-center text-lg">
               <MdOutlineEmail className="absolute ml-3" size={24} />
               <input
                 name="email"
@@ -66,8 +75,13 @@ const LoginPage = () => {
                 placeholder="Email"
                 className="w-full rounded-xl border py-2  pl-12 focus:outline-none"
               />
+              <IoClose
+                size={30}
+                onClick={handleClearEmail}
+                className="absolute right-3  cursor-pointer text-gray-800"
+              />
             </div>
-            <div className="mb-6 flex items-center text-lg">
+            <div className=" relative mb-6 flex items-center text-lg">
               <FaLock className="absolute ml-3" size={24} />
               <input
                 name="password"
@@ -77,6 +91,11 @@ const LoginPage = () => {
                 placeholder="Password"
                 className="w-full rounded-xl border py-2  pl-12 focus:outline-none"
               />
+              <IoClose
+                size={30}
+                onClick={handleClearPassword}
+                className="absolute right-3  cursor-pointer text-gray-800"
+              />
             </div>
           </div>
           {error && <p className="mb-2 text-red-500">{error}</p>}
@@ -85,7 +104,7 @@ const LoginPage = () => {
             Login
           </button>
         </div>
-        <p className="text-center text-sm">
+        <p className="text-md mt-2 text-center">
           Don't have an account yet?{" "}
           <Link to={"/register"} className="text-violet-700 underline">
             Create an account

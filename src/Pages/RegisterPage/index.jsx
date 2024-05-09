@@ -24,6 +24,16 @@ const RegisterPage = () => {
     navigate("/");
   };
 
+  const handleClearName = () => {
+    setName("")
+  }
+  const handleClearEmail = () => {
+    setEmail("")
+  }
+  const handleClearPassword = () => {
+    setPassword("")
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -121,7 +131,7 @@ const RegisterPage = () => {
       <form onSubmit={handleSubmit}>
         <div>
           <div>
-            <div className="mb-5 flex flex-col text-lg">
+            <div className="relative mb-5 flex flex-col text-lg">
               <AiOutlineUser className="absolute ml-4 mt-2" size={24} />
               <input
                 type="text"
@@ -134,10 +144,15 @@ const RegisterPage = () => {
                 }`}
                 placeholder="Name"
               />
+                <IoClose
+                size={30}
+                onClick={handleClearName}
+                className="absolute right-3 top-2  cursor-pointer text-gray-800"
+              />
               {nameError && <p className="mt-1 text-red-700">{nameError}</p>}
             </div>
 
-            <div className="mb-5 flex flex-col text-lg">
+            <div className=" relative mb-5 flex flex-col text-lg">
               <MdOutlineEmail className="absolute ml-4 mt-3" size={24} />
               <input
                 type="email"
@@ -150,10 +165,15 @@ const RegisterPage = () => {
                 }`}
                 placeholder="Email address"
               />
+                  <IoClose
+                size={30}
+                onClick={handleClearEmail}
+                className="absolute right-3 top-2  cursor-pointer text-gray-800"
+              />
               {emailError && <p className="mt-1  text-red-700">{emailError}</p>}
             </div>
 
-            <div className="mb-5 flex flex-col text-lg">
+            <div className="relative mb-5 flex flex-col text-lg">
               <FaLock className="absolute ml-4 mt-3" size={24} />
               <input
                 type="password"
@@ -165,6 +185,11 @@ const RegisterPage = () => {
                   passwordError && "border-red-700"
                 }`}
                 placeholder="Password"
+              />
+                  <IoClose
+                size={30}
+                onClick={handleClearPassword}
+                className="absolute right-3 top-2  cursor-pointer text-gray-800"
               />
               {passwordError && (
                 <p className="mt-1 text-red-700">{passwordError}</p>

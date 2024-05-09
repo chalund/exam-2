@@ -7,14 +7,14 @@ import { getVenueById } from "../API/Venue/getVenueById";
 import { Link } from "react-router-dom";
 
 const BookingForm = ({ price, venueId }) => {
-  // Check for authentication by looking for a specific token or key in local storage
   const isLoggedIn = Boolean(localStorage.getItem("accessToken"));
 
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date(startDate.getTime() + 24 * 60 * 60 * 1000));
   const [guests, setGuests] = useState(2);
   const [total, setTotal] = useState(0);
   const [unavailableDates, setUnavailableDates] = useState([]);
+  const [maxGuests, setMaxGuests] = useState(1); // Default to 1 to avoid invalid states
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -23,7 +23,9 @@ const BookingForm = ({ price, venueId }) => {
           const apiKeyData = await createApiKey("User profile key");
           const apiKey = apiKeyData.data.key;
           const venueData = await getVenueById(venueId, apiKey);
-          const { bookings } = venueData.data;
+          const { bookings, maxGuests } = venueData.data;
+
+          setMaxGuests(maxGuests);
 
           if (bookings && Array.isArray(bookings)) {
             const bookedDates = bookings
@@ -61,18 +63,23 @@ const BookingForm = ({ price, venueId }) => {
     start.setHours(0, 0, 0, 0);
     end.setHours(0, 0, 0, 0);
 
-    return (end - start) / (1000 * 60 * 60 * 24);
+    const difference = (end - start) / (1000 * 60 * 60 * 24);
+    return Math.max(0, difference);
   };
+
+  const calculateTotalPrice = () => {
+    const days = calculateDays();
+    return price * (days === 0 ? 1 : days);
+  };
+
+  useEffect(() => {
+    setTotal(calculateTotalPrice());
+  }, [startDate, endDate, price]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const days = calculateDays();
-    const pricePerDay = price || 1;
-    const totalPrice = pricePerDay * days;
 
-    const newVenueId = venueId.startsWith("/venue/")
-      ? venueId.substring(7)
-      : venueId;
+    const newVenueId = venueId.startsWith("/venue/") ? venueId.substring(7) : venueId;
 
     const newData = {
       dateFrom: startDate.toISOString(),
@@ -94,24 +101,18 @@ const BookingForm = ({ price, venueId }) => {
     } catch (error) {
       console.error("Error creating booking:", error);
     }
-
-    setTotal(days === 0 ? pricePerDay : totalPrice);
   };
 
-  // Calculate startDate + 1 day
-  const nextDay = new Date(startDate);
-  nextDay.setDate(nextDay.getDate() + 1);
-
-  if (!isLoggedIn) {
-    return (
-      <div className="m-4">
-        <h2 className="mb-2 text-lg font-bold text-violet-700 hover:underline">
-          <Link to="/login">Log in or Register</Link>
-        </h2>
-        <p>A registered user account is required to make a booking.</p>
-      </div>
-    );
-  }
+  const handleGuestsChange = (e) => {
+    const value = Number(e.target.value);
+    if (value >= 1 && value <= maxGuests) {
+      setGuests(value);
+    } else if (value < 1) {
+      setGuests(1);
+    } else {
+      setGuests(maxGuests);
+    }
+  };
 
   return (
     <div className="m-4">
@@ -123,7 +124,14 @@ const BookingForm = ({ price, venueId }) => {
               <DatePicker
                 showIcon
                 selected={startDate}
-                onChange={(date) => setStartDate(date)}
+                onChange={(date) => {
+                  setStartDate(date);
+                  if (date >= endDate) {
+                    const newEndDate = new Date(date);
+                    newEndDate.setDate(newEndDate.getDate() + 1);
+                    setEndDate(newEndDate);
+                  }
+                }}
                 dateFormat="dd/MM/yyyy"
                 excludeDates={unavailableDates}
                 dayClassName={(date) => {
@@ -143,7 +151,7 @@ const BookingForm = ({ price, venueId }) => {
           </div>
           <div className="mb-3">
             <p>Select check-out</p>
-            <div className=" flex items-center gap-2 rounded-xl border py-1 pl-3">
+            <div className="flex items-center gap-2 rounded-xl border py-1 pl-3">
               <DatePicker
                 showIcon
                 selected={endDate}
@@ -167,16 +175,18 @@ const BookingForm = ({ price, venueId }) => {
           </div>
         </div>
         <div className="relative">
+          <p>Select number of Guests</p>
           <input
             type="number"
             placeholder="Guests"
             value={guests}
-            onChange={(e) => setGuests(e.target.value)}
+            onChange={handleGuestsChange}
             min={1}
-            className="h-10 w-full rounded-xl border pl-36 pr-12 focus:outline-none"
+            max={maxGuests}
+            className="h-10 w-full rounded-xl border pl-44 pr-12 focus:outline-none flex items-center"
           />
-          <span className="absolute inset-y-0 left-3 flex items-center pr-2 text-gray-500">
-            Select guests:
+          <span className="absolute inset-y-0 top-6 left-3 flex items-center pr-2 text-gray-500">
+            Max Guests {maxGuests}:
           </span>
         </div>
         <div className="mt-4 flex justify-center">
