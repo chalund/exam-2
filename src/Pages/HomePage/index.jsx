@@ -31,7 +31,7 @@ const HomePage = () => {
   }
 
   return (
-    <div className="mx-auto max-w-screen-md">
+    <div className="mx-auto max-w-screen-lg">
       <div className="relative">
         <img
           src={Nyksund}
@@ -55,92 +55,95 @@ const HomePage = () => {
         </div>
       </div>
 
-      <LastTreeCards />
+      <div className="m-4 overflow-auto  ">
 
-      <div className="my-12 flex overflow-auto">
-        <div className="flex justify-evenly rounded-lg bg-gradient-to-t from-violet-500 to-violet-700 p-3 text-white">
-          <p className="m-2 mt-5 w-1/4 p-1 text-lg font-semibold">
+      <LastTreeCards />
+      </div>
+
+      <div className="my-12 ml-3 lg:ml-0 flex overflow-auto">
+        <div className="flex justify-evenly rounded-lg bg-violet-700 p-5 text-white">
+          <p className="m-2 mt-5 w-80 md:w-1/4 p-1 text-xl font-semibold">
             Find and book your perfect stay
           </p>
-          <div className="m-3 mx-6 flex w-1/4 flex-col items-center rounded-3xl border p-2 px-4">
-            <p>Search for new places</p>
+          <div className="m-3 mx-6 w-1/2 flex md:w-1/4 flex-col items-center rounded-3xl border p-2 px-4">
+            <p>Search for new exiting places</p>
             <BiSearch size={36} className="mt-2" />
           </div>
-          <div className="m-3 mx-6 flex w-1/4 flex-col items-center rounded-3xl border p-2 px-4">
+          <div className="m-3 mx-6 flex  w-1/2 md:w-1/4 flex-col items-center rounded-3xl border p-2 px-4">
             <p>Sign up and save money</p>
-            <BsCurrencyDollar size={30} className="mt-2" />
+            <BsCurrencyDollar size={36} className="mt-2" />
           </div>
-          <div className="m-3 mx-6 flex  w-1/4 flex-col items-center rounded-3xl border p-2 px-4">
-            <p>Explore available dates</p>
-            <IoCalendarNumberOutline size={30} className="mt-2" />
-          </div>
-        </div>
-      </div>
-
-      <div className="m-8 grid grid-cols-1 gap-4 px-10 md:m-0  md:grid-cols-4   md:px-0">
-        <div className="col-span-1 row-span-1 rounded-xl md:col-span-3 md:row-span-2 ">
-          <div className="card rounded-xl border">
-            <img
-              src={Lofoten}
-              alt="image from Reine in Lofoten "
-              className="card-img-top h-56 rounded-xl  object-cover md:h-96"
-              style={{ width: "100%" }}
-            />{" "}
-            <div className="card-body p-2">
-              <h5 className="card-title font-semibold">
-                Explore Exciting New Destinations
-              </h5>
-              <h6 className="card-subtitle text-muted mb-2 ">
-                Check out our latest places
-              </h6>
-            </div>
-          </div>
-        </div>
-        <div className="col-span-1 rounded-xl md:col-span-1">
-          <div className="card rounded-xl border bg-white">
-            <img
-              src={Travel}
-              alt="Travelling things, passport, sunglasses and camera"
-              className="card-img-top h-56 rounded-xl object-cover md:h-32"
-              style={{ width: "100%" }}
-            />{" "}
-            <div className="card-body p-2">
-              <h5 className="card-title font-semibold">
-                Book your next vacay now
-              </h5>
-              <h6 className="card-subtitle text-muted mb-2 ">
-                Find your holiday
-              </h6>
-            </div>
-          </div>
-        </div>
-        <div className=" col-span-1 rounded-xl md:col-span-1 ">
-          <div className="card rounded-xl border md:mt-1">
-            <img
-              src={GirlSun}
-              alt="girl standing infront of a sunset"
-              className="card-img-top h-56 rounded-xl object-cover md:h-40"
-              style={{ width: "100%" }}
-            />{" "}
-            <div className="card-body p-2">
-              <h5 className="card-title mb-2 font-semibold">Travel Tips</h5>
-            </div>
+          <div className="m-3 mx-6 flex w-1/2 md:w-1/4 flex-col items-center rounded-3xl border p-2 px-4">
+            <p>Explore available dates on venues</p>
+            <IoCalendarNumberOutline size={36} className="mt-2" />
           </div>
         </div>
       </div>
 
-      <div className="my-12 rounded-xl bg-violet-700 py-6">
-        <p className="text-center text-lg font-semibold uppercase text-white">
+      <div className="m-6 grid grid-cols-1 gap-4  md:grid-cols-4 lg:m-0">
+  <div className="col-span-1 row-span-1 rounded-xl md:col-span-3 md:row-span-2">
+    <div className="card rounded-xl border">
+      <img
+        src={Lofoten}
+        alt="image from Reine in Lofoten"
+        className="card-img-top h-56 md:h-96 rounded-xl object-cover w-full"
+      />
+      <div className="card-body p-2">
+        <h5 className="card-title font-semibold">
+          Explore Exciting New Destinations
+        </h5>
+        <h6 className="card-subtitle text-muted mb-2">
+          Check out our latest places
+        </h6>
+      </div>
+    </div>
+  </div>
+  <div className="col-span-1 rounded-xl md:col-span-1">
+    <div className="card rounded-xl border bg-white">
+      <img
+        src={Travel}
+        alt="Travelling things, passport, sunglasses and camera"
+        className="card-img-top h-56 md:h-32 rounded-xl object-cover w-full"
+      />
+      <div className="card-body p-2">
+        <h5 className="card-title font-semibold">
+          Book your next vacay now
+        </h5>
+        <h6 className="card-subtitle text-muted mb-2">
+          Find your holiday
+        </h6>
+      </div>
+    </div>
+  </div>
+  <div className="col-span-1 rounded-xl md:col-span-1">
+    <div className="card rounded-xl border md:mt-2 lg:mt-7">
+      <img
+        src={GirlSun}
+        alt="girl standing in front of a sunset"
+        className="card-img-top h-56 md:h-40 rounded-xl object-cover w-full"
+      />
+      <div className="card-body p-2">
+        <h5 className="card-title mb-2 font-semibold">Travel Tips</h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+      <div className="md:my-12 md:rounded-xl bg-violet-700 py-8">
+        <p className="text-center text-lg md:text-xl  font-semibold uppercase text-white">
           Subscribe our newsletter
         </p>
         <form action="">
-          <div className="text-center">
+          <div className="text-sm md:text-md text-center justify-center mt-3 ">
             <input
               type="email"
               placeholder="yourmail@example.com"
-              className="mt-4 rounded-full border px-10 py-1 pl-6 "
+              className="md:mt-4 rounded-full border font-sm md:font-md md:px-14 py-2 p-4 md:pl-6 "
             />
-            <button className="mb-5 ms-4 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-4 py-2 font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white">
+            <button className=" text-sm md:text-md md:mb-5 md:ms-4 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-4 py-2 font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white">
               subscribe
             </button>
           </div>

@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { GoSmiley } from 'react-icons/go';
-import formatDate from '../../DateFormatter';
+import React from "react";
+import { Link } from "react-router-dom";
+import { GoSmiley } from "react-icons/go";
+import formatDate from "../../DateFormatter";
 
 const MyBookingsProfilePage = ({ bookings, totalCount }) => {
   if (totalCount === 0) {
@@ -48,4 +48,3 @@ const MyBookingsProfilePage = ({ bookings, totalCount }) => {
 };
 
 export default MyBookingsProfilePage;
-

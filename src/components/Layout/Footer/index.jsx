@@ -14,9 +14,9 @@ export function isLoggedIn() {
 const Footer = () => {
   return (
     <div className="bg-zinc-700 p-6 text-white">
-      <div className="flex items-center justify-evenly md:flex-row md:justify-between">
+      <div className="mx-auto flex max-w-screen-lg items-center justify-evenly md:flex-row md:justify-between">
         <div className="flex w-1/4 flex-col items-center">
-          <Logo colorClass="text-violet-300" />
+          <Logo colorClass="text-violet-400" />
           <div className="mt-2 flex gap-3">
             <FaFacebook size={24} />
             <FaInstagram size={24} />
@@ -61,7 +61,7 @@ const Footer = () => {
 
         <div className="hidden w-1/4 flex-col justify-center md:flex">
           {/* Flex container for Subscribe */}
-          <p className="text-sm uppercase">Subscribe to Holidaze</p>
+          <p className="text-sm">Subscribe to Holidaze</p>
           <form action="" className="mt-2 flex gap-1">
             {/* Align Subscribe and input button horizontally */}
             <input

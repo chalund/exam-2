@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { HiOutlineMenu } from "react-icons/hi";
-import { IoClose, IoConstructOutline } from "react-icons/io5";
+import { IoClose } from "react-icons/io5";
 
 export function isLoggedIn() {
   const userToken = localStorage.getItem("accessToken");
   return !!userToken;
 }
-const NavLinks = ({ isOpen }) => {
+
+const NavLinks = ({ isOpen, closeMenu }) => {
   const { pathname } = useLocation();
 
   // Function to determine if a NavLink should be active
@@ -15,14 +16,13 @@ const NavLinks = ({ isOpen }) => {
     return pathname === path ? "text-violet-700 font-bold" : "text-black";
   };
 
-  console.log(pathname);
-
   return (
     <>
       {isOpen && isLoggedIn() && (
         <NavLink
           to="/profile"
           className={`mb-2 p-2 text-xl uppercase hover:bg-violet-700 hover:text-white md:px-4 md:text-lg md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700 ${isActiveNavLink("/profile")}`}
+          onClick={closeMenu}
         >
           Profile
         </NavLink>
@@ -31,6 +31,7 @@ const NavLinks = ({ isOpen }) => {
         to="/"
         className={`mb-2 p-2 text-xl uppercase hover:bg-violet-700 hover:text-white md:px-4 md:text-lg md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700 ${isActiveNavLink("/")}`}
         exact="true"
+        onClick={closeMenu}
       >
         Home
       </NavLink>
@@ -38,6 +39,7 @@ const NavLinks = ({ isOpen }) => {
       <NavLink
         to="/listings"
         className={`mb-2 p-2 text-xl uppercase hover:bg-violet-700 hover:text-white md:px-4 md:text-lg md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700 ${isActiveNavLink("/listings")}`}
+        onClick={closeMenu}
       >
         Venues
       </NavLink>
@@ -45,6 +47,7 @@ const NavLinks = ({ isOpen }) => {
       <NavLink
         to="/about"
         className={`p-2 text-xl uppercase hover:bg-violet-700 hover:text-white md:px-4 md:text-lg md:hover:bg-zinc-50 md:hover:font-bold md:hover:text-violet-700 ${isActiveNavLink("/about")}`}
+        onClick={closeMenu}
       >
         About
       </NavLink>
@@ -59,10 +62,15 @@ const Nav = () => {
     setIsOpen(!isOpen);
   };
 
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
+    closeMenu(); // Close the menu on logout
     navigate("/");
   };
 
@@ -85,6 +93,7 @@ const Nav = () => {
             <NavLink
               to="/login"
               className="mr-3 rounded-full bg-violet-700 px-4 py-2 font-semibold uppercase text-white md:mr-0"
+              onClick={closeMenu} // Close the menu on login
             >
               Login
             </NavLink>
@@ -98,7 +107,7 @@ const Nav = () => {
       </nav>
       {isOpen && (
         <div className="mt-4 flex basis-full flex-col md:hidden">
-          <NavLinks isOpen={isOpen} />
+          <NavLinks isOpen={isOpen} closeMenu={closeMenu} />
         </div>
       )}
     </>

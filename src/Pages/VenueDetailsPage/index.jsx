@@ -1,16 +1,12 @@
 import { Link, useParams } from "react-router-dom";
-import { BASE_URL, Venues } from "../../components/API";
+import { BASE_URL } from "../../components/API";
 import { useFetch } from "../../components/Hooks/useFetch";
 
 import { MdOutlineEmail } from "react-icons/md";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 
-import { FaArrowLeft } from "react-icons/fa";
-import { FaBed } from "react-icons/fa";
-import { FaWifi } from "react-icons/fa";
-import { FaParking } from "react-icons/fa";
-import { MdOutlinePets } from "react-icons/md";
-import { MdBreakfastDining } from "react-icons/md";
+import { FaArrowLeft, FaBed, FaWifi, FaParking } from "react-icons/fa";
+import { MdOutlinePets, MdBreakfastDining } from "react-icons/md";
 import { useEffect } from "react";
 import StarRate from "../../components/StarRating";
 import formatDate from "../../components/DateFormatter";
@@ -18,15 +14,14 @@ import EditVenueLink from "../../components/Search/searchMobile";
 import BookingForm from "../../components/BookingForm";
 import NoImage from "../../assets/no_image.jpg";
 import Spinner from "../../components/Spinner/Loader";
-import VenueBookings from "../../components/Booking";
 
 const VenueDetailsPage = () => {
   const { id } = useParams();
   const { data, loading, error } = useFetch(
-    `${BASE_URL}/venues/${id}?_owner=true&_bookings=true?`,
+    `${BASE_URL}/venues/${id}?_owner=true&_bookings=true`,
   );
-  console.log("Data:", data);
-  console.log();
+
+  const isLoggedIn = Boolean(localStorage.getItem("accessToken"));
 
   useEffect(() => {}, []);
 
@@ -42,12 +37,10 @@ const VenueDetailsPage = () => {
     return <div>Error fetching data: {error.message}</div>;
   }
 
-  // Check if data is available
   if (!data || !data.data) {
     return <div>No data available</div>;
   }
 
-  // Destructure the data object
   const {
     name,
     description,
@@ -100,6 +93,10 @@ const VenueDetailsPage = () => {
                   src={media[0].url}
                   alt={`Image 1`}
                   className="h-full max-h-[300px] w-full md:rounded-xl"
+                  onError={(e) => {
+                    e.target.onerror = null; // Prevent infinite loop
+                    e.target.src = NoImage; // Set placeholder image
+                  }}
                 />
                 {media.length > 1 && (
                   <button className="absolute bottom-1 right-4 mb-5 rounded-full bg-white bg-gradient-to-r px-3 py-2 text-sm font-semibold uppercase text-violet-700 hover:from-orange-300 hover:to-orange-500 hover:text-white">
@@ -110,16 +107,15 @@ const VenueDetailsPage = () => {
             )}
           </div>
         )}
-        {!media ||
-          (media.length === 0 && (
-            <div className="relative col-span-2 flex items-center md:col-span-4">
-              <img
-                src={NoImage}
-                alt="No Image"
-                className="mx-auto max-h-[300px]  border md:rounded-xl"
-              />
-            </div>
-          ))}
+        {!media || media.length === 0 ? (
+          <div className="relative col-span-2 flex items-center md:col-span-4">
+            <img
+              src={NoImage}
+              alt="No Image"
+              className="mx-auto max-h-[300px]  border md:rounded-xl"
+            />
+          </div>
+        ) : null}
 
         <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="m-4 mt-4">
@@ -195,6 +191,10 @@ const VenueDetailsPage = () => {
                   src={ownerAvatarUrl}
                   alt="profile image of host"
                   className="h-20 w-20 rounded-full"
+                  onError={(e) => {
+                    e.target.onerror = null; // Prevent infinite loop
+                    e.target.src = NoImage; // Set placeholder image
+                  }}
                 />
                 <div className="flex flex-col">
                   <p className="font-semibold">{ownerName}</p>
@@ -214,9 +214,21 @@ const VenueDetailsPage = () => {
           </div>
 
           <div className="hidden grid-cols-6 p-2 md:block ">
-            <div className="mt-6 rounded-xl border bg-white p-4">
-              <BookingForm price={price} venueId={id} />
-            </div>
+            {isLoggedIn ? (
+              <div className="mt-6 rounded-xl border bg-white p-4">
+                <BookingForm price={price} venueId={id} />
+              </div>
+            ) : (
+              <div className="mt-6 rounded-xl border bg-white p-4">
+                <p>
+                  You need to{" "}
+                  <Link to="/login" className="text-violet-700 underline">
+                    log in
+                  </Link>{" "}
+                  to make a booking.
+                </p>
+              </div>
+            )}
 
             <div className="mt-3 hidden py-4 md:block">
               <p className="font-semibold">Hosted by</p>
@@ -225,6 +237,10 @@ const VenueDetailsPage = () => {
                   src={ownerAvatarUrl}
                   alt="profile image of host"
                   className="h-20 w-20 rounded-full"
+                  onError={(e) => {
+                    e.target.onerror = null; // Prevent infinite loop
+                    e.target.src = NoImage; // Set placeholder image
+                  }}
                 />
                 <div>
                   <p

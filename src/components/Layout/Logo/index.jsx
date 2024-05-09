@@ -5,7 +5,7 @@ import { RiHome2Line } from "react-icons/ri";
 const Logo = ({ colorClass }) => {
   // Accept colorClass prop
   return (
-    <div className={`text-violet-700 ${colorClass}`}>
+    <div className={colorClass || "text-violet-700"}>
       {" "}
       {/* Apply colorClass along with default color */}
       <Link to="/" className="flex items-center">

@@ -70,7 +70,7 @@ function ProductList() {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="mx-auto my-6 mt-10 flex w-full max-w-[990px] flex-col items-center rounded-xl bg-violet-700 p-8">
+      <div className="mx-auto mb-6 md:my-6 md:mt-10 flex w-full max-w-[990px] flex-col items-center md:rounded-xl bg-violet-700 p-8">
         <h1 className="mb-4 text-2xl font-medium capitalize text-white md:text-3xl">
           Find your new destination today
         </h1>
@@ -93,10 +93,10 @@ function ProductList() {
           />
         </div>
       </div>
-      <div className="flex w-full max-w-[990px] flex-wrap justify-center">
+      <div className=" flex w-full max-w-[990px] flex-wrap justify-center">
         <ProductCard venues={currentProducts} />
       </div>
-      <div className="">
+      <div className="my-10">
         <Pagination
           productsPerPage={productsPerPage}
           totalProducts={filteredProducts.length}

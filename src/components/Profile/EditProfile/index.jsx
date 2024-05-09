@@ -97,15 +97,12 @@ const EditProfileForm = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    window.location.reload()
+    window.location.reload();
   };
 
   const handleSave = () => {
     console.log("Profile edited");
     // Add logic to save edited profile data
-
-
-    
   };
 
   return (

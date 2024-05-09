@@ -1,16 +1,12 @@
+// LastTreeCards.js
 import React from "react";
 import { useFetch } from "../Hooks/useFetch";
 import { BASE_URL, Venues } from "../API";
 import Spinner from "../Spinner/Loader";
-import ProductCard from "../card";
+import VenueCard from "../card/venueCard";
 
 function LastTreeCards() {
   const { data, loading, error } = useFetch(BASE_URL + Venues);
-
-  // Log the data, loading, and error states to check if they are being set correctly
-  console.log("Data homepage:", data);
-  // console.log("Loading:", loading);
-  // console.log("Error:", error);
 
   if (loading) {
     return (
@@ -21,27 +17,21 @@ function LastTreeCards() {
   }
 
   if (!Array.isArray(data.data) || data.data.length === 0) {
-    // Handle the case where data.data is not an array or is empty
-    return <div>Error: Data is not in the expected format or is empty</div>;
+    return <div>Error: No data or an unexpected data format</div>;
   }
 
-  // Sort the array of venues based on the created timestamp
-  const sortedData = data.data.sort((a, b) => {
-    return new Date(b.created) - new Date(a.created);
-  });
-
-  console.log("sorted date", sortedData);
-
-  // Get the first three newest venues
+  const sortedData = data.data.sort((a, b) => new Date(b.created) - new Date(a.created));
   const newestVenues = sortedData.slice(0, 3);
 
-  console.log("newest venues ", newestVenues);
   return (
-    <div className="mt-4 flex flex-col justify-center py-6">
-      <h2 className="text-xl uppercase">Recently added venues</h2>{" "}
-      {/* Adjust the margin-top */}
-      <div className="flex justify-center">
-        <ProductCard venues={newestVenues} />
+    <div className="mt-4 py-5">
+      <h2 className="text-xl uppercase mb-4">Recently Added Venues</h2>
+      <div className="flex justify-start overflow-x-auto gap-4">
+        {newestVenues.map((venue) => (
+          <div key={venue.id} className="flex-shrink-0 w-80 ">
+            <VenueCard venue={venue} />
+          </div>
+        ))}
       </div>
     </div>
   );

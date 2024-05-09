@@ -25,14 +25,14 @@ const RegisterPage = () => {
   };
 
   const handleClearName = () => {
-    setName("")
-  }
+    setName("");
+  };
   const handleClearEmail = () => {
-    setEmail("")
-  }
+    setEmail("");
+  };
   const handleClearPassword = () => {
-    setPassword("")
-  }
+    setPassword("");
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -144,7 +144,7 @@ const RegisterPage = () => {
                 }`}
                 placeholder="Name"
               />
-                <IoClose
+              <IoClose
                 size={30}
                 onClick={handleClearName}
                 className="absolute right-3 top-2  cursor-pointer text-gray-800"
@@ -165,7 +165,7 @@ const RegisterPage = () => {
                 }`}
                 placeholder="Email address"
               />
-                  <IoClose
+              <IoClose
                 size={30}
                 onClick={handleClearEmail}
                 className="absolute right-3 top-2  cursor-pointer text-gray-800"
@@ -186,7 +186,7 @@ const RegisterPage = () => {
                 }`}
                 placeholder="Password"
               />
-                  <IoClose
+              <IoClose
                 size={30}
                 onClick={handleClearPassword}
                 className="absolute right-3 top-2  cursor-pointer text-gray-800"

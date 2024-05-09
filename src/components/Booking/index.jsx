@@ -48,8 +48,8 @@ const VenueBookings = () => {
   const pricePerNight = data.data.price;
 
   return (
-    <div className="mt-6">
-      <h1 className="text-center text-xl uppercase text-violet-600">
+    <div className="mt-6 md:mb-12">
+      <h1 className="text-center text-xl uppercase text-violet-700">
         {venueName} Bookings
       </h1>
       <ul>

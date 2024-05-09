@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { createApiKey } from "../API/ApiKey"; // Ensure this import is correct
+import { createApiKey } from "../API/ApiKey";
 import { createBooking } from "../API/Bookings/createBookings";
 import { getVenueById } from "../API/Venue/getVenueById";
 import { Link } from "react-router-dom";
@@ -10,11 +10,13 @@ const BookingForm = ({ price, venueId }) => {
   const isLoggedIn = Boolean(localStorage.getItem("accessToken"));
 
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date(startDate.getTime() + 24 * 60 * 60 * 1000));
+  const [endDate, setEndDate] = useState(
+    new Date(startDate.getTime() + 24 * 60 * 60 * 1000),
+  );
   const [guests, setGuests] = useState(2);
   const [total, setTotal] = useState(0);
   const [unavailableDates, setUnavailableDates] = useState([]);
-  const [maxGuests, setMaxGuests] = useState(1); // Default to 1 to avoid invalid states
+  const [maxGuests, setMaxGuests] = useState(1);
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -79,7 +81,9 @@ const BookingForm = ({ price, venueId }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const newVenueId = venueId.startsWith("/venue/") ? venueId.substring(7) : venueId;
+    const newVenueId = venueId.startsWith("/venue/")
+      ? venueId.substring(7)
+      : venueId;
 
     const newData = {
       dateFrom: startDate.toISOString(),
@@ -183,9 +187,9 @@ const BookingForm = ({ price, venueId }) => {
             onChange={handleGuestsChange}
             min={1}
             max={maxGuests}
-            className="h-10 w-full rounded-xl border pl-44 pr-12 focus:outline-none flex items-center"
+            className="flex h-10 w-full items-center rounded-xl border pl-44 pr-12 focus:outline-none"
           />
-          <span className="absolute inset-y-0 top-6 left-3 flex items-center pr-2 text-gray-500">
+          <span className="absolute inset-y-0 left-3 top-6 flex items-center pr-2 text-gray-500">
             Max Guests {maxGuests}:
           </span>
         </div>
