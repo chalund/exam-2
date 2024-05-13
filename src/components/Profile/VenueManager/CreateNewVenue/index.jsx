@@ -2,12 +2,16 @@ import { useState } from "react";
 import { createApiKey } from "../../../API/ApiKey";
 import { createVenue } from "../../../API/Venue/createVenue";
 import { IoCloseOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import { CiCirclePlus } from "react-icons/ci";
+import { AiFillPlusCircle } from "react-icons/ai";
 
 const CreateNewVenueForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [media, setMedia] = useState([]);
+  const [newImageUrl, setNewImageUrl] = useState(""); 
   const [meta, setMeta] = useState([]);
   const [maxGuests, setMaxGuests] = useState("");
   const [price, setprice] = useState("");
@@ -34,6 +38,8 @@ const CreateNewVenueForm = () => {
       alert("Please fill out all required fields");
       return;
     }
+
+  
 
     // More advanced input validation can be added here
 
@@ -71,6 +77,14 @@ const CreateNewVenueForm = () => {
     }
   };
 
+  const handleClearField = (setter) => {
+    setter("");
+    console.log("clicked")
+  };
+  const handleClearMedia = (index) => {
+    removeMediaAtIndex(index);
+  };
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -93,11 +107,6 @@ const CreateNewVenueForm = () => {
     }
   };
 
-  const handleMediaChange = (e) => {
-    const newMediaUrl = e.target.value;
-    setMedia([...media, { url: newMediaUrl }]);
-  };
-
   const handleMediaChangeAtIndex = (e, index) => {
     const newMediaUrl = e.target.value;
     const updatedMedia = [...media];
@@ -106,7 +115,10 @@ const CreateNewVenueForm = () => {
   };
 
   const handleAddMedia = () => {
-    setMedia([...media, { url: "" }]);
+    if (newImageUrl.trim() !== "") {
+      setMedia([...media, { url: newImageUrl }]);
+      setNewImageUrl("");
+    }
   };
 
   const removeMediaAtIndex = (index) => {
@@ -119,10 +131,13 @@ const CreateNewVenueForm = () => {
     <div style={{ position: "relative" }}>
       <button
         onClick={openModal}
-        className="mb-5 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-2 py-2 text-sm font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white"
+        className="flex items-center gap-1"
       >
-        Create new venue
+        <AiFillPlusCircle size={30} className="text-violet-700"/>
+  
+        <p className="text-violet-700 hover:underline">add venue</p>
       </button>
+     
       {isModalOpen && (
         <div
           className="modal"
@@ -151,18 +166,18 @@ const CreateNewVenueForm = () => {
             }}
           >
             <span
-              className="close flex cursor-pointer justify-end text-2xl"
+              className=" flex cursor-pointer justify-end text-3xl"
               onClick={closeModal}
             >
               &times;
             </span>
 
             <form onSubmit={handleCreateNewVenueForm}>
-              <h2 className=" mb-2 text-center text-xl font-semibold uppercase text-violet-700">
-                Create new venue
+              <h2 className=" mb-5 text-center text-xl font-semibold uppercase text-violet-700">
+               Create a new venue
               </h2>
               <div>
-                <div className="mb-4 flex items-center">
+                <div className="relative mb-4 flex items-center">
                   <input
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -171,8 +186,13 @@ const CreateNewVenueForm = () => {
                     placeholder="Title.."
                     className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
                   />
+                    <IoCloseOutline
+                    size={30}
+                    onClick={() => handleClearField(setName)}
+                    className="absolute right-3  cursor-pointer text-gray-800"
+                  />
                 </div>
-                <div className="mb-4 flex items-center">
+                <div className="relative mb-4 flex items-center">
                   <textarea
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
@@ -180,6 +200,11 @@ const CreateNewVenueForm = () => {
                     name="description"
                     placeholder="Description.."
                     className="w-full rounded-xl border py-2 pl-3  focus:outline-none"
+                  />
+                           <IoCloseOutline
+                    size={30}
+                    onClick={() => handleClearField(setDescription)}
+                    className="absolute right-3 top-0  cursor-pointer text-gray-800"
                   />
                 </div>
 
@@ -197,22 +222,33 @@ const CreateNewVenueForm = () => {
                         placeholder="Image URL.."
                         className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
                       />
+                      
                       <button
                         type="button"
                         onClick={() => removeMediaAtIndex(index)}
-                        className="rounded-full bg-gradient-to-t from-red-300 to-red-400 px-4 py-1 font-semibold uppercase hover:from-red-400 hover:to-red-500 hover:text-white"
+                        className="rounded-full bg-gradient-to-t from-red-300 to-red-400 w-36 ms-2 py-1 font-semibold uppercase hover:from-red-400 hover:to-red-500 hover:text-white"
                       >
                         Remove
                       </button>
                     </div>
                   ))}
-                  <button
-                    type="button"
-                    onClick={handleAddMedia}
-                    className="rounded-full bg-gradient-to-t from-green-300 to-green-400 px-4 py-1 font-semibold uppercase hover:from-green-400 hover:to-green-500 hover:text-white"
-                  >
-                    Add Image
-                  </button>
+                  <div className="relative mb-4 flex items-center">
+                    <input
+                      value={newImageUrl}
+                      onChange={(e) => setNewImageUrl(e.target.value)}
+                      type="url"
+                      placeholder="New Image URL..."
+                      className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
+                    />
+               
+                    <button
+                      type="button"
+                      onClick={handleAddMedia}
+                      className="whitespace-nowrap rounded-full bg-gradient-to-t from-orange-300 to-orange-400  w-36 ms-2 py-1 font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white"
+                    >
+                      Add Image
+                    </button>
+                  </div>
                 </div>
 
                 <div>
@@ -291,10 +327,10 @@ const CreateNewVenueForm = () => {
                   </div>
                 </div>
 
-                <h3 className="mb-2 text-lg font-semibold uppercase text-violet-700">
+                <h3 className=" mb-2 text-lg font-semibold uppercase text-violet-700">
                   Location
                 </h3>
-                <div className="mb-4 flex items-center">
+                <div className="relative mb-4 flex items-center">
                   <input
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
@@ -303,8 +339,13 @@ const CreateNewVenueForm = () => {
                     placeholder="Address..."
                     className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
                   />
+                           <IoCloseOutline
+                    size={30}
+                    onClick={() => handleClearField(setAddress)}
+                    className="absolute right-3  cursor-pointer text-gray-800"
+                  />
                 </div>
-                <div className="mb-4 flex items-center">
+                <div className="relative mb-4 flex items-center">
                   <input
                     value={postCode}
                     onChange={(e) => setPostCode(e.target.value)}
@@ -313,8 +354,13 @@ const CreateNewVenueForm = () => {
                     placeholder="Post code..."
                     className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
                   />
+                           <IoCloseOutline
+                    size={30}
+                    onClick={() => handleClearField(setPostCode)}
+                    className="absolute right-3  cursor-pointer text-gray-800"
+                  />
                 </div>
-                <div className="mb-4 flex items-center">
+                <div className="relative mb-4 flex items-center">
                   <input
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
@@ -323,8 +369,13 @@ const CreateNewVenueForm = () => {
                     placeholder="City..."
                     className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
                   />
+                             <IoCloseOutline
+                    size={30}
+                    onClick={() => handleClearField(setCity)}
+                    className="absolute right-3  cursor-pointer text-gray-800"
+                  />
                 </div>
-                <div className="mb-4 flex items-center">
+                <div className="relative mb-4 flex items-center">
                   <input
                     value={country}
                     onChange={(e) => setCountry(e.target.value)}
@@ -332,6 +383,11 @@ const CreateNewVenueForm = () => {
                     name="country"
                     placeholder="Country..."
                     className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
+                  />
+                             <IoCloseOutline
+                    size={30}
+                    onClick={() => handleClearField(set)}
+                    className="absolute right-3  cursor-pointer text-gray-800"
                   />
                 </div>
                 <div className="mb-4 flex flex-col text-lg">

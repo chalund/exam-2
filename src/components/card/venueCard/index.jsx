@@ -47,8 +47,8 @@ const VenueCard = ({ venue }) => {
                   <FaMapMarkerAlt />
                 </p>
               
-              <p className="md:text-md text-sm">{venue.location?.city}</p>
-              <p className="md:text-md text-sm">{venue.location?.country}</p>
+              <p className="md:text-md text-sm truncate">{venue.location?.city}</p>
+              <p className="md:text-md text-sm truncate">{venue.location?.country}</p>
             </div>
           </div>
           <div className="mt-3 flex items-center justify-between">

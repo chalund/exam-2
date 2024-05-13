@@ -91,8 +91,8 @@ const MyVenues = () => {
                     </Link>
                   )}
                 </div>
-                <div className="mb-2 text-lg sm:ms-4">{venue.name}</div>
-                <div className="sm:ml-auto sm:mr-12 sm:flex sm:items-end">
+                <div className="mb-2 text-lg ms-4">{venue.name}</div>
+                <div className="md:ml-auto md:mr-12 ml-2 flex items-end">
                   {" "}
                   {/* Add ml-auto to push buttons to the end */}
                   <Link to={`/venue/bookings/${venue.id}`}>

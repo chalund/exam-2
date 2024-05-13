@@ -14,8 +14,8 @@ export function isLoggedIn() {
 const Footer = () => {
   return (
     <div className="bg-zinc-700 p-6 text-white">
-      <div className="mx-auto flex max-w-screen-lg items-center justify-evenly md:flex-row md:justify-between">
-        <div className="flex w-1/4 flex-col items-center">
+      <div className="mx-auto md:flex max-w-screen-lg items-center justify-evenly md:flex-row md:justify-between">
+        <div className="flex mb-10 md:mb-0 md:w-1/4 flex-col items-center">
           <Logo colorClass="text-violet-400" />
           <div className="mt-2 flex gap-3">
             <FaFacebook size={24} />
@@ -25,7 +25,7 @@ const Footer = () => {
         </div>
 
         <div className="flex-3 text-center">
-          <ul className="flex flex-col gap-2 text-start text-xl uppercase md:flex-row md:gap-6">
+          <ul className="flex flex-col gap-2 md:text-start text-xl uppercase md:flex-row md:gap-6">
             {isLoggedIn() ? (
               <NavLink
                 to="/profile"
