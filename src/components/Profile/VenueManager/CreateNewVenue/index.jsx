@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createApiKey } from "../../../API/ApiKey";
 import { createVenue } from "../../../API/Venue/createVenue";
 import { IoCloseOutline } from "react-icons/io5";
@@ -20,6 +20,19 @@ const CreateNewVenueForm = () => {
   const [postCode, setPostCode] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
+
+
+  useEffect(() => {
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    } else {
+      document.body.style.overflow = "visible";
+      document.body.style.paddingRight = "0px";
+    }
+  }, [isModalOpen]);
 
   const handleCreateNewVenueForm = async (e) => {
     e.preventDefault();
@@ -156,7 +169,7 @@ const CreateNewVenueForm = () => {
             className="modal-content"
             style={{
               position: "absolute",
-              top: "40%",
+              top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
               backgroundColor: "white",
@@ -165,7 +178,7 @@ const CreateNewVenueForm = () => {
               width: "100%",
               maxWidth: "600px",
               
-              maxHeight: "80vh", 
+              maxHeight: "100vh", 
               overflowY: "auto" // Enables scrolling within the modal content
             }}
           >

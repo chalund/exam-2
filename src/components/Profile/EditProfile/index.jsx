@@ -14,64 +14,54 @@ const EditProfileForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [originalBio, setOriginalBio] = useState("");
 
-  const handleClearAvatarUrl = () => {
-    setAvatarUrl("");
+  useEffect(() => {
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    } else {
+      document.body.style.overflow = "visible";
+      document.body.style.paddingRight = "0px";
+    }
+  }, [isModalOpen]);
+
+  const handleClearField = (setter) => {
+    setter("");
+    console.log("Field cleared");
   };
 
-  const handleClearAvatarAlt = () => {
-    setAvatarAlt("");
-  };
-
-  const handleClearBannerUrl = () => {
-    setBannerUrl("");
-  };
-
-  const handleClearBannerAlt = () => {
-    setBannerAlt("");
-  };
-
-  const handleClearBio = () => {
-    setBio("");
-  };
-
-  const handleEditForm = async (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
-
-    let newData = {
-      bio: bio !== "" ? bio : originalBio,
-      userType,
-    };
-
-    if (avatarUrl.trim() !== "") {
-      newData.avatar = { url: avatarUrl };
-      if (avatarAlt.trim() !== "") {
-        newData.avatar.alt = avatarAlt;
-      }
-    }
-    if (bannerUrl.trim() !== "") {
-      newData.banner = { url: bannerUrl };
-      if (bannerAlt.trim() !== "") {
-        newData.banner.alt = bannerAlt;
-      }
-    }
+    console.log('Saving data...');
 
     try {
       const apiKeyData = await createApiKey("User profile key");
       const apiKey = apiKeyData.data.key;
+      const username = localStorage.getItem("username");
+
+      let newData = {
+        bio,
+        userType,
+        avatar: avatarUrl ? { url: avatarUrl, alt: avatarAlt } : undefined,
+        banner: bannerUrl ? { url: bannerUrl, alt: bannerAlt } : undefined
+      };
 
       if (userType === "Venue Manager") {
-        newData = { ...newData, venueManager: true };
+        newData.venueManager = true;
       } else if (userType === "Guest") {
-        newData = { ...newData, venueManager: false };
+        newData.venueManager = false;
       }
 
-      const username = localStorage.getItem("username");
+      console.log('Data to be saved:', newData);
       await updateProfile(username, newData, apiKey);
+
       console.log("Profile updated successfully");
-      console.log(newData);
+      setIsModalOpen(false); // Close modal on success
+      window.location.reload(); // Reload the page
+
     } catch (error) {
       console.error("Error updating profile:", error);
-      // Handle error
     }
   };
 
@@ -87,7 +77,8 @@ const EditProfileForm = () => {
       const profile = await getProfile(username, apiKey);
 
       setOriginalBio(profile.data.bio);
-      setBio(profile.data.bio); // Set the bio to the current value from the profile
+      setBio(profile.data.bio);
+      setUserType(profile.data.userType); // Ensure userType is set from profile data
 
       setIsModalOpen(true);
     } catch (error) {
@@ -98,11 +89,6 @@ const EditProfileForm = () => {
   const closeModal = () => {
     setIsModalOpen(false);
     window.location.reload();
-  };
-
-  const handleSave = () => {
-    console.log("Profile edited");
-    // Add logic to save edited profile data
   };
 
   return (
@@ -136,21 +122,27 @@ const EditProfileForm = () => {
               backgroundColor: "white",
               padding: "20px",
               borderRadius: "8px",
-              width: "80%",
+              width: "100%",
+              maxWidth: "600px",
             }}
           >
-            <span
-              className="close flex cursor-pointer justify-end text-2xl"
-              onClick={closeModal}
+            <div
+              className="modal-header flex items-center justify-between"
+              style={{ marginBottom: "20px", position: "relative" }}
             >
-              &times;
-            </span>
-
-            <form onSubmit={handleEditForm}>
-              <h2 className="py-3 font-semibold uppercase text-violet-700">
+              <h2 className="flex-1 py-3 text-center text-2xl font-semibold uppercase text-violet-700">
                 Edit Profile
               </h2>
+              <span
+                className="close cursor-pointer text-3xl"
+                onClick={closeModal}
+                style={{ position: "absolute", right: "10px", top: "10px" }}
+              >
+                &times;
+              </span>
+            </div>
 
+            <form onSubmit={handleSave}>
               <div>
                 <div className="relative mb-4 flex items-center text-lg">
                   <input
@@ -162,9 +154,9 @@ const EditProfileForm = () => {
                     className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none"
                   />
                   <IoCloseOutline
-                    size={30}
-                    onClick={handleClearAvatarUrl}
-                    className="absolute right-0 top-0 mr-3 mt-2  cursor-pointer text-gray-800"
+                    size={24}
+                    onClick={() => handleClearField(setAvatarUrl)}
+                    className="absolute right-0 top-1 mr-3 mt-2  cursor-pointer text-gray-800"
                   />
                 </div>
                 <div className="relative mb-4 flex items-center text-lg">
@@ -177,9 +169,9 @@ const EditProfileForm = () => {
                     className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none"
                   />
                   <IoCloseOutline
-                    size={30}
-                    onClick={handleClearAvatarAlt}
-                    className="absolute right-0 top-0 mr-3 mt-2 cursor-pointer text-gray-800"
+                    size={24}
+                    onClick={() => handleClearField(setAvatarAlt)}
+                    className="absolute right-0 top-1 mr-3 mt-2 cursor-pointer text-gray-800"
                   />
                 </div>
                 <div className="relative mb-4 flex items-center text-lg">
@@ -192,9 +184,9 @@ const EditProfileForm = () => {
                     className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none"
                   />
                   <IoCloseOutline
-                    size={30}
-                    onClick={handleClearBannerUrl}
-                    className="absolute right-0 top-0 mr-3 mt-2 cursor-pointer text-gray-800"
+                    size={24}
+                    onClick={() => handleClearField(setBannerUrl)}
+                    className="absolute right-0 top-1 mr-3 mt-2 cursor-pointer text-gray-800"
                   />
                 </div>
                 <div className=" relative mb-4 flex items-center text-lg">
@@ -207,9 +199,9 @@ const EditProfileForm = () => {
                     className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none"
                   />
                   <IoCloseOutline
-                    size={30}
-                    onClick={handleClearBannerAlt}
-                    className="absolute right-0 top-0 mr-3 mt-2 cursor-pointer text-gray-800"
+                    size={24}
+                    onClick={() => handleClearField(setBannerAlt)}
+                    className="absolute right-0 top-1 mr-3 mt-2 cursor-pointer text-gray-800"
                   />
                 </div>
                 <div className="relative mb-4 flex items-center text-lg">
@@ -221,9 +213,9 @@ const EditProfileForm = () => {
                     className="w-full rounded-xl border py-2 pl-3 pr-8 focus:outline-none"
                   />
                   <IoCloseOutline
-                    size={30}
-                    onClick={handleClearBio}
-                    className="absolute right-0 top-0 mr-3 mt-2 cursor-pointer text-gray-800"
+                    size={24}
+                    onClick={() => handleClearField(setBio)}
+                    className="absolute right-0 top-1 mr-3 mt-2 cursor-pointer text-gray-800"
                   />
                 </div>
                 <div className="mb-3 flex gap-4">
@@ -233,7 +225,7 @@ const EditProfileForm = () => {
                       name="userType"
                       id="guestRadio"
                       checked={userType === "Guest"}
-                      onChange={(e) => setUserType("Guest")}
+                      onChange={() => setUserType("Guest")}
                       className="form-radio mr-2"
                     />
                     <label htmlFor="guestRadio">Guest</label>
@@ -244,7 +236,7 @@ const EditProfileForm = () => {
                       id="venueManagerRadio"
                       name="userType"
                       checked={userType === "Venue Manager"}
-                      onChange={(e) => setUserType("Venue Manager")}
+                      onChange={() => setUserType("Venue Manager")}
                       className="form-radio mr-2"
                     />
                     <label htmlFor="venueManagerRadio">Venue Manager</label>
@@ -252,10 +244,10 @@ const EditProfileForm = () => {
                 </div>
               </div>
               <button
-                onClick={handleSave}
-                className="mb-5 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-8 py-2 font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white"
+                type="submit"
+                className="mb-5 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-8 py-2 font-semibold uppercase hover:from-orange-400 hover:to-orange-500"
               >
-                Save
+                Update Profile
               </button>
             </form>
           </div>
