@@ -55,11 +55,11 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className="m-4 overflow-x-auto  ">
+      <div className="ms-5 md:ms-0 overflow-x-auto mx-auto md:items-center ">
         <LastTreeCards />
       </div>
 
-      <div className="my-12 ml-3 flex overflow-auto lg:ml-0">
+      <div className="my-12 ml-5 md:ml-0 flex overflow-auto lg:ml-0">
         <div className="flex justify-evenly rounded-lg bg-violet-700 p-5 text-white">
           <p className="m-2 mt-5 w-72 p-1 text-xl font-semibold md:w-1/4">
             Find and book your perfect stay

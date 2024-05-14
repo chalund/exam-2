@@ -26,9 +26,9 @@ function LastTreeCards() {
   return (
     <div className="mt-4 py-5">
       <h2 className="text-xl uppercase mb-4">Recently Added Venues</h2>
-      <div className="flex justify-start overflow-x-auto gap-1">
+      <div className="flex md:justify-center  overflow-x-auto md:overflow-hidden gap-2">
         {newestVenues.map((venue) => (
-          <div key={venue.id} className="flex-shrink-0 w-80 ">
+          <div key={venue.id} className="flex-shrink-0 md:flex-shrink md:w-80 mx-3 ">
             <VenueCard venue={venue} />
           </div>
         ))}

@@ -12,6 +12,7 @@ export function useFetch(url) {
         const data = await response.json();
         setData(data);
         setLoading(false);
+        console.log(url)
       } catch (error) {
         setError(true);
         throw new Error("Error fetching data");

@@ -10,10 +10,11 @@ import { MdOutlinePets, MdBreakfastDining } from "react-icons/md";
 import { useEffect } from "react";
 import StarRate from "../../components/StarRating";
 import formatDate from "../../components/DateFormatter";
-import EditVenueLink from "../../components/Search/searchMobile";
+
 import BookingForm from "../../components/BookingForm";
 import NoImage from "../../assets/no_image.jpg";
 import Spinner from "../../components/Spinner/Loader";
+import BookingFormLink from "../../components/BookingFormLink";
 
 const VenueDetailsPage = () => {
   const { id } = useParams();
@@ -133,7 +134,7 @@ const VenueDetailsPage = () => {
             <div className="flex items-center gap-1 md:hidden">
               <IoCalendarNumberOutline />
               <p></p>
-              <EditVenueLink onClick={handleEditLinkClick} />
+              <BookingFormLink venueId={id} />
             </div>
 
             <p className="mt-5 font-semibold">Description</p>

@@ -146,16 +146,17 @@ const CreateNewVenueForm = () => {
             top: 0,
             left: 0,
             width: "100%",
-            height: "140vh",
+            height: "100%",
             backgroundColor: "rgba(0, 0, 0, 0.5)",
             zIndex: 999,
+            overflow: "auto", 
           }}
         >
           <div
             className="modal-content"
             style={{
               position: "absolute",
-              top: "36%",
+              top: "40%",
               left: "50%",
               transform: "translate(-50%, -50%)",
               backgroundColor: "white",
@@ -163,6 +164,9 @@ const CreateNewVenueForm = () => {
               borderRadius: "8px",
               width: "100%",
               maxWidth: "600px",
+              
+              maxHeight: "80vh", 
+              overflowY: "auto" // Enables scrolling within the modal content
             }}
           >
             <span
@@ -199,7 +203,7 @@ const CreateNewVenueForm = () => {
                     type="text"
                     name="description"
                     placeholder="Description.."
-                    className="w-full rounded-xl border py-2 pl-3  focus:outline-none"
+                    className="w-full rounded-xl border py-2 pl-3 pr-10 focus:outline-none"
                   />
                            <IoCloseOutline
                     size={30}

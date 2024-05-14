@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 import { useFetch } from "../Hooks/useFetch";
-import { BASE_URL, Venues } from "../API";
+import { BASE_URL, Profile, Venues } from "../API";
 import Spinner from "../Spinner/Loader";
 import { IoCloseOutline } from "react-icons/io5";
 import Pagination from "../Pagination";
 import { BiSearch } from "react-icons/bi";
 import ProductCard from "../card";
 
+
 function ProductList() {
-  const { data, loading, error } = useFetch(BASE_URL + Venues);
+
+  const { data, loading, error } = useFetch(`${BASE_URL}${Venues}`);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(24);
+
+
 
   if (loading) {
     return (
@@ -72,7 +76,7 @@ function ProductList() {
     <div className="flex flex-col items-center">
       <div className="mx-auto mb-6 md:my-6 md:mt-10 flex w-full max-w-[990px] flex-col items-center md:rounded-xl bg-violet-700 p-8">
         <h1 className="mb-4 text-2xl font-medium capitalize text-white md:text-3xl">
-          Find your new destination today
+          Find new Venue
         </h1>
         <div className="relative flex w-full max-w-[600px] items-center rounded-xl bg-white shadow-md">
           <BiSearch
@@ -81,7 +85,7 @@ function ProductList() {
           />
           <input
             type="text"
-            placeholder="Search by product name or location..."
+            placeholder="Search..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full rounded-full border-0 py-2 pl-12 pr-16 focus:outline-none"
@@ -96,13 +100,17 @@ function ProductList() {
       <div className=" flex w-full max-w-[990px] flex-wrap justify-center">
         <ProductCard venues={currentProducts} />
       </div>
-      <div className="my-10">
+      <div className="mt-10">
         <Pagination
           productsPerPage={productsPerPage}
           totalProducts={filteredProducts.length}
           currentPage={currentPage}
           paginate={paginate}
         />
+      </div>
+      <div className="mb-4">
+        <button>Back to top</button>
+      
       </div>
     </div>
   );

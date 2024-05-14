@@ -16,7 +16,7 @@ const VenueCard = ({ venue }) => {
     <Link to={`/venue/${venue.id}`} className="block">
       <div className="flex py-4  flex-col h-full w-full max-w-[300px] justify-between rounded-lg border bg-white p-4 hover:border-4 hover:border-violet-700">
         {venue.media && venue.media.length > 0 ? (
-          <div className="relative block h-48 w-full ">
+          <div className="relative block h-32 sm:h-48 w-full ">
             <img
               src={venue.media[0].url}
               alt={venue.media[0].alt || "Venue image"}
@@ -55,8 +55,8 @@ const VenueCard = ({ venue }) => {
             <p>
               Price <b>${venue.price}</b>
             </p>
-            <button className="rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-3 py-1 text-sm uppercase text-white hover:to-violet-900 hover:font-semibold">
-              View deal
+            <button className="rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-5 py-1 text-sm uppercase text-white hover:to-violet-900 hover:font-semibold">
+              View
             </button>
           </div>
         </div>
