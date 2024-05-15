@@ -1,30 +1,40 @@
 import { Link, useParams } from "react-router-dom";
 import { BASE_URL } from "../../components/API";
 import { useFetch } from "../../components/Hooks/useFetch";
-
 import { MdOutlineEmail } from "react-icons/md";
 import { IoCalendarNumberOutline } from "react-icons/io5";
-
 import { FaArrowLeft, FaBed, FaWifi, FaParking } from "react-icons/fa";
 import { MdOutlinePets, MdBreakfastDining } from "react-icons/md";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import StarRate from "../../components/StarRating";
 import formatDate from "../../components/DateFormatter";
-
 import BookingForm from "../../components/BookingForm";
 import NoImage from "../../assets/no_image.jpg";
 import Spinner from "../../components/Spinner/Loader";
 import BookingFormLink from "../../components/BookingFormLink";
+
 
 const VenueDetailsPage = () => {
   const { id } = useParams();
   const { data, loading, error } = useFetch(
     `${BASE_URL}/venues/${id}?_owner=true&_bookings=true`,
   );
-
+  const [isOwner, setIsOwner] = useState(false);
+  const [editMode, setEditMode] = useState(false);
   const isLoggedIn = Boolean(localStorage.getItem("accessToken"));
+  const loggedInUserEmail = localStorage.getItem("userEmail"); // Assuming the user's email is stored in localStorage
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (data && data.data) {
+      const { owner } = data.data;
+      setIsOwner(owner.email === loggedInUserEmail);
+    }
+  }, [data, loggedInUserEmail]);
+
+  const handleFormSubmit = () => {
+    setEditMode(false); // Exit edit mode after form submission
+    window.location.reload(); // Refresh the page to reflect changes
+  };
 
   if (loading) {
     return (
@@ -60,17 +70,19 @@ const VenueDetailsPage = () => {
     },
   } = data.data;
 
-  const handleEditLinkClick = () => {
-    console.log("edit link clicked");
-  };
-
   return (
     <div className="mx-auto max-w-screen-md rounded-xl border bg-white md:my-6">
       <div className="ms-2 mt-4 flex items-center gap-2">
         <FaArrowLeft />
-        <Link to={`/listings`} className="underline">
-          Back to List of Venues
-        </Link>
+        {isOwner ? (
+          <Link to={`/profile`} className="underline">
+            Back to Profile
+          </Link>
+        ) : (
+          <Link to={`/listings`} className="underline">
+            Back to List of Venues
+          </Link>
+        )}
       </div>
 
       <div className="py-4 md:px-6">
@@ -113,7 +125,7 @@ const VenueDetailsPage = () => {
             <img
               src={NoImage}
               alt="No Image"
-              className="mx-auto max-h-[300px]  border md:rounded-xl"
+              className="mx-auto max-h-[300px] border md:rounded-xl"
             />
           </div>
         ) : null}
@@ -138,9 +150,9 @@ const VenueDetailsPage = () => {
             </div>
 
             <p className="mt-5 font-semibold">Description</p>
-            <p>{description}</p>
-            <div className="mt-1 flex items-center gap-1 truncate">
-              <FaBed size={20} />
+            <p className="mb-3">{description}</p>
+            <div className="mt-1 font-semibold flex items-center gap-1 truncate">
+              <FaBed size={24} />
               <p>{maxGuests} Guests</p>
             </div>
 
@@ -181,13 +193,15 @@ const VenueDetailsPage = () => {
             <div className="py-4 ">
               <p className="font-semibold">Location</p>
               <p className="truncate">Address: {location.address}</p>
-              <p className="truncate">City: {location.city}</p>
+              <p className="truncate">
+                City: {location.zip} {location.city}
+              </p>
               <p className="truncate">Country: {location.country}</p>
             </div>
 
             <div className="max-w-sm py-4 md:hidden">
               <p className="font-semibold">Hosted by</p>
-              <div className="mt-2 flex  items-center gap-4 rounded-xl border p-3">
+              <div className="mt-2 flex items-center gap-4 rounded-xl border p-3">
                 <img
                   src={ownerAvatarUrl}
                   alt="profile image of host"
@@ -214,12 +228,13 @@ const VenueDetailsPage = () => {
             </div>
           </div>
 
-          <div className="hidden grid-cols-6 p-2 md:block ">
-            {isLoggedIn ? (
+          <div className="hidden grid-cols-6 p-2 md:block">
+            {!isOwner && isLoggedIn && (
               <div className="mt-6 rounded-xl border bg-white p-4">
                 <BookingForm price={price} venueId={id} />
               </div>
-            ) : (
+            )}
+            {!isLoggedIn && (
               <div className="mt-6 rounded-xl border bg-white p-4">
                 <p>
                   You need to{" "}
@@ -230,6 +245,10 @@ const VenueDetailsPage = () => {
                 </p>
               </div>
             )}
+
+          
+
+        
 
             <div className="mt-3 hidden py-4 md:block">
               <p className="font-semibold">Hosted by</p>
