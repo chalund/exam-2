@@ -112,7 +112,7 @@ const VenueDetailsPage = () => {
                   }}
                 />
                 {media.length > 1 && (
-                  <button className="absolute bottom-1 right-4 mb-5 rounded-full bg-white bg-gradient-to-r px-3 py-2 text-sm font-semibold uppercase text-violet-700 hover:from-orange-300 hover:to-orange-500 hover:text-white">
+                  <button className="absolute bottom-1 right-4 mb-5 rounded-full bg-white bg-gradient-to-r px-3 py-2 text-sm font-semibold uppercase  hover:from-violet-500 hover:to-violet-700 hover:text-white">
                     <Link to={`/venue/images/${id}`}>View all</Link>
                   </button>
                 )}

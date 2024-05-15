@@ -48,13 +48,13 @@ const VenueImages = () => {
         </Link>
       </div>
 
-      <div className="md: mb-4 mt-4 grid grid-cols-1  gap-4 md:grid-cols-2 lg:grid-cols-2">
+      <div className="mb-10 mt-4 grid grid-cols-1  gap-4 md:grid-cols-2 lg:grid-cols-2">
         {media.map((image, index) => (
           <img
             key={index}
             src={image.url}
             alt={`Image ${index}`}
-            className="h-72 w-full md:block md:max-h-72 md:cursor-pointer lg:block"
+            className="h-72 w-full md:block md:max-h-72 md:cursor-pointer lg:block cursor-pointer"
             onClick={() => openModal(image.url)}
           />
         ))}
