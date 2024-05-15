@@ -71,7 +71,7 @@ const VenueBookings = () => {
                 return (
                   <li
                     key={booking.id}
-                    className="m-2 flex items-center gap-3 rounded-xl border bg-white p-4"
+                    className="m-5 mx-10 flex flex-col md:flex-row items-center gap-4 rounded-xl border bg-white p-4"
                   >
                     <img
                       src={booking.customer.avatar.url}

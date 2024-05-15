@@ -59,7 +59,7 @@ const MyBookingsProfilePage = ({ bookings, totalCount }) => {
           {expiredBookings.map((booking) => (
             <li
               key={booking.id}
-              className="mb-3 flex flex-col rounded-xl border hover:bg-zinc-100 md:flex-row"
+              className="mb-3 flex flex-col rounded-xl border hover:bg-zinc-100 md:flex-row "
             >
               <div className="flex items-center justify-center py-4 md:justify-start md:px-6">
                 {booking.venue.media && booking.venue.media.length > 0 && (
