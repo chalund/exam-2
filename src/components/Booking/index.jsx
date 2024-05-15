@@ -3,31 +3,12 @@ import { useParams } from "react-router-dom";
 import { useFetch } from "../Hooks/useFetch";
 import { BASE_URL, Venues } from "../API";
 import formatDate from "../DateFormatter";
-
-// Adjusted helper function to return both total cost and number of days
-const calculateCostDetails = (dateFrom, dateTo, pricePerNight) => {
-  const startDate = new Date(dateFrom);
-  const endDate = new Date(dateTo);
-
-  // Calculate the difference in time
-  const differenceInTime = endDate - startDate;
-
-  // Convert the difference from milliseconds to days
-  let numberOfDays = Math.ceil(differenceInTime / (1000 * 60 * 60 * 24));
-
-  // Ensure a minimum charge of one day
-  numberOfDays = Math.max(numberOfDays, 1);
-
-  // Calculate the total cost
-  const totalCost = numberOfDays * pricePerNight;
-
-  return { numberOfDays, totalCost };
-};
+import { calculateDaysDifference } from "../CalculateDays";
 
 const VenueBookings = () => {
   const { id } = useParams();
   const { data, loading, error } = useFetch(
-    `${BASE_URL}${Venues}/${id}?_bookings=true`,
+    `${BASE_URL}${Venues}/${id}?_bookings=true`
   );
 
   if (loading) {
@@ -42,36 +23,48 @@ const VenueBookings = () => {
     return <p>No bookings available for this venue.</p>;
   }
 
-  console.log(data);
+  // Sort bookings by date
+  const sortedBookings = data.data.bookings.sort(
+    (a, b) => new Date(a.dateFrom) - new Date(b.dateFrom)
+  );
 
   const venueName = data.data.name;
   const pricePerNight = data.data.price;
 
   return (
-    <div className="mt-6 md:mb-12">
-      <h1 className="text-center text-xl uppercase text-violet-700">
+    <div className="mt-6 md:mb-12 max-w-screen-md">
+      <h1 className="text-center text-2xl mb-6 uppercase text-violet-700">
         {venueName} Bookings
       </h1>
       <ul>
-        {data.data.bookings.length === 0 ? (
+        {sortedBookings.length === 0 ? (
           <li className="text-center">No bookings yet in this venue.</li>
         ) : (
-          data.data.bookings.map((booking) => {
-            const { numberOfDays, totalCost } = calculateCostDetails(
-              booking.dateFrom,
-              booking.dateTo,
-              pricePerNight,
-            );
-
+          sortedBookings.map((booking) => {
             return (
-              <li key={booking.id} className="m-2 border border-black p-2">
-                <p>Guest: {booking.customer.name}</p>
-                <p>Date From: {formatDate(booking.dateFrom)}</p>
-                <p>Date To: {formatDate(booking.dateTo)}</p>
-                <p>Number of Nights: {numberOfDays}</p>
-                <p>Number of Guests: {booking.guests}</p>
-                <p>Price per Night: ${pricePerNight}</p>
-                <p>Total Cost: ${totalCost}</p>
+              <li
+                key={booking.id}
+                className="m-2 flex border rounded-xl bg-white p-4 gap-3 items-center"
+              >
+                <img
+                  src={booking.customer.avatar.url}
+                  alt={booking.customer.avatar.alt}
+                  className="h-36 w-48 rounded-full md:h-24 md:w-24"
+                />
+
+                <div>
+                  <p>Name of Guest: {booking.customer.name}</p>
+                  <p>Date From: {formatDate(booking.dateFrom)}</p>
+                  <p>Date To: {formatDate(booking.dateTo)}</p>
+                  <p>
+                    Number of Days:{" "}
+                    {calculateDaysDifference(
+                      booking.dateFrom,
+                      booking.dateTo
+                    )}
+                  </p>
+                  <p>Number of Guests: {booking.guests}</p>
+                </div>
               </li>
             );
           })

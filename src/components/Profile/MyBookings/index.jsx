@@ -2,18 +2,23 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { GoSmiley } from "react-icons/go";
 import formatDate from "../../DateFormatter";
+import { calculateDaysDifference } from "../../CalculateDays";
 
 const MyBookingsProfilePage = ({ bookings, totalCount }) => {
   const [showExpired, setShowExpired] = useState(false);
   const today = new Date();
 
   const currentBookings = bookings.filter(
-    (booking) => new Date(booking.dateTo) >= today
+    (booking) => new Date(booking.dateTo) >= today,
   );
 
   const expiredBookings = bookings.filter(
-    (booking) => new Date(booking.dateTo) < today
+    (booking) => new Date(booking.dateTo) < today,
   );
+
+  const calculateTotalPrice = (pricePerNight, numberOfNights) => {
+    return pricePerNight * numberOfNights;
+  };
 
   if (totalCount === 0) {
     return (
@@ -35,7 +40,7 @@ const MyBookingsProfilePage = ({ bookings, totalCount }) => {
 
   return (
     <div className="mt-6 border bg-white py-6 md:rounded-xl">
-      <div className="flex justify-between items-baseline mr-8">
+      <div className="mr-8 flex items-baseline justify-between">
         <h2 className="ms-6 text-xl font-semibold uppercase text-violet-700 md:text-2xl">
           My bookings
         </h2>
@@ -44,35 +49,105 @@ const MyBookingsProfilePage = ({ bookings, totalCount }) => {
             onClick={() => setShowExpired(!showExpired)}
             className="text-violet-700 underline"
           >
-            {showExpired ? "Hide expired bookings" : "View expired bookings"}
+            {showExpired ? "View upcoming bookings" : "View expired bookings"}
           </button>
         )}
       </div>
 
       {showExpired ? (
-        <ul className="mt-4">
+        <ul className="m-6">
           {expiredBookings.map((booking) => (
-            <li key={booking.id} className="m-2 flex gap-2 border">
-              <p>{booking.venue.name}</p>
-              <div>
-                <p>Date From: {formatDate(booking.dateFrom)}</p>
-                <p>Date To: {formatDate(booking.dateTo)}</p>
-                <p>Number of Guests: {booking.guests}</p>
-                <p>Price per night: {booking.venue.price}</p>
+            <li key={booking.id} className="flex flex-col md:flex-row mb-3 hover:bg-zinc-100 border rounded-xl">
+            <div className="flex justify-center items-center md:justify-start md:px-6 py-4">
+              {booking.venue.media && booking.venue.media.length > 0 && (
+                <Link
+                  to={`/venue/${booking.venue.id}`}
+                  key={booking.venue.id}
+                  className="block"
+                >
+                  <img
+                    src={booking.venue.media[0].url}
+                    alt={booking.venue.media[0].alt}
+                    className="h-36 w-48 md:h-24 md:w-24 rounded-xl"
+                  />
+                </Link>
+              )}
+            </div>
+            
+
+            <div className="mx-auto md:mx-0 my-2">
+              <p className="font-semibold">{booking.venue.name}</p>
+
+              <div className="md:flex gap-3">
+                <p>From: {formatDate(booking.dateFrom)}</p>
+                <p>To: {formatDate(booking.dateTo)}</p>
               </div>
-            </li>
+              <p>
+                Number of Days:{" "}
+                {calculateDaysDifference(booking.dateFrom, booking.dateTo)}
+              </p>
+
+              <p>Guests: {booking.guests}</p>
+              <div className="md:flex gap-3">
+                <p>Price per night: ${booking.venue.price}</p>
+                <p>
+                  Total Price: ${" "}
+                  {calculateTotalPrice(
+                    booking.venue.price,
+                    calculateDaysDifference(booking.dateFrom, booking.dateTo),
+                  )}
+                </p>
+                
+              </div>
+            </div>
+          </li>
           ))}
         </ul>
       ) : (
-        <ul>
+        <ul className=" m-6 ">
           {currentBookings.map((booking) => (
-            <li key={booking.id} className="m-2 flex gap-2 border">
-              <p>{booking.venue.name}</p>
-              <div>
-                <p>Date From: {formatDate(booking.dateFrom)}</p>
-                <p>Date To: {formatDate(booking.dateTo)}</p>
-                <p>Number of Guests: {booking.guests}</p>
-                <p>Price per night: {booking.venue.price}</p>
+            <li key={booking.id} className="flex flex-col md:flex-row mb-3 hover:bg-zinc-100 border rounded-xl">
+              <div className="flex justify-center items-center md:justify-start md:px-6 py-4">
+                {booking.venue.media && booking.venue.media.length > 0 && (
+                  <Link
+                    to={`/venue/${booking.venue.id}`}
+                    key={booking.venue.id}
+                    className="block"
+                  >
+                    <img
+                      src={booking.venue.media[0].url}
+                      alt={booking.venue.media[0].alt}
+                      className="h-36 w-48 md:h-24 md:w-24 rounded-xl"
+                    />
+                  </Link>
+                )}
+              </div>
+              
+
+              <div className="mx-auto md:mx-0 my-2">
+                <p className="font-semibold">{booking.venue.name}</p>
+
+                <div className="md:flex gap-3">
+                  <p>From: {formatDate(booking.dateFrom)}</p>
+                  <p>To: {formatDate(booking.dateTo)}</p>
+                </div>
+                <p>
+                  Number of Days:{" "}
+                  {calculateDaysDifference(booking.dateFrom, booking.dateTo)}
+                </p>
+
+                <p>Guests: {booking.guests}</p>
+                <div className="md:flex gap-3">
+                  <p>Price per night: ${booking.venue.price}</p>
+                  <p>
+                    Total Price: ${" "}
+                    {calculateTotalPrice(
+                      booking.venue.price,
+                      calculateDaysDifference(booking.dateFrom, booking.dateTo),
+                    )}
+                  </p>
+                  
+                </div>
               </div>
             </li>
           ))}
