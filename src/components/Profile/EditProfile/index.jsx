@@ -15,7 +15,8 @@ const EditProfileForm = () => {
   const [originalBio, setOriginalBio] = useState("");
 
   useEffect(() => {
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
 
     if (isModalOpen) {
       document.body.style.overflow = "hidden";
@@ -33,7 +34,7 @@ const EditProfileForm = () => {
 
   const handleSave = async (e) => {
     e.preventDefault();
-    console.log('Saving data...');
+    console.log("Saving data...");
 
     try {
       const apiKeyData = await createApiKey("User profile key");
@@ -44,7 +45,7 @@ const EditProfileForm = () => {
         bio,
         userType,
         avatar: avatarUrl ? { url: avatarUrl, alt: avatarAlt } : undefined,
-        banner: bannerUrl ? { url: bannerUrl, alt: bannerAlt } : undefined
+        banner: bannerUrl ? { url: bannerUrl, alt: bannerAlt } : undefined,
       };
 
       if (userType === "Venue Manager") {
@@ -53,13 +54,12 @@ const EditProfileForm = () => {
         newData.venueManager = false;
       }
 
-      console.log('Data to be saved:', newData);
+      console.log("Data to be saved:", newData);
       await updateProfile(username, newData, apiKey);
 
       console.log("Profile updated successfully");
       setIsModalOpen(false); // Close modal on success
       window.location.reload(); // Reload the page
-
     } catch (error) {
       console.error("Error updating profile:", error);
     }

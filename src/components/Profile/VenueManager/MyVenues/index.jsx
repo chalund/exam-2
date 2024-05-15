@@ -9,8 +9,6 @@ import Spinner from "../../../Spinner/Loader";
 const MyVenues = () => {
   const { profileData, isLoading, error } = useFetchProfile();
 
-  console.log(profileData);
-
   if (isLoading) {
     return (
       <div className="text-center text-2xl">
@@ -29,7 +27,7 @@ const MyVenues = () => {
         "Are you sure you want to delete this venue?",
       );
       if (!shouldDelete) {
-        return; // User canceled the deletion
+        return;
       }
 
       const apiKeyData = await createApiKey("Venue deletion key");
@@ -38,16 +36,13 @@ const MyVenues = () => {
       const response = await deleteVenue(id, apiKey);
 
       if (response && response.success) {
-        // Display success message
         window.confirm("Your venue is deleted successfully!");
-        // Refresh the page
         window.location.reload();
       } else {
         throw new Error("Failed to delete venue");
       }
     } catch (error) {
       console.error("Error deleting venue:", error);
-      // Handle error
     }
   };
 
@@ -91,10 +86,9 @@ const MyVenues = () => {
                     </Link>
                   )}
                 </div>
-                <div className="mb-2 text-lg ms-4">{venue.name}</div>
-                <div className="md:ml-auto md:mr-12 ml-2 flex items-end">
+                <div className="mb-2 ms-4 text-lg">{venue.name}</div>
+                <div className="ml-2 flex items-end md:ml-auto md:mr-12">
                   {" "}
-                  {/* Add ml-auto to push buttons to the end */}
                   <Link to={`/venue/bookings/${venue.id}`}>
                     <button className="mb-2 mr-2  rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-4 py-2 text-xs font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white">
                       View bookings

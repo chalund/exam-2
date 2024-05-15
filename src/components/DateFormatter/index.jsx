@@ -7,8 +7,7 @@ export default function formatDate(timestamp) {
     day: "numeric",
     hour: "numeric",
     minute: "numeric",
-    second: "numeric"
-    
+    second: "numeric",
   };
 
   return formattedDate.toLocaleString("en-US", options);

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { createApiKey } from "../API/ApiKey";
-import { createBooking } from "../API/Bookings/createBookings";
-import { getVenueById } from "../API/Venue/getVenueById";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { createApiKey } from "../../API/ApiKey";
+import { createBooking } from "../../API/Bookings/createBookings";
+import { getVenueById } from "../../API/Venue/getVenueById";
 
 const BookingForm = ({ price, venueId }) => {
   const isLoggedIn = Boolean(localStorage.getItem("accessToken"));
+  const navigate = useNavigate();
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(
@@ -99,6 +100,7 @@ const BookingForm = ({ price, venueId }) => {
 
         await createBooking(newData, apiKey);
         console.log("Booking successful", newData);
+        navigate("/profile");
       } else {
         console.log("User not logged in. Booking not allowed.");
       }

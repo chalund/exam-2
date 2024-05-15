@@ -12,5 +12,3 @@ export const calculateDaysDifference = (dateFrom, dateTo) => {
   // Ensure minimum of 1 day
   return Math.max(daysDifference, 1);
 };
-
-  

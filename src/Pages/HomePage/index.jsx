@@ -1,26 +1,19 @@
-import React from "react";
 import { BASE_URL, Venues } from "../../components/API";
 import { useFetch } from "../../components/Hooks/useFetch";
 import Nyksund from "../../assets/nyksund.jpg";
 import Lofoten from "../../assets/lofoten.jpg";
 import GirlSun from "../../assets/girlInSun.jpg";
 import Travel from "../../assets/travel.jpg";
-
 import { BiSearch } from "react-icons/bi";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import { BsCurrencyDollar } from "react-icons/bs";
 import Spinner from "../../components/Spinner/Loader";
-import ProductCard from "../../components/card";
-import LastTreeCards from "../../components/lastTreeCards";
+
 import { Link } from "react-router-dom";
+import LastTreeCards from "../../components/lastTreeCards";
 
 const HomePage = () => {
   const { data, loading, error } = useFetch(BASE_URL + Venues);
-
-  // Log the data, loading, and error states to check if they are being set correctly
-  console.log("Data homepage:", data);
-  // console.log("Loading:", loading);
-  // console.log("Error:", error);
 
   if (loading) {
     return (
@@ -39,7 +32,7 @@ const HomePage = () => {
           style={{
             width: "100%",
             height: "300px",
-            filter: "brightness(60%)", // Adjust the percentage as needed
+            filter: "brightness(60%)",
           }}
           className="md:mt-6 md:rounded-xl"
         />
@@ -55,11 +48,11 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className="ms-5 md:ms-0 overflow-x-auto mx-auto md:items-center ">
+      <div className="mx-auto ms-5 overflow-x-auto md:ms-0 md:items-center ">
         <LastTreeCards />
       </div>
 
-      <div className="my-12 ml-5 md:ml-0 flex overflow-auto lg:ml-0">
+      <div className="my-12 ml-5 flex overflow-auto md:ml-0 lg:ml-0">
         <div className="flex justify-evenly rounded-lg bg-violet-700 p-5 text-white">
           <p className="m-2 mt-5 w-72 p-1 text-xl font-semibold md:w-1/4">
             Find and book your perfect stay

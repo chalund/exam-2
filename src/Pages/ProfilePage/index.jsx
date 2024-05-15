@@ -8,8 +8,6 @@ import NoImage from "../../assets/no_image.jpg"; // Assuming you have a placehol
 const ProfilePage = () => {
   const { profileData, isLoading, error } = useFetchProfile();
 
-  console.log(profileData);
-
   if (isLoading) {
     return (
       <div className="text-center text-2xl">
@@ -22,7 +20,6 @@ const ProfilePage = () => {
     return <div className="text-center text-red-600">{`Error: ${error}`}</div>;
   }
 
-  // Sort bookings by dateFrom in ascending order
   const sortedBookings = profileData.bookings.sort(
     (a, b) => new Date(a.dateFrom) - new Date(b.dateFrom),
   );
@@ -38,7 +35,7 @@ const ProfilePage = () => {
                 alt="Banner"
                 className="h-40 w-full object-cover md:rounded-t-xl"
                 onError={(e) => {
-                  e.target.onerror = null; // Prevent infinite loop
+                  e.target.onerror = null;
                   e.target.src = NoImage;
                 }}
               />
@@ -47,7 +44,7 @@ const ProfilePage = () => {
                 alt="Avatar"
                 className="translate-y-1/5 absolute inset-1/2 h-32 w-32 -translate-x-1/2 transform rounded-full border-4 border-white"
                 onError={(e) => {
-                  e.target.onerror = null; // Prevent infinite loop
+                  e.target.onerror = null;
                   e.target.src = NoImage;
                 }}
               />

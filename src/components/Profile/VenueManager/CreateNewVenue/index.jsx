@@ -11,7 +11,7 @@ const CreateNewVenueForm = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [media, setMedia] = useState([]);
-  const [newImageUrl, setNewImageUrl] = useState(""); 
+  const [newImageUrl, setNewImageUrl] = useState("");
   const [meta, setMeta] = useState([]);
   const [maxGuests, setMaxGuests] = useState("");
   const [price, setprice] = useState("");
@@ -21,9 +21,9 @@ const CreateNewVenueForm = () => {
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
 
-
   useEffect(() => {
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
 
     if (isModalOpen) {
       document.body.style.overflow = "hidden";
@@ -51,8 +51,6 @@ const CreateNewVenueForm = () => {
       alert("Please fill out all required fields");
       return;
     }
-
-  
 
     // More advanced input validation can be added here
 
@@ -92,7 +90,7 @@ const CreateNewVenueForm = () => {
 
   const handleClearField = (setter) => {
     setter("");
-    console.log("clicked")
+    console.log("clicked");
   };
   const handleClearMedia = (index) => {
     removeMediaAtIndex(index);
@@ -142,15 +140,12 @@ const CreateNewVenueForm = () => {
 
   return (
     <div style={{ position: "relative" }}>
-      <button
-        onClick={openModal}
-        className="flex items-center gap-1"
-      >
-        <AiFillPlusCircle size={30} className="text-violet-700"/>
-  
+      <button onClick={openModal} className="flex items-center gap-1">
+        <AiFillPlusCircle size={30} className="text-violet-700" />
+
         <p className="text-violet-700 hover:underline">add venue</p>
       </button>
-     
+
       {isModalOpen && (
         <div
           className="modal"
@@ -162,7 +157,7 @@ const CreateNewVenueForm = () => {
             height: "100%",
             backgroundColor: "rgba(0, 0, 0, 0.5)",
             zIndex: 999,
-            overflow: "auto", 
+            overflow: "auto",
           }}
         >
           <div
@@ -177,9 +172,9 @@ const CreateNewVenueForm = () => {
               borderRadius: "8px",
               width: "100%",
               maxWidth: "600px",
-              
-              maxHeight: "100vh", 
-              overflowY: "auto" // Enables scrolling within the modal content
+
+              maxHeight: "100vh",
+              overflowY: "auto", // Enables scrolling within the modal content
             }}
           >
             <span
@@ -191,7 +186,7 @@ const CreateNewVenueForm = () => {
 
             <form onSubmit={handleCreateNewVenueForm}>
               <h2 className=" mb-5 text-center text-xl font-semibold uppercase text-violet-700">
-               Create a new venue
+                Create a new venue
               </h2>
               <div>
                 <div className="relative mb-4 flex items-center">
@@ -203,7 +198,7 @@ const CreateNewVenueForm = () => {
                     placeholder="Title.."
                     className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
                   />
-                    <IoCloseOutline
+                  <IoCloseOutline
                     size={30}
                     onClick={() => handleClearField(setName)}
                     className="absolute right-3  cursor-pointer text-gray-800"
@@ -218,7 +213,7 @@ const CreateNewVenueForm = () => {
                     placeholder="Description.."
                     className="w-full rounded-xl border py-2 pl-3 pr-10 focus:outline-none"
                   />
-                           <IoCloseOutline
+                  <IoCloseOutline
                     size={30}
                     onClick={() => handleClearField(setDescription)}
                     className="absolute right-3 top-0  cursor-pointer text-gray-800"
@@ -239,11 +234,11 @@ const CreateNewVenueForm = () => {
                         placeholder="Image URL.."
                         className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
                       />
-                      
+
                       <button
                         type="button"
                         onClick={() => removeMediaAtIndex(index)}
-                        className="rounded-full bg-gradient-to-t from-red-300 to-red-400 w-36 ms-2 py-1 font-semibold uppercase hover:from-red-400 hover:to-red-500 hover:text-white"
+                        className="ms-2 w-36 rounded-full bg-gradient-to-t from-red-300 to-red-400 py-1 font-semibold uppercase hover:from-red-400 hover:to-red-500 hover:text-white"
                       >
                         Remove
                       </button>
@@ -257,11 +252,11 @@ const CreateNewVenueForm = () => {
                       placeholder="New Image URL..."
                       className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
                     />
-               
+
                     <button
                       type="button"
                       onClick={handleAddMedia}
-                      className="whitespace-nowrap rounded-full bg-gradient-to-t from-orange-300 to-orange-400  w-36 ms-2 py-1 font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white"
+                      className="ms-2 w-36 whitespace-nowrap rounded-full bg-gradient-to-t  from-orange-300 to-orange-400 py-1 font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white"
                     >
                       Add Image
                     </button>
@@ -356,7 +351,7 @@ const CreateNewVenueForm = () => {
                     placeholder="Address..."
                     className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
                   />
-                           <IoCloseOutline
+                  <IoCloseOutline
                     size={30}
                     onClick={() => handleClearField(setAddress)}
                     className="absolute right-3  cursor-pointer text-gray-800"
@@ -371,7 +366,7 @@ const CreateNewVenueForm = () => {
                     placeholder="Post code..."
                     className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
                   />
-                           <IoCloseOutline
+                  <IoCloseOutline
                     size={30}
                     onClick={() => handleClearField(setPostCode)}
                     className="absolute right-3  cursor-pointer text-gray-800"
@@ -386,7 +381,7 @@ const CreateNewVenueForm = () => {
                     placeholder="City..."
                     className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
                   />
-                             <IoCloseOutline
+                  <IoCloseOutline
                     size={30}
                     onClick={() => handleClearField(setCity)}
                     className="absolute right-3  cursor-pointer text-gray-800"
@@ -401,7 +396,7 @@ const CreateNewVenueForm = () => {
                     placeholder="Country..."
                     className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
                   />
-                             <IoCloseOutline
+                  <IoCloseOutline
                     size={30}
                     onClick={() => handleClearField(set)}
                     className="absolute right-3  cursor-pointer text-gray-800"

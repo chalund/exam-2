@@ -20,15 +20,20 @@ function LastTreeCards() {
     return <div>Error: No data or an unexpected data format</div>;
   }
 
-  const sortedData = data.data.sort((a, b) => new Date(b.created) - new Date(a.created));
+  const sortedData = data.data.sort(
+    (a, b) => new Date(b.created) - new Date(a.created),
+  );
   const newestVenues = sortedData.slice(0, 3);
 
   return (
     <div className="mt-4 py-5">
-      <h2 className="text-xl uppercase mb-4">Recently Added Venues</h2>
-      <div className="flex md:justify-center  overflow-x-auto md:overflow-hidden gap-2">
+      <h2 className="mb-4 text-xl uppercase">Recently Added Venues</h2>
+      <div className="flex gap-2  overflow-x-auto md:justify-center md:overflow-hidden">
         {newestVenues.map((venue) => (
-          <div key={venue.id} className="flex-shrink-0 md:flex-shrink md:w-80 mx-3 ">
+          <div
+            key={venue.id}
+            className="mx-3 flex-shrink-0 md:w-80 md:flex-shrink "
+          >
             <VenueCard venue={venue} />
           </div>
         ))}

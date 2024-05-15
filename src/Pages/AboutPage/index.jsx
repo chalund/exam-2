@@ -1,10 +1,9 @@
 import Travel from "../../assets/travel.jpg";
 import GirlWithMap from "../../assets/girl_with_map.jpg";
-import Logo from "../../components/Layout/Logo";
 
 const AboutPage = () => {
   return (
-    <div className="mx-auto max-w-screen-md mb-6">
+    <div className="mx-auto mb-6 max-w-screen-md">
       <h1 className="mt-4 text-center text-2xl font-bold uppercase text-violet-700 md:mt-12">
         About
       </h1>
@@ -91,7 +90,6 @@ const AboutPage = () => {
           Join us and discover a world of endless possibilities. Let's make
           every day a holiday with Holidaze.
         </p>
-     
       </div>
     </div>
   );

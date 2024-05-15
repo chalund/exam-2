@@ -14,9 +14,9 @@ function handleImageError(e) {
 const VenueCard = ({ venue }) => {
   return (
     <Link to={`/venue/${venue.id}`} className="block">
-      <div className="flex py-4  flex-col h-full w-full max-w-[300px] justify-between rounded-lg border bg-white p-4 hover:border-4 hover:border-violet-700">
+      <div className="flex h-full  w-full max-w-[300px] flex-col justify-between rounded-lg border bg-white p-4 py-4 hover:border-4 hover:border-violet-700">
         {venue.media && venue.media.length > 0 ? (
-          <div className="relative block h-32 sm:h-48 w-full ">
+          <div className="relative block h-32 w-full sm:h-48 ">
             <img
               src={venue.media[0].url}
               alt={venue.media[0].alt || "Venue image"}
@@ -38,17 +38,20 @@ const VenueCard = ({ venue }) => {
             />
           </div>
         )}
-        <div className="flex flex-col flex-grow justify-between mt-2">
+        <div className="mt-2 flex flex-grow flex-col justify-between">
           <div>
-            <h2 className="mt-1 font-bold truncate">{venue.name}</h2>
+            <h2 className="mt-1 truncate font-bold">{venue.name}</h2>
             <div className="flex items-center gap-1 border-b-2 border-violet-700 pb-2">
-              
-                <p>
-                  <FaMapMarkerAlt />
-                </p>
-              
-              <p className="md:text-md text-sm truncate">{venue.location?.city}</p>
-              <p className="md:text-md text-sm truncate">{venue.location?.country}</p>
+              <p>
+                <FaMapMarkerAlt />
+              </p>
+
+              <p className="md:text-md truncate text-sm">
+                {venue.location?.city}
+              </p>
+              <p className="md:text-md truncate text-sm">
+                {venue.location?.country}
+              </p>
             </div>
           </div>
           <div className="mt-3 flex items-center justify-between">

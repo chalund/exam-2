@@ -1,6 +1,5 @@
 import { BASE_URL, Bookings } from "../../index.jsx";
 
-// In your API file
 export const createBooking = async (newData, apiKey) => {
   const accessToken = localStorage.getItem("accessToken");
   const createBookingUrl = `${BASE_URL}${Bookings}`;

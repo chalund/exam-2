@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { createApiKey } from "../API/ApiKey";
-import { createBooking } from "../API/Bookings/createBookings";
-import { getVenueById } from "../API/Venue/getVenueById";
+import { createApiKey } from "../../API/ApiKey";
+import { createBooking } from "../../API/Bookings/createBookings";
+import { getVenueById } from "../../API/Venue/getVenueById";
+import { useNavigate } from "react-router-dom";
 
 const BookingFormLink = ({ price, venueId }) => {
   const isLoggedIn = Boolean(localStorage.getItem("accessToken"));
+  const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
@@ -58,10 +60,7 @@ const BookingFormLink = ({ price, venueId }) => {
     }
   }, [venueId, isLoggedIn]);
 
-
-
-  useEffect(() => {
-  }, [startDate, endDate, price]);
+  useEffect(() => {}, [startDate, endDate, price]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -84,7 +83,7 @@ const BookingFormLink = ({ price, venueId }) => {
 
         await createBooking(newData, apiKey);
         console.log("Booking successful", newData);
-
+        navigate("/profile");
         setIsModalOpen(false); // Close the modal after successful booking
       } else {
         console.log("User not logged in. Booking not allowed.");
@@ -160,75 +159,75 @@ const BookingFormLink = ({ price, venueId }) => {
                 Book Your Stay
               </h2>
               <div className="m-3">
-            <p>Select check-in</p>
-            <div className="flex items-center gap-2 rounded-xl border py-1 pl-3">
-              <DatePicker
-                showIcon
-                selected={startDate}
-                onChange={(date) => {
-                  setStartDate(date);
-                  if (date >= endDate) {
-                    const newEndDate = new Date(date);
-                    newEndDate.setDate(newEndDate.getDate() + 1);
-                    setEndDate(newEndDate);
-                  }
-                }}
-                dateFormat="dd/MM/yyyy"
-                excludeDates={unavailableDates}
-                dayClassName={(date) => {
-                  const formattedDate = date.toISOString().split("T")[0];
-                  return unavailableDates.some(
-                    (unavailableDate) =>
-                      unavailableDate.toISOString().split("T")[0] ===
-                      formattedDate,
-                  )
-                    ? "bg-red-500 text-white"
-                    : undefined;
-                }}
-                minDate={new Date()}
-                className="focus:outline-none"
-              />
-            </div>
-          </div>
-          <div className="m-3">
-            <p>Select check-out</p>
-            <div className="flex items-center gap-2 rounded-xl border py-1 pl-3">
-              <DatePicker
-                showIcon
-                selected={endDate}
-                onChange={(date) => setEndDate(date)}
-                dateFormat="dd/MM/yyyy"
-                excludeDates={unavailableDates}
-                dayClassName={(date) => {
-                  const formattedDate = date.toISOString().split("T")[0];
-                  return unavailableDates.some(
-                    (unavailableDate) =>
-                      unavailableDate.toISOString().split("T")[0] ===
-                      formattedDate,
-                  )
-                    ? "redDate"
-                    : undefined;
-                }}
-                minDate={startDate}
-                className="focus:outline-none"
-              />
-            </div>
-          </div>
-          <div className="relative m-3">
-          <p>Select number of Guests</p>
-          <input
-            type="number"
-            placeholder="Guests"
-            value={guests}
-            onChange={handleGuestsChange}
-            min={1}
-            max={maxGuests}
-            className="flex h-10 w-full items-center rounded-xl border pl-40 pr-20 focus:outline-none"
-          />
-          <span className="absolute inset-y-0 left-3 top-6 flex items-center pr-2 text-gray-500">
-            (Max Guests {maxGuests}):
-          </span>
-        </div>
+                <p>Select check-in</p>
+                <div className="flex items-center gap-2 rounded-xl border py-1 pl-3">
+                  <DatePicker
+                    showIcon
+                    selected={startDate}
+                    onChange={(date) => {
+                      setStartDate(date);
+                      if (date >= endDate) {
+                        const newEndDate = new Date(date);
+                        newEndDate.setDate(newEndDate.getDate() + 1);
+                        setEndDate(newEndDate);
+                      }
+                    }}
+                    dateFormat="dd/MM/yyyy"
+                    excludeDates={unavailableDates}
+                    dayClassName={(date) => {
+                      const formattedDate = date.toISOString().split("T")[0];
+                      return unavailableDates.some(
+                        (unavailableDate) =>
+                          unavailableDate.toISOString().split("T")[0] ===
+                          formattedDate,
+                      )
+                        ? "bg-red-500 text-white"
+                        : undefined;
+                    }}
+                    minDate={new Date()}
+                    className="focus:outline-none"
+                  />
+                </div>
+              </div>
+              <div className="m-3">
+                <p>Select check-out</p>
+                <div className="flex items-center gap-2 rounded-xl border py-1 pl-3">
+                  <DatePicker
+                    showIcon
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
+                    dateFormat="dd/MM/yyyy"
+                    excludeDates={unavailableDates}
+                    dayClassName={(date) => {
+                      const formattedDate = date.toISOString().split("T")[0];
+                      return unavailableDates.some(
+                        (unavailableDate) =>
+                          unavailableDate.toISOString().split("T")[0] ===
+                          formattedDate,
+                      )
+                        ? "redDate"
+                        : undefined;
+                    }}
+                    minDate={startDate}
+                    className="focus:outline-none"
+                  />
+                </div>
+              </div>
+              <div className="relative m-3">
+                <p>Select number of Guests</p>
+                <input
+                  type="number"
+                  placeholder="Guests"
+                  value={guests}
+                  onChange={handleGuestsChange}
+                  min={1}
+                  max={maxGuests}
+                  className="flex h-10 w-full items-center rounded-xl border pl-40 pr-20 focus:outline-none"
+                />
+                <span className="absolute inset-y-0 left-3 top-6 flex items-center pr-2 text-gray-500">
+                  (Max Guests {maxGuests}):
+                </span>
+              </div>
               <div className="flex justify-center">
                 <button
                   className="my-5 w-44 rounded-xl bg-violet-700 py-2 text-lg uppercase text-white"
@@ -238,7 +237,6 @@ const BookingFormLink = ({ price, venueId }) => {
                 </button>
               </div>
             </form>
-           
           </div>
         </div>
       )}

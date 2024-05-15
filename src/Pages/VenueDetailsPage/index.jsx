@@ -8,11 +8,11 @@ import { MdOutlinePets, MdBreakfastDining } from "react-icons/md";
 import { useEffect, useState } from "react";
 import StarRate from "../../components/StarRating";
 import formatDate from "../../components/DateFormatter";
-import BookingForm from "../../components/BookingForm";
+
 import NoImage from "../../assets/no_image.jpg";
 import Spinner from "../../components/Spinner/Loader";
-import BookingFormLink from "../../components/BookingFormLink";
-
+import BookingFormLink from "../../components/CreateBooking/BookingFormLink";
+import BookingForm from "../../components/CreateBooking/BookingForm";
 
 const VenueDetailsPage = () => {
   const { id } = useParams();
@@ -151,7 +151,7 @@ const VenueDetailsPage = () => {
 
             <p className="mt-5 font-semibold">Description</p>
             <p className="mb-3">{description}</p>
-            <div className="mt-1 font-semibold flex items-center gap-1 truncate">
+            <div className="mt-1 flex items-center gap-1 truncate font-semibold">
               <FaBed size={24} />
               <p>{maxGuests} Guests</p>
             </div>
@@ -229,7 +229,8 @@ const VenueDetailsPage = () => {
           </div>
 
           <div className="hidden grid-cols-6 p-2 md:block">
-            {!isOwner && isLoggedIn && (
+            {/* {!isOwner && isLoggedIn && ( */}
+            {isLoggedIn && (
               <div className="mt-6 rounded-xl border bg-white p-4">
                 <BookingForm price={price} venueId={id} />
               </div>
@@ -245,10 +246,6 @@ const VenueDetailsPage = () => {
                 </p>
               </div>
             )}
-
-          
-
-        
 
             <div className="mt-3 hidden py-4 md:block">
               <p className="font-semibold">Hosted by</p>

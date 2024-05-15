@@ -7,15 +7,11 @@ import Pagination from "../Pagination";
 import { BiSearch } from "react-icons/bi";
 import ProductCard from "../card";
 
-
 function ProductList() {
-
   const { data, loading, error } = useFetch(`${BASE_URL}${Venues}`);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(24);
-
-
 
   if (loading) {
     return (
@@ -74,7 +70,7 @@ function ProductList() {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="mx-auto mb-6 md:my-6 md:mt-10 flex w-full max-w-[990px] flex-col items-center md:rounded-xl bg-violet-700 p-8">
+      <div className="mx-auto mb-6 flex w-full max-w-[990px] flex-col items-center bg-violet-700 p-8 md:my-6 md:mt-10 md:rounded-xl">
         <h1 className="mb-4 text-2xl font-medium capitalize text-white md:text-3xl">
           Find new Venue
         </h1>
@@ -110,7 +106,6 @@ function ProductList() {
       </div>
       <div className="mb-4">
         <button>Back to top</button>
-      
       </div>
     </div>
   );

@@ -57,57 +57,11 @@ const MyBookingsProfilePage = ({ bookings, totalCount }) => {
       {showExpired ? (
         <ul className="m-6">
           {expiredBookings.map((booking) => (
-            <li key={booking.id} className="flex flex-col md:flex-row mb-3 hover:bg-zinc-100 border rounded-xl">
-            <div className="flex justify-center items-center md:justify-start md:px-6 py-4">
-              {booking.venue.media && booking.venue.media.length > 0 && (
-                <Link
-                  to={`/venue/${booking.venue.id}`}
-                  key={booking.venue.id}
-                  className="block"
-                >
-                  <img
-                    src={booking.venue.media[0].url}
-                    alt={booking.venue.media[0].alt}
-                    className="h-36 w-48 md:h-24 md:w-24 rounded-xl"
-                  />
-                </Link>
-              )}
-            </div>
-            
-
-            <div className="mx-auto md:mx-0 my-2">
-              <p className="font-semibold">{booking.venue.name}</p>
-
-              <div className="md:flex gap-3">
-                <p>From: {formatDate(booking.dateFrom)}</p>
-                <p>To: {formatDate(booking.dateTo)}</p>
-              </div>
-              <p>
-                Number of Days:{" "}
-                {calculateDaysDifference(booking.dateFrom, booking.dateTo)}
-              </p>
-
-              <p>Guests: {booking.guests}</p>
-              <div className="md:flex gap-3">
-                <p>Price per night: ${booking.venue.price}</p>
-                <p>
-                  Total Price: ${" "}
-                  {calculateTotalPrice(
-                    booking.venue.price,
-                    calculateDaysDifference(booking.dateFrom, booking.dateTo),
-                  )}
-                </p>
-                
-              </div>
-            </div>
-          </li>
-          ))}
-        </ul>
-      ) : (
-        <ul className=" m-6 ">
-          {currentBookings.map((booking) => (
-            <li key={booking.id} className="flex flex-col md:flex-row mb-3 hover:bg-zinc-100 border rounded-xl">
-              <div className="flex justify-center items-center md:justify-start md:px-6 py-4">
+            <li
+              key={booking.id}
+              className="mb-3 flex flex-col rounded-xl border hover:bg-zinc-100 md:flex-row"
+            >
+              <div className="flex items-center justify-center py-4 md:justify-start md:px-6">
                 {booking.venue.media && booking.venue.media.length > 0 && (
                   <Link
                     to={`/venue/${booking.venue.id}`}
@@ -117,17 +71,16 @@ const MyBookingsProfilePage = ({ bookings, totalCount }) => {
                     <img
                       src={booking.venue.media[0].url}
                       alt={booking.venue.media[0].alt}
-                      className="h-36 w-48 md:h-24 md:w-24 rounded-xl"
+                      className="h-36 w-48 rounded-xl md:h-24 md:w-24"
                     />
                   </Link>
                 )}
               </div>
-              
 
-              <div className="mx-auto md:mx-0 my-2">
+              <div className="mx-auto my-2 md:mx-0">
                 <p className="font-semibold">{booking.venue.name}</p>
 
-                <div className="md:flex gap-3">
+                <div className="gap-3 md:flex">
                   <p>From: {formatDate(booking.dateFrom)}</p>
                   <p>To: {formatDate(booking.dateTo)}</p>
                 </div>
@@ -137,7 +90,7 @@ const MyBookingsProfilePage = ({ bookings, totalCount }) => {
                 </p>
 
                 <p>Guests: {booking.guests}</p>
-                <div className="md:flex gap-3">
+                <div className="gap-3 md:flex">
                   <p>Price per night: ${booking.venue.price}</p>
                   <p>
                     Total Price: ${" "}
@@ -146,7 +99,56 @@ const MyBookingsProfilePage = ({ bookings, totalCount }) => {
                       calculateDaysDifference(booking.dateFrom, booking.dateTo),
                     )}
                   </p>
-                  
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <ul className=" m-6 ">
+          {currentBookings.map((booking) => (
+            <li
+              key={booking.id}
+              className="mb-3 flex flex-col rounded-xl border hover:bg-zinc-100 md:flex-row"
+            >
+              <div className="flex items-center justify-center py-4 md:justify-start md:px-6">
+                {booking.venue.media && booking.venue.media.length > 0 && (
+                  <Link
+                    to={`/venue/${booking.venue.id}`}
+                    key={booking.venue.id}
+                    className="block"
+                  >
+                    <img
+                      src={booking.venue.media[0].url}
+                      alt={booking.venue.media[0].alt}
+                      className="h-36 w-48 rounded-xl md:h-24 md:w-24"
+                    />
+                  </Link>
+                )}
+              </div>
+
+              <div className="mx-auto my-2 md:mx-0">
+                <p className="font-semibold">{booking.venue.name}</p>
+
+                <div className="gap-3 md:flex">
+                  <p>From: {formatDate(booking.dateFrom)}</p>
+                  <p>To: {formatDate(booking.dateTo)}</p>
+                </div>
+                <p>
+                  Number of Days:{" "}
+                  {calculateDaysDifference(booking.dateFrom, booking.dateTo)}
+                </p>
+
+                <p>Guests: {booking.guests}</p>
+                <div className="gap-3 md:flex">
+                  <p>Price per night: ${booking.venue.price}</p>
+                  <p>
+                    Total Price: ${" "}
+                    {calculateTotalPrice(
+                      booking.venue.price,
+                      calculateDaysDifference(booking.dateFrom, booking.dateTo),
+                    )}
+                  </p>
                 </div>
               </div>
             </li>

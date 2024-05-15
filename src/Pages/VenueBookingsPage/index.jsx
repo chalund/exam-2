@@ -1,5 +1,5 @@
 import React from "react";
-import VenueBookings from "../../components/Booking";
+import VenueBookings from "../../components/Profile/VenueManager/VenuesBookings";
 
 const VenueBookingPage = () => {
   return (
