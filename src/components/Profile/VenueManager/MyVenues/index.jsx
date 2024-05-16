@@ -5,6 +5,7 @@ import { deleteVenue } from "../../../API/Venue/deleteVenue";
 import { GoTrash } from "react-icons/go";
 import useFetchProfile from "../../../Hooks/useFetchProfile";
 import Spinner from "../../../Spinner/Loader";
+import NoImage from "../../../../assets/no_image.jpg"; 
 
 const MyVenues = () => {
   const { profileData, isLoading, error } = useFetchProfile();
@@ -46,10 +47,6 @@ const MyVenues = () => {
     }
   };
 
-  const handleCreateNewVenueForm = () => {
-    console.log("Create new venue form");
-  };
-
   return (
     <div>
       <div className="flex justify-between">
@@ -57,7 +54,7 @@ const MyVenues = () => {
           My venues
         </h1>
         <div className="mr-2 flex flex-col md:mr-7">
-          <CreateNewVenueButton onClick={handleCreateNewVenueForm} />
+          <CreateNewVenueButton />
         </div>
       </div>
 
@@ -72,7 +69,7 @@ const MyVenues = () => {
                 className="flex flex-col items-center hover:bg-zinc-100  sm:flex-row"
               >
                 <div className="px-6 py-4">
-                  {venue.media && venue.media.length > 0 && (
+                  {venue.media && venue.media.length > 0 ? (
                     <Link
                       to={`/venue/${venue.id}`}
                       key={venue.id}
@@ -84,8 +81,21 @@ const MyVenues = () => {
                         className="h-24 w-24 rounded-xl"
                       />
                     </Link>
+                  ) : (
+                    <Link
+                      to={`/venue/${venue.id}`}
+                      key={venue.id}
+                      className="block"
+                    >
+                      <img
+                        src={NoImage}
+                        alt="No Image Available"
+                        className="h-24 w-24 rounded-xl border"
+                      />
+                    </Link>
                   )}
                 </div>
+
                 <div className="mb-2 ms-4 text-lg">{venue.name}</div>
                 <div className="ml-2 flex items-end md:ml-auto md:mr-12">
                   {" "}

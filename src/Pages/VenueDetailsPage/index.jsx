@@ -13,6 +13,7 @@ import NoImage from "../../assets/no_image.jpg";
 import Spinner from "../../components/Spinner/Loader";
 import BookingFormLink from "../../components/CreateBooking/BookingFormLink";
 import BookingForm from "../../components/CreateBooking/BookingForm";
+import UpdateVenueForm from "../../components/Profile/VenueManager/UpdateVenue";
 
 const VenueDetailsPage = () => {
   const { id } = useParams();
@@ -52,6 +53,25 @@ const VenueDetailsPage = () => {
     return <div>No data available</div>;
   }
 
+  const handleUpdateVenueForm = async (venueData) => {
+    try {
+      const apiKeyData = await createApiKey("Venue update key");
+      const apiKey = apiKeyData.data.key;
+
+      const response = await updateVenue(venueData, apiKey);
+
+      if (response && response.success) {
+        console.log("Venue updated successfully");
+        // Optionally, you can handle UI updates here, like showing a success message
+      } else {
+        throw new Error("Failed to update venue");
+      }
+    } catch (error) {
+      console.error("Error updating venue:", error);
+      // Optionally, you can handle UI updates here, like showing an error message
+    }
+  };
+
   const {
     name,
     description,
@@ -69,6 +89,8 @@ const VenueDetailsPage = () => {
       avatar: { url: ownerAvatarUrl },
     },
   } = data.data;
+
+  console.log(data.data);
 
   return (
     <div className="mx-auto max-w-screen-md rounded-xl border bg-white md:my-6">
@@ -193,7 +215,9 @@ const VenueDetailsPage = () => {
             <div className="py-4 ">
               <p className="font-semibold">Location</p>
               <p className="truncate">Address: {location.address}</p>
-              <p className="truncate">City: {location.zip} {location.city}</p>
+              <p className="truncate">
+                City: {location.zip} {location.city}
+              </p>
               <p className="truncate">Country: {location.country}</p>
             </div>
 
@@ -225,12 +249,18 @@ const VenueDetailsPage = () => {
               )}
             </div>
           </div>
-
           <div className="hidden grid-cols-6 p-2 md:block">
-            {/* {!isOwner && isLoggedIn && ( */}
-            {isLoggedIn && (
+            {!isOwner && isLoggedIn && (
               <div className="mt-6 rounded-xl border bg-white p-4">
                 <BookingForm price={price} venueId={id} />
+              </div>
+            )}
+            {isOwner && isLoggedIn && (
+              <div className="flex justify-end">
+                <UpdateVenueForm
+                  venueData={data.data}
+                  onUpdate={handleUpdateVenueForm}
+                />
               </div>
             )}
             {!isLoggedIn && (
