@@ -133,7 +133,7 @@ const VenueDetailsPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="m-4 mt-4">
             <div className="flex gap-3">
-              <h1 className="truncate text-lg font-bold">{name}</h1>
+              <h1 className="text-lg font-bold">{name}</h1>
               <div className="flex items-center py-1">
                 {rating ? (
                   <StarRate rating={rating} size={20} />
@@ -151,7 +151,7 @@ const VenueDetailsPage = () => {
 
             <p className="mt-5 font-semibold">Description</p>
             <p className="mb-3">{description}</p>
-            <div className="mt-1 flex items-center gap-1 truncate font-semibold">
+            <div className="mt-1 flex items-center gap-1 font-semibold">
               <FaBed size={24} />
               <p>{maxGuests} Guests</p>
             </div>
@@ -193,9 +193,7 @@ const VenueDetailsPage = () => {
             <div className="py-4 ">
               <p className="font-semibold">Location</p>
               <p className="truncate">Address: {location.address}</p>
-              <p className="truncate">
-                City: {location.zip} {location.city}
-              </p>
+              <p className="truncate">City: {location.zip} {location.city}</p>
               <p className="truncate">Country: {location.country}</p>
             </div>
 
