@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFetch } from "../Hooks/useFetch";
 import { BASE_URL, Profile, Venues } from "../API";
 import Spinner from "../Spinner/Loader";
@@ -8,10 +8,27 @@ import { BiSearch } from "react-icons/bi";
 import ProductCard from "../card";
 
 function ProductList() {
-  const { data, loading, error } = useFetch(`${BASE_URL}${Venues}`);
+  const [pageCounter, setPageCounter] = useState(1);
+  const [productsPerPage] = useState(48);
+  const [fetchUrl, setFetchUrl] = useState(`${BASE_URL}${Venues}?sort=name&sortOrder=asc&page=${pageCounter}&limit=${productsPerPage}`);
+  const { data, loading, error } = useFetch(fetchUrl);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(24);
+  const [meta, setMeta] = useState({});
+
+  
+
+  useEffect(() => {
+    const checkMeta = Object.keys(data)[1] === 'meta';
+    if(checkMeta) {
+      setMeta(data.meta)
+    }
+    if (searchTerm) {
+      setFetchUrl(`${BASE_URL}${Venues}/search?sort=name&sortOrder=asc&limit=${productsPerPage}&q=${searchTerm}&page=${pageCounter}`)
+    } else {
+      setFetchUrl(`${BASE_URL}${Venues}?sort=name&sortOrder=asc&page=${pageCounter}&limit=${productsPerPage}`)
+    }
+  }, [meta, data, searchTerm, productsPerPage, pageCounter])
 
   if (loading) {
     return (
@@ -28,6 +45,11 @@ function ProductList() {
   const handleClearInput = () => {
     setSearchTerm("");
   };
+
+  const handleNextPage = () => {
+    console.log({ nextPAge: meta.nextPage});
+    setPageCounter(meta.nextPage);
+  }
 
   // Filtering function to include both name and location
   const filteredProducts = data.data.filter((product) => {
@@ -70,7 +92,7 @@ function ProductList() {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="mx-auto mb-6 flex w-full max-w-[990px] flex-col items-center bg-violet-700 p-8 md:my-6 md:mt-10 md:rounded-xl">
+      <div className="mx-auto mb-6 md:my-6 md:mt-10 flex w-full max-w-[990px] flex-col items-center md:rounded-xl bg-violet-700 p-8">
         <h1 className="mb-4 text-2xl font-medium capitalize text-white md:text-3xl">
           Find new Venue
         </h1>
@@ -96,16 +118,21 @@ function ProductList() {
       <div className=" flex w-full max-w-[990px] flex-wrap justify-center">
         <ProductCard venues={currentProducts} />
       </div>
+      <div>
+        {meta.previousPage && <button onClick={() => setPageCounter(meta.previousPage)}>Test Previous</button>}
+        {meta.nextPage && <button onClick={handleNextPage}>Test Next</button>}
+      </div>
       <div className="mt-10">
         <Pagination
           productsPerPage={productsPerPage}
-          totalProducts={filteredProducts.length}
-          currentPage={currentPage}
+          totalProducts={meta.totalCount}
+          currentPage={meta.currentPage}
           paginate={paginate}
         />
       </div>
       <div className="mb-4">
         <button>Back to top</button>
+      
       </div>
     </div>
   );
