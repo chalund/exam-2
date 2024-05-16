@@ -1,34 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { useFetch } from "../Hooks/useFetch";
-import { BASE_URL, Profile, Venues } from "../API";
+import { BASE_URL, Venues } from "../API";
 import Spinner from "../Spinner/Loader";
 import { IoCloseOutline } from "react-icons/io5";
-import Pagination from "../Pagination";
 import { BiSearch } from "react-icons/bi";
 import ProductCard from "../card";
 
 function ProductList() {
   const [pageCounter, setPageCounter] = useState(1);
-  const [productsPerPage] = useState(48);
-  const [fetchUrl, setFetchUrl] = useState(`${BASE_URL}${Venues}?sort=name&sortOrder=asc&page=${pageCounter}&limit=${productsPerPage}`);
+  const [productsPerPage] = useState(36);
+  const [fetchUrl, setFetchUrl] = useState(
+    `${BASE_URL}${Venues}?sort=name&sortOrder=asc&page=${pageCounter}&limit=${productsPerPage}`,
+  );
   const { data, loading, error } = useFetch(fetchUrl);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [meta, setMeta] = useState({});
 
-  
-
   useEffect(() => {
-    const checkMeta = Object.keys(data)[1] === 'meta';
-    if(checkMeta) {
-      setMeta(data.meta)
+    const checkMeta = Object.keys(data)[1] === "meta";
+    if (checkMeta) {
+      setMeta(data.meta);
     }
     if (searchTerm) {
-      setFetchUrl(`${BASE_URL}${Venues}/search?sort=name&sortOrder=asc&limit=${productsPerPage}&q=${searchTerm}&page=${pageCounter}`)
+      setFetchUrl(
+        `${BASE_URL}${Venues}/search?sort=name&sortOrder=asc&limit=${productsPerPage}&q=${searchTerm}&page=${pageCounter}`,
+      );
     } else {
-      setFetchUrl(`${BASE_URL}${Venues}?sort=name&sortOrder=asc&page=${pageCounter}&limit=${productsPerPage}`)
+      setFetchUrl(
+        `${BASE_URL}${Venues}?sort=name&sortOrder=asc&page=${pageCounter}&limit=${productsPerPage}`,
+      );
     }
-  }, [meta, data, searchTerm, productsPerPage, pageCounter])
+  }, [meta, data, searchTerm, productsPerPage, pageCounter]);
 
   if (loading) {
     return (
@@ -42,44 +45,21 @@ function ProductList() {
     return <div>Error fetching data: {error.message}</div>;
   }
 
+  // Filtering function to include both name and location
+  const filteredProducts = data.data.filter((product) => {
+    return product.name.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
+  console.log(filteredProducts);
+
   const handleClearInput = () => {
     setSearchTerm("");
   };
 
   const handleNextPage = () => {
-    console.log({ nextPAge: meta.nextPage});
+    console.log({ nextPage: meta.nextPage });
     setPageCounter(meta.nextPage);
-  }
-
-  // Filtering function to include both name and location
-  const filteredProducts = data.data.filter((product) => {
-    const lowerSearchTerm = searchTerm.toLowerCase();
-
-    // Check the product name, ensuring it's a string
-    const nameMatch =
-      product.name && typeof product.name === "string"
-        ? product.name.toLowerCase().includes(lowerSearchTerm)
-        : false;
-
-    // Check the nested location fields, ensuring they're strings
-    const locationMatch =
-      product.location && typeof product.location === "object"
-        ? (product.location.address &&
-            typeof product.location.address === "string" &&
-            product.location.address.toLowerCase().includes(lowerSearchTerm)) ||
-          (product.location.city &&
-            typeof product.location.city === "string" &&
-            product.location.city.toLowerCase().includes(lowerSearchTerm)) ||
-          (product.location.country &&
-            typeof product.location.country === "string" &&
-            product.location.country.toLowerCase().includes(lowerSearchTerm))
-        : false;
-
-    // Combine both name and location matches
-    return nameMatch || locationMatch;
-  });
-
-  console.log(filteredProducts);
+  };
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -88,11 +68,9 @@ function ProductList() {
     indexOfLastProduct,
   );
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
   return (
     <div className="flex flex-col items-center">
-      <div className="mx-auto mb-6 md:my-6 md:mt-10 flex w-full max-w-[990px] flex-col items-center md:rounded-xl bg-violet-700 p-8">
+      <div className="mx-auto mb-6 flex w-full max-w-[990px] flex-col items-center bg-violet-700 p-8 md:my-6 md:mt-10 md:rounded-xl">
         <h1 className="mb-4 text-2xl font-medium capitalize text-white md:text-3xl">
           Find new Venue
         </h1>
@@ -118,21 +96,22 @@ function ProductList() {
       <div className=" flex w-full max-w-[990px] flex-wrap justify-center">
         <ProductCard venues={currentProducts} />
       </div>
-      <div>
-        {meta.previousPage && <button onClick={() => setPageCounter(meta.previousPage)}>Test Previous</button>}
-        {meta.nextPage && <button onClick={handleNextPage}>Test Next</button>}
-      </div>
-      <div className="mt-10">
-        <Pagination
-          productsPerPage={productsPerPage}
-          totalProducts={meta.totalCount}
-          currentPage={meta.currentPage}
-          paginate={paginate}
-        />
-      </div>
-      <div className="mb-4">
-        <button>Back to top</button>
-      
+
+      <div className="my-10 flex justify-center gap-4">
+        <button
+          onClick={() => setPageCounter(meta.previousPage)}
+          className={`w-24 rounded-xl p-2 py-2 ${!meta.previousPage ? "cursor-not-allowed opacity-50 border border-zinc-300" : "bg-violet-700 text-white"}`}
+          disabled={!meta.previousPage}
+        >
+          Previous
+        </button>
+        <button
+          onClick={handleNextPage}
+          className={`w-24 rounded-xl p-2 py-2 ${!meta.nextPage ? "cursor-not-allowed opacity-50 border border-zinc-300" : "bg-violet-700 text-white hover:bg-violet-800"}`}
+          disabled={!meta.nextPage}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
