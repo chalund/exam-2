@@ -5,6 +5,7 @@ import { deleteVenue } from "../../../API/Venue/deleteVenue";
 import { GoTrash } from "react-icons/go";
 import useFetchProfile from "../../../Hooks/useFetchProfile";
 import Spinner from "../../../Spinner/Loader";
+import NoImage from "../../../../assets/no_image.jpg"; 
 
 const MyVenues = () => {
   const { profileData, isLoading, error } = useFetchProfile();
@@ -23,32 +24,47 @@ const MyVenues = () => {
 
   const handleDeleteVenue = async (id) => {
     try {
-      const shouldDelete = window.confirm(
-        "Are you sure you want to delete this venue?",
-      );
-      if (!shouldDelete) {
-        return;
-      }
+        // Display a confirmation message to the user
+        const shouldDelete = window.confirm(
+            "Are you sure you want to delete this venue?",
+        );
 
-      const apiKeyData = await createApiKey("Venue deletion key");
-      const apiKey = apiKeyData.data.key;
+        // Check if the user clicked "Cancel" or closed the dialog
+        if (!shouldDelete) {
+            return; // Exit the function without deleting the venue
+        }
 
-      const response = await deleteVenue(id, apiKey);
+        // Proceed with venue deletion
+        const apiKeyData = await createApiKey("Venue deletion key");
+        const apiKey = apiKeyData.data.key;
 
-      if (response && response.success) {
-        window.confirm("Your venue is deleted successfully!");
+        const response = await deleteVenue(id, apiKey);
+        console.log(response);
+
         window.location.reload();
-      } else {
-        throw new Error("Failed to delete venue");
-      }
-    } catch (error) {
-      console.error("Error deleting venue:", error);
-    }
-  };
 
-  const handleCreateNewVenueForm = () => {
-    console.log("Create new venue form");
-  };
+        // Check if the response is empty
+        if (!response) {
+            throw new Error("Empty response received from the server");
+        }
+
+        // Check if the response is in the expected format
+        if (response.success) {
+            // Display a success message to the user
+            alert("Your venue is deleted successfully!");
+
+            // Reload the page after successful deletion
+           
+        } else {
+            throw new Error("Failed to delete venue");
+        }
+    } catch (error) {
+        console.error("Error deleting venue:", error);
+    }
+};
+
+
+  
 
   return (
     <div>
@@ -57,7 +73,7 @@ const MyVenues = () => {
           My venues
         </h1>
         <div className="mr-2 flex flex-col md:mr-7">
-          <CreateNewVenueButton onClick={handleCreateNewVenueForm} />
+          <CreateNewVenueButton />
         </div>
       </div>
 
@@ -72,7 +88,7 @@ const MyVenues = () => {
                 className="flex flex-col items-center hover:bg-zinc-100  sm:flex-row"
               >
                 <div className="px-6 py-4">
-                  {venue.media && venue.media.length > 0 && (
+                  {venue.media && venue.media.length > 0 ? (
                     <Link
                       to={`/venue/${venue.id}`}
                       key={venue.id}
@@ -84,8 +100,21 @@ const MyVenues = () => {
                         className="h-24 w-24 rounded-xl"
                       />
                     </Link>
+                  ) : (
+                    <Link
+                      to={`/venue/${venue.id}`}
+                      key={venue.id}
+                      className="block"
+                    >
+                      <img
+                        src={NoImage}
+                        alt="No Image Available"
+                        className="h-24 w-24 rounded-xl border"
+                      />
+                    </Link>
                   )}
                 </div>
+
                 <div className="mb-2 ms-4 text-lg">{venue.name}</div>
                 <div className="ml-2 flex items-end md:ml-auto md:mr-12">
                   {" "}

@@ -1,28 +1,38 @@
 import { useEffect, useState } from "react";
 import { createApiKey } from "../../../API/ApiKey";
-import { createVenue } from "../../../API/Venue/createVenue";
 import { IoCloseOutline } from "react-icons/io5";
-import { AiFillPlusCircle } from "react-icons/ai";
+import { updateVenue } from "../../../API/Venue/updateVenue";
+import { useNavigate } from "react-router-dom";
+import { MdOutlineModeEdit } from "react-icons/md";
 
-const CreateNewVenueForm = () => {
+const UpdateVenueForm = ({ venueData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [nameError, setNameError] = useState("");
-  const [description, setDescription] = useState("");
-  const [descriptionError, setDescriptionError] = useState("");
-  const [media, setMedia] = useState([]);
+  const [name, setName] = useState(venueData.name || "");
+  const [description, setDescription] = useState(venueData.description || "");
+  const [media, setMedia] = useState(venueData.media || []);
   const [newImageUrl, setNewImageUrl] = useState("");
-  const [meta, setMeta] = useState([]);
-  const [maxGuests, setMaxGuests] = useState("");
-  const [maxGuestsError, setMaxGuestsError] = useState("");
-  const [price, setprice] = useState("");
-  const [priceError, setPriceError] = useState("");
-  const [rating, setRating] = useState("");
-  const [address, setAddress] = useState("");
-  const [zip, setZip] = useState("");
-  const [city, setCity] = useState("");
-  const [country, setCountry] = useState("");
+  const [meta, setMeta] = useState(venueData.meta || {});
+  const [maxGuests, setMaxGuests] = useState(venueData.maxGuests || "");
+  const [price, setPrice] = useState(venueData.price || "");
+  const [rating, setRating] = useState(venueData.rating || "");
+  const [address, setAddress] = useState(venueData.location?.address || "");
+  const [zip, setZip] = useState(venueData.location?.zip || "");
+  const [city, setCity] = useState(venueData.location?.city || "");
+  const [country, setCountry] = useState(venueData.location?.country || "");
+  const navigate = useNavigate();
 
+  const handleCheckboxChangeMeta = (option) => {
+    // Check if the option already exists in meta
+    const updatedMeta = { ...meta }; // Create a copy of the current meta object
+
+    // Toggle the value of the option
+    updatedMeta[option] = !updatedMeta[option];
+
+    // Update the meta state with the updated object
+    setMeta(updatedMeta);
+  };
+
+  console.log(venueData.meta);
 
   useEffect(() => {
     const scrollbarWidth =
@@ -37,92 +47,62 @@ const CreateNewVenueForm = () => {
     }
   }, [isModalOpen]);
 
-  const handleCreateNewVenueForm = async (e) => {
+  const handleUpdateVenueForm = async (e) => {
     e.preventDefault();
-  
-    if (validateInputs()) {
-      let metaObject = {};
-      meta.forEach((item) => {
-        metaObject[item] = true;
-      });
-  
-      let newData = {
-        name,
-        description,
-        media,
-        meta: metaObject,
-        maxGuests: parseInt(maxGuests), // Parse maxGuests as a number
-        price: parseFloat(price), // Parse price as a number
-        rating: rating || 0,
-        location: {
-          address,
-          zip,
-          city,
-          country,
-        },
-      };
-  
-      try {
-        const apiKeyData = await createApiKey("User profile key");
-        const apiKey = apiKeyData.data.key;
-  
-        const venueData = await createVenue(newData, apiKey); // Capture the response here
-        console.log("Venue created successfully");
-        console.log(newData);
-        closeModal();
-        
-        window.location.reload();
-      } catch (error) {
-        console.error("Error creating new venue:", error);
-        alert("Failed to create venue. Please try again later.");
-      }
-    }
-  };
-  
 
-  const validateInputs = () => {
-    let isValid = true;
-
-    // Name validation
-    if (!name.trim()) {
-      setNameError("Title is required");
-      isValid = false;
-    } else {
-      setNameError("");
+    if (
+      !name ||
+      !description ||
+      !address ||
+      !zip ||
+      !city ||
+      !country ||
+      isNaN(price) ||
+      isNaN(maxGuests)
+    ) {
+      alert("Please fill out all required fields");
+      return;
     }
 
-    // Description validation
-    if (!description.trim()) {
-      setDescriptionError("Description is required");
-      isValid = false;
-    } else {
-      setDescriptionError("");
-    }
+    const updatedMeta = { ...venueData.meta, ...meta };
 
-    // Price validation
-    if (!price.trim()) {
-      setPriceError("Price must be a valid number greater than 0");
-      isValid = false;
-    } else {
-      setPriceError("");
-    }
+    let newData = {
+      name,
+      description,
+      media,
+      meta: updatedMeta,
+      maxGuests: parseInt(maxGuests),
+      price: parseFloat(price),
+      rating,
+      location: {
+        address,
+        zip,
+        city,
+        country,
+      },
+    };
 
-    // Max Guests validation
-    if (!maxGuests.trim()) {
-      setMaxGuestsError("Max Guests must be a valid number greater than 0");
-      isValid = false;
-    } else {
-      setMaxGuestsError("");
-    }
+    try {
+      const apiKeyData = await createApiKey("User profile key");
+      const apiKey = apiKeyData.data.key;
 
-    return isValid;
+      console.log("Updated Venue Data:", newData);
+
+      await updateVenue(venueData.id, newData, apiKey);
+      console.log("Venue updated successfully");
+      setIsModalOpen(false);
+      navigate(`/venue/${venueData.id}`);
+      window.location.reload();
+    } catch (error) {
+      console.error("Error updating venue:", error);
+      alert("Failed to update venue. Please try again later.");
+    }
   };
 
   const handleClearField = (setter) => {
     setter("");
     console.log("clicked");
   };
-
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -132,14 +112,8 @@ const CreateNewVenueForm = () => {
     setIsModalOpen(false);
   };
 
-
-
-  const handleCheckboxChangeMeta = (option) => {
-    if (meta.includes(option)) {
-      setMeta(meta.filter((item) => item !== option));
-    } else {
-      setMeta([...meta, option]);
-    }
+  const handleSave = () => {
+    console.log("Save button clicked");
   };
 
   const handleMediaChangeAtIndex = (e, index) => {
@@ -163,11 +137,13 @@ const CreateNewVenueForm = () => {
   };
 
   return (
-    <div style={{ position: "relative" }}>
-      <button onClick={openModal} className="flex items-center gap-1">
-        <AiFillPlusCircle size={30} className="text-violet-700" />
-
-        <p className="text-violet-700 hover:underline">add venue</p>
+    <div>
+      <button
+        onClick={openModal}
+        className="mt-4 flex justify-end gap-1 rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-4 py-2  uppercase text-white hover:to-violet-900 hover:font-semibold"
+      >
+        <MdOutlineModeEdit size={24} />
+        <p>Update venue</p>
       </button>
 
       {isModalOpen && (
@@ -196,9 +172,8 @@ const CreateNewVenueForm = () => {
               borderRadius: "8px",
               width: "100%",
               maxWidth: "600px",
-
               maxHeight: "100vh",
-              overflowY: "auto", // Enables scrolling within the modal content
+              overflowY: "auto",
             }}
           >
             <span
@@ -208,52 +183,41 @@ const CreateNewVenueForm = () => {
               &times;
             </span>
 
-            <form onSubmit={handleCreateNewVenueForm}>
+            <form onSubmit={handleUpdateVenueForm}>
               <h2 className=" mb-5 text-center text-xl font-semibold uppercase text-violet-700">
-                Create a new venue
+                Update Venue
               </h2>
               <div>
-                <div className="relative mb-5 flex flex-col text-lg">
+                <div className="relative mb-4 flex items-center">
                   <input
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     type="text"
                     name="name"
                     placeholder="Title.."
-                    className={`w-full rounded-xl border py-1 pl-3 pr-10 focus:outline-none ${
-                      nameError && "border-red-700"
-                    }`}
+                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
                   />
                   <IoCloseOutline
                     size={30}
                     onClick={() => handleClearField(setName)}
-                    className="absolute right-3 top-2  cursor-pointer text-gray-800"
+                    className="absolute right-3  cursor-pointer text-gray-800"
                   />
-
-                  {nameError && (
-                    <p className="mt-1 text-red-700">{nameError}</p>
-                  )}
                 </div>
-                <div className="relative mb-5 flex flex-col">
+                <div className="relative mb-4 flex items-center">
                   <textarea
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     type="text"
                     name="description"
                     placeholder="Description.."
-                    className={`w-full rounded-xl border py-1 pl-3 pr-10 focus:outline-none ${
-                      descriptionError && "border-red-700"
-                    }`}
+                    className="w-full rounded-xl border py-2 pl-3 pr-10 focus:outline-none"
                     style={{ height: "130px" }}
                   />
                   <IoCloseOutline
                     size={30}
                     onClick={() => handleClearField(setDescription)}
-                    className="absolute right-3 top-2  cursor-pointer text-gray-800"
+                    className="absolute right-3 top-0  cursor-pointer text-gray-800"
                   />
-                  {descriptionError && (
-                    <p className="mt-1 text-red-700">{descriptionError}</p>
-                  )}
                 </div>
 
                 <div>
@@ -301,35 +265,25 @@ const CreateNewVenueForm = () => {
 
                 <div>
                   <div className="flex gap-5">
-                    <div className="relative mb-5 flex flex-col ">
+                    <div className="mb-4 flex items-center ">
                       <input
                         value={price}
-                        onChange={(e) => setprice(e.target.value)}
+                        onChange={(e) => setPrice(e.target.value)}
                         type="number"
                         name="price"
                         placeholder="Price.."
-                        className={`w-full rounded-xl border py-1 pl-3 pr-10 focus:outline-none ${
-                          priceError && "border-red-700"
-                        }`}
+                        className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
                       />
-                      {priceError && (
-                        <p className="mt-1 text-red-700">{priceError}</p>
-                      )}
                     </div>
-                    <div className="relative mb-5 flex flex-col">
+                    <div className="mb-4 flex items-center ">
                       <input
                         value={maxGuests}
                         onChange={(e) => setMaxGuests(e.target.value)}
                         type="number"
                         name="maxGuests"
                         placeholder="Max guests.."
-                        className={`w-full rounded-xl border py-1 pl-3 pr-10 focus:outline-none ${
-                          maxGuestsError && "border-red-700"
-                        }`}
+                        className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
                       />
-                      {maxGuestsError && (
-                        <p className="mt-1 text-red-700">{maxGuestsError}</p>
-                      )}
                     </div>
                   </div>
                 </div>
@@ -342,7 +296,7 @@ const CreateNewVenueForm = () => {
                         type="checkbox"
                         id="wifi"
                         name="meta"
-                        checked={meta.includes("wifi")}
+                        checked={meta["wifi"]}
                         onChange={() => handleCheckboxChangeMeta("wifi")}
                         className="mr-2"
                       />
@@ -353,7 +307,7 @@ const CreateNewVenueForm = () => {
                         type="checkbox"
                         id="pets"
                         name="meta"
-                        checked={meta.includes("pets")}
+                        checked={meta["pets"]}
                         onChange={() => handleCheckboxChangeMeta("pets")}
                         className="mr-2"
                       />
@@ -364,7 +318,7 @@ const CreateNewVenueForm = () => {
                         type="checkbox"
                         id="parking"
                         name="parking"
-                        checked={meta.includes("parking")}
+                        checked={meta["parking"]}
                         onChange={() => handleCheckboxChangeMeta("parking")}
                         className="mr-2"
                       />
@@ -376,7 +330,7 @@ const CreateNewVenueForm = () => {
                         type="checkbox"
                         id="breakfast"
                         name="meta"
-                        checked={meta.includes("breakfast")}
+                        checked={meta["breakfast"]}
                         onChange={() => handleCheckboxChangeMeta("breakfast")}
                         className="mr-2"
                       />
@@ -444,77 +398,35 @@ const CreateNewVenueForm = () => {
                   />
                   <IoCloseOutline
                     size={30}
-                    onClick={() => handleClearField(set)}
+                    onClick={() => handleClearField(setCountry)}
                     className="absolute right-3  cursor-pointer text-gray-800"
                   />
                 </div>
                 <div className="mb-4 flex flex-col text-lg">
                   <p>[x] Select your rating for the venue</p>
                   <div className="mr-3 flex justify-between">
-                    <div>
-                      <input
-                        type="checkbox"
-                        id="1"
-                        name="rating"
-                        checked={rating === 1}
-                        onChange={() => setRating(1)}
-                        className="mr-2"
-                      />
-                      <label htmlFor="rating">1</label>
-                    </div>
-                    <div>
-                      <input
-                        type="checkbox"
-                        id="2"
-                        name="rating"
-                        checked={rating === 2}
-                        onChange={() => setRating(2)}
-                        className="mr-2"
-                      />
-                      <label htmlFor="rating">2</label>
-                    </div>
-                    <div>
-                      <input
-                        type="checkbox"
-                        id="3"
-                        name="rating"
-                        checked={rating === 3}
-                        onChange={() => setRating(3)}
-                        className="mr-2"
-                      />
-                      <label htmlFor="rating">3</label>
-                    </div>
-                    <div>
-                      <input
-                        type="checkbox"
-                        id="4"
-                        name="rating"
-                        checked={rating === 4}
-                        onChange={() => setRating(4)}
-                        className="mr-2"
-                      />
-                      <label htmlFor="rating">4</label>
-                    </div>
-                    <div>
-                      <input
-                        type="checkbox"
-                        id="5"
-                        name="rating"
-                        checked={rating === 5}
-                        onChange={() => setRating(5)}
-                        className="mr-2"
-                      />
-                      <label htmlFor="rating">5</label>
-                    </div>
+                    {[1, 2, 3, 4, 5].map((option) => (
+                      <div key={option}>
+                        <input
+                          type="checkbox"
+                          id={option}
+                          name="rating"
+                          checked={rating === option}
+                          onChange={() => setRating(option)}
+                          className="mr-2"
+                        />
+                        <label htmlFor="rating">{option}</label>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
               <div style={{ position: "relative", textAlign: "center" }}>
                 <button
-                  type="submit"
+                  onClick={handleSave}
                   className="mb-5 w-36 rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-4 py-2  uppercase text-white hover:to-violet-900 hover:font-semibold"
                 >
-                  Save
+                  Update
                 </button>
               </div>
             </form>
@@ -525,4 +437,4 @@ const CreateNewVenueForm = () => {
   );
 };
 
-export default CreateNewVenueForm;
+export default UpdateVenueForm;
