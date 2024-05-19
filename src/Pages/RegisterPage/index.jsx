@@ -131,7 +131,7 @@ const RegisterPage = () => {
       <form onSubmit={handleSubmit}>
         <div>
           <div>
-            <div className="relative mb-5 flex flex-col text-lg">
+            <div className={`relative mb-5 flex flex-col ${nameError ? "mb-1" : "mb-5"}`}>
               <AiOutlineUser className="absolute ml-4 mt-2" size={24} />
               <input
                 type="text"
@@ -139,7 +139,7 @@ const RegisterPage = () => {
                 onChange={(e) => setName(e.target.value)}
                 onBlur={validateName}
                 id="name"
-                className={`w-full rounded-xl border py-2  pl-12 focus:outline-none ${
+                className={`w-full rounded-xl border py-2  pl-12 focus:outline-none focus:bg-white  focus:border-violet-700 ${
                   nameError && "border-red-700"
                 }`}
                 placeholder="Name"
@@ -152,7 +152,7 @@ const RegisterPage = () => {
               {nameError && <p className="mt-1 text-red-700">{nameError}</p>}
             </div>
 
-            <div className=" relative mb-5 flex flex-col text-lg">
+            <div className={`relative mb-5 flex flex-col ${emailError ? "mb-1" : "mb-5"}`}>
               <MdOutlineEmail className="absolute ml-4 mt-3" size={24} />
               <input
                 type="email"
@@ -160,7 +160,7 @@ const RegisterPage = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 onBlur={validateEmail}
                 id="email"
-                className={`w-full rounded-xl border py-2  pl-12 focus:outline-none ${
+                className={`w-full rounded-xl border py-2  pl-12 focus:outline-none focus:bg-white  focus:border-violet-700 ${
                   emailError && "border-red-700"
                 }`}
                 placeholder="Email address"
@@ -173,7 +173,7 @@ const RegisterPage = () => {
               {emailError && <p className="mt-1  text-red-700">{emailError}</p>}
             </div>
 
-            <div className="relative mb-5 flex flex-col text-lg">
+            <div className={`relative mb-5 flex flex-col ${passwordError ? "mb-1" : "mb-5"}`}>
               <FaLock className="absolute ml-4 mt-3" size={24} />
               <input
                 type="password"
@@ -181,7 +181,7 @@ const RegisterPage = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 onBlur={validatePassword}
                 id="password"
-                className={`w-full rounded-xl border py-2  pl-12 focus:outline-none ${
+                className={`w-full rounded-xl border py-2  pl-12 focus:outline-none focus:bg-white  focus:border-violet-700${
                   passwordError && "border-red-700"
                 }`}
                 placeholder="Password"

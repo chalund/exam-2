@@ -206,7 +206,7 @@ const CreateNewVenueForm = () => {
                     type="text"
                     name="name"
                     placeholder="Title.."
-                    className={`w-full rounded-xl border py-1 pl-3 pr-10 focus:outline-none ${
+                    className={`w-full rounded-xl border py-1 pl-3 pr-10 focus:outline-none focus:bg-white  focus:border-violet-700 ${
                       nameError && "border-red-700"
                     }`}
                   />
@@ -229,7 +229,7 @@ const CreateNewVenueForm = () => {
                     type="text"
                     name="description"
                     placeholder="Description.."
-                    className={`w-full rounded-xl border py-1 pl-3 pr-10 focus:outline-none ${
+                    className={`w-full rounded-xl border py-1 pl-3 pr-10 focus:outline-none focus:bg-white  focus:border-violet-700 ${
                       descriptionError && "border-red-700"
                     }`}
                     style={{ height: "100px" }}
@@ -256,7 +256,7 @@ const CreateNewVenueForm = () => {
                         type="url"
                         name={`url-${index}`}
                         placeholder="Image URL.."
-                        className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
+                        className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
                       />
 
                       <button
@@ -274,7 +274,7 @@ const CreateNewVenueForm = () => {
                       onChange={(e) => setNewImageUrl(e.target.value)}
                       type="url"
                       placeholder="New Image URL..."
-                      className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
+                      className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
                     />
 
                     <button
@@ -296,7 +296,7 @@ const CreateNewVenueForm = () => {
                         type="number"
                         name="price"
                         placeholder="Price.."
-                        className={`w-full rounded-xl border py-1 pl-3 pr-10 focus:outline-none ${
+                        className={`w-full rounded-xl border py-1 pl-3 pr-10 focus:outline-none focus:bg-white  focus:border-violet-700 ${
                           priceError && "border-red-700"
                         }`}
                       />
@@ -311,7 +311,7 @@ const CreateNewVenueForm = () => {
                         type="number"
                         name="maxGuests"
                         placeholder="Max guests.."
-                        className={`w-full rounded-xl border py-1 pl-3 pr-10 focus:outline-none ${
+                        className={`w-full rounded-xl border py-1 pl-3 pr-10 focus:outline-none focus:bg-white  focus:border-violet-700 ${
                           maxGuestsError && "border-red-700"
                         }`}
                       />
@@ -383,7 +383,7 @@ const CreateNewVenueForm = () => {
                     type="text"
                     name="address"
                     placeholder="Address..."
-                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
+                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
                   />
                   <IoCloseOutline
                     size={30}
@@ -398,7 +398,7 @@ const CreateNewVenueForm = () => {
                     type="text"
                     name="zip"
                     placeholder="Post code..."
-                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
+                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
                   />
                   <IoCloseOutline
                     size={30}
@@ -413,7 +413,7 @@ const CreateNewVenueForm = () => {
                     type="text"
                     name="city"
                     placeholder="City..."
-                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
+                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
                   />
                   <IoCloseOutline
                     size={30}
@@ -428,7 +428,7 @@ const CreateNewVenueForm = () => {
                     type="text"
                     name="country"
                     placeholder="Country..."
-                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
+                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
                   />
                   <IoCloseOutline
                     size={30}

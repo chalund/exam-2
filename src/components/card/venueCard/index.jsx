@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import NoImage from "../../../assets/no_image.jpg";
 import StarRatingCards from "../../StarRating/StarRatingCards";
+import formatDate from "../../DateFormatter";
 
 // Helper function to handle image error
 function handleImageError(e) {
@@ -62,6 +63,8 @@ const VenueCard = ({ venue }) => {
               View
             </button>
           </div>
+          <p>{formatDate(venue.created)}</p>
+          <p>{formatDate(venue.updated)}</p>
         </div>
       </div>
     </Link>

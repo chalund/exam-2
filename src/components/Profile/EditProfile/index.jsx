@@ -150,7 +150,7 @@ const EditProfileForm = () => {
                     type="url"
                     name="avatarUrl"
                     placeholder="Avatar URL..."
-                    className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none"
+                    className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none focus:bg-white  focus:border-violet-700"
                   />
                   <IoCloseOutline
                     size={24}
@@ -165,7 +165,7 @@ const EditProfileForm = () => {
                     type="text"
                     name="avatarAlt"
                     placeholder="Avatar Alt Text..."
-                    className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none"
+                    className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none focus:bg-white  focus:border-violet-700"
                   />
                   <IoCloseOutline
                     size={24}
@@ -180,7 +180,7 @@ const EditProfileForm = () => {
                     type="url"
                     name="bannerUrl"
                     placeholder="Banner URL..."
-                    className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none"
+                    className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none focus:bg-white  focus:border-violet-700"
                   />
                   <IoCloseOutline
                     size={24}
@@ -195,7 +195,7 @@ const EditProfileForm = () => {
                     type="text"
                     name="bannerAlt"
                     placeholder="Banner Alt Text..."
-                    className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none"
+                    className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none focus:bg-white  focus:border-violet-700"
                   />
                   <IoCloseOutline
                     size={24}
@@ -209,7 +209,7 @@ const EditProfileForm = () => {
                     onChange={(e) => setBio(e.target.value)}
                     name="bio"
                     placeholder="Update Bio"
-                    className="w-full rounded-xl border py-2 pl-3 pr-8 focus:outline-none"
+                    className="w-full rounded-xl border py-2 pl-3 pr-8 focus:outline-none focus:bg-white  focus:border-violet-700"
                   />
                   <IoCloseOutline
                     size={24}
