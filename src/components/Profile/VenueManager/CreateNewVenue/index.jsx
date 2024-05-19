@@ -344,7 +344,7 @@ const CreateNewVenueForm = () => {
                         name="meta"
                         checked={meta.includes("wifi")}
                         onChange={() => handleCheckboxChangeMeta("wifi")}
-                        className="mr-2"
+                        className="mr-2  accent-violet-700"
                       />
                       <label htmlFor="wifi">Wifi</label>
                     </div>
@@ -355,7 +355,7 @@ const CreateNewVenueForm = () => {
                         name="meta"
                         checked={meta.includes("pets")}
                         onChange={() => handleCheckboxChangeMeta("pets")}
-                        className="mr-2"
+                        className="mr-2  accent-violet-700"
                       />
                       <label htmlFor="pets">Pets</label>
                     </div>
@@ -366,7 +366,7 @@ const CreateNewVenueForm = () => {
                         name="parking"
                         checked={meta.includes("parking")}
                         onChange={() => handleCheckboxChangeMeta("parking")}
-                        className="mr-2"
+                        className="mr-2  accent-violet-700"
                       />
                       <label htmlFor="parking">Parking</label>
                     </div>
@@ -378,7 +378,7 @@ const CreateNewVenueForm = () => {
                         name="meta"
                         checked={meta.includes("breakfast")}
                         onChange={() => handleCheckboxChangeMeta("breakfast")}
-                        className="mr-2"
+                        className="mr-2  accent-violet-700"
                       />
                       <label htmlFor="breakfast">Breakfast</label>
                     </div>
@@ -458,7 +458,7 @@ const CreateNewVenueForm = () => {
                         name="rating"
                         checked={rating === 1}
                         onChange={() => setRating(1)}
-                        className="mr-2"
+                        className="mr-2 accent-violet-700"
                       />
                       <label htmlFor="rating">1</label>
                     </div>
@@ -469,7 +469,7 @@ const CreateNewVenueForm = () => {
                         name="rating"
                         checked={rating === 2}
                         onChange={() => setRating(2)}
-                        className="mr-2"
+                        className="mr-2  accent-violet-700"
                       />
                       <label htmlFor="rating">2</label>
                     </div>
@@ -480,7 +480,7 @@ const CreateNewVenueForm = () => {
                         name="rating"
                         checked={rating === 3}
                         onChange={() => setRating(3)}
-                        className="mr-2"
+                        className="mr-2  accent-violet-700"
                       />
                       <label htmlFor="rating">3</label>
                     </div>
@@ -491,7 +491,7 @@ const CreateNewVenueForm = () => {
                         name="rating"
                         checked={rating === 4}
                         onChange={() => setRating(4)}
-                        className="mr-2"
+                        className="mr-2  accent-violet-700"
                       />
                       <label htmlFor="rating">4</label>
                     </div>
@@ -502,7 +502,7 @@ const CreateNewVenueForm = () => {
                         name="rating"
                         checked={rating === 5}
                         onChange={() => setRating(5)}
-                        className="mr-2"
+                        className="mr-2  accent-violet-700"
                       />
                       <label htmlFor="rating">5</label>
                     </div>

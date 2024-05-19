@@ -44,8 +44,8 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="mx-auto flex min-h-full max-w-sm flex-col px-6 py-12">
-      <div className="mb-6 flex justify-end">
+    <div className="mx-auto flex mb-16 max-w-sm flex-col px-6 mt-8">
+      <div className="mb-2 flex justify-end">
         <button>
           <IoClose size={30} onClick={handleCloseIcon} />
         </button>
@@ -55,7 +55,7 @@ const LoginPage = () => {
       </div>
       <div className="mb-6">
         <h1 className="py-2 text-lg font-semibold">
-          Sign in or create an account
+        Sign in to your account
         </h1>
         <p>
           Easily keep track of prices and plan your travels, or switch gears to
@@ -73,7 +73,7 @@ const LoginPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
-                className="w-full rounded-xl border py-2  pl-12 focus:outline-none"
+                className="w-full rounded-xl border py-2  pl-12  leading-tight focus:outline-none focus:bg-white  focus:border-orange-500"
               />
               <IoClose
                 size={30}

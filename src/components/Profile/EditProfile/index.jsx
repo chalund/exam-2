@@ -226,7 +226,7 @@ const EditProfileForm = () => {
                       id="guestRadio"
                       checked={userType === "Guest"}
                       onChange={() => setUserType("Guest")}
-                      className="form-radio mr-2"
+                      className="checked:bg-violet-700 text-violet-700 focus:ring-violet-700 mr-2"
                     />
                     <label htmlFor="guestRadio">Guest</label>
                   </div>
@@ -237,7 +237,7 @@ const EditProfileForm = () => {
                       name="userType"
                       checked={userType === "Venue Manager"}
                       onChange={() => setUserType("Venue Manager")}
-                      className="form-radio mr-2"
+                      className="checked:bg-violet-700 text-violet-700 focus:ring-violet-700 mr-2"
                     />
                     <label htmlFor="venueManagerRadio">Venue Manager</label>
                   </div>

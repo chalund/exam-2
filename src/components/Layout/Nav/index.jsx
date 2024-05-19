@@ -85,7 +85,7 @@ const Nav = () => {
           {isLoggedIn() ? (
             <button
               onClick={handleLogout}
-              className="mr-3 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-4 py-2 font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white md:mr-0"
+              className="mr-3 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-4 py-2 font-semibold uppercase  hover:from-red-500 hover:to-red-700 hover:text-white md:mr-0"
             >
               Logout
             </button>

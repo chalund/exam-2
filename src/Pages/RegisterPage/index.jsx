@@ -113,8 +113,8 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="mx-auto flex min-h-full max-w-sm flex-col px-6 py-12">
-      <div className="mb-6 flex justify-end">
+    <div className="mx-auto flex  max-w-sm flex-col px-6 mt-8 mb-16">
+      <div className="mb-2 flex justify-end">
         <button onClick={closeLoginModal}>
           <IoClose size={30} />
         </button>
@@ -123,7 +123,7 @@ const RegisterPage = () => {
         <Logo />
       </div>
       <div className="mb-6">
-        <h1 className="py-2 text-lg font-semibold">Create an account</h1>
+        <h1 className="py-2 text-lg font-semibold">Create a new account</h1>
         <p>
           Welcome! Please complete your registration to access your account.
         </p>
@@ -195,32 +195,33 @@ const RegisterPage = () => {
                 <p className="mt-1 text-red-700">{passwordError}</p>
               )}
             </div>
-
             <div className="mb-3 flex gap-4">
-              <div>
-                <input
-                  type="radio"
-                  id="guestRadio"
-                  checked={userType === "Guest"}
-                  onChange={(e) => setUserType(e.target.value)}
-                  name="userType"
-                  value="Guest"
-                  className="form-radio text-indigo-600"
-                />
-                <label htmlFor="guestRadio"> Guest</label>{" "}
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  id="venueManagerRadio"
-                  checked={userType === "Venue Manager"}
-                  onChange={(e) => setUserType(e.target.value)}
-                  name="userType"
-                  value="Venue Manager"
-                />
-                <label htmlFor="venueManagerRadio"> Venue Manager </label>{" "}
-              </div>
-            </div>
+  <div>
+    <input
+      type="radio"
+      id="guestRadio"
+      checked={userType === "Guest"}
+      onChange={(e) => setUserType(e.target.value)}
+      name="userType"
+      value="Guest"
+      className="checked:bg-violet-700 text-violet-700 focus:ring-violet-700"
+    />
+    <label htmlFor="guestRadio"> Guest</label>{" "}
+  </div>
+  <div>
+    <input
+      type="radio"
+      id="venueManagerRadio"
+      checked={userType === "Venue Manager"}
+      onChange={(e) => setUserType(e.target.value)}
+      name="userType"
+      value="Venue Manager"
+      className="checked:bg-violet-700 text-violet-700 focus:ring-violet-700  "
+    />
+    <label htmlFor="venueManagerRadio"> Venue Manager </label>{" "}
+  </div>
+</div>
+
           </div>
           <button
             type="submit"
@@ -237,6 +238,12 @@ const RegisterPage = () => {
             </div>
           )}
         </div>
+        <p className="text-md mt-2">
+          Have an account?{" "}
+          <Link to={"/login"} className="text-violet-700 underline">
+            Login Here
+          </Link>
+        </p>
       </form>
     </div>
   );
