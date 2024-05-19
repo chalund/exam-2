@@ -140,7 +140,7 @@ const UpdateVenueForm = ({ venueData }) => {
     <div>
       <button
         onClick={openModal}
-        className="mt-4 flex justify-end gap-1 rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-4 py-2  uppercase text-white hover:to-violet-900 hover:font-semibold"
+        className="mt-4 flex gap-1 rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-3 py-1   uppercase text-white hover:to-violet-900 hover:font-semibold"
       >
         <MdOutlineModeEdit size={24} />
         <p>Update venue</p>

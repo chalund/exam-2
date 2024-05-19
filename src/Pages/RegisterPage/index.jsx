@@ -225,25 +225,27 @@ const RegisterPage = () => {
           </div>
           <button
             type="submit"
-            className="mb-2 w-full rounded-xl bg-gradient-to-t from-orange-300 to-orange-400 p-2 font-medium uppercase text-black"
+            className="mb-2 w-full rounded-xl bg-gradient-to-t from-orange-300 to-orange-400 hover:to-orange-500 p-2 font-medium uppercase text-black"
           >
             Submit
           </button>
           {loggedIn && (
             <div className="mt-3">
               <p>Registration was successful!! Please login:</p>
-              <button className="mt-2 w-full rounded-xl bg-gradient-to-t from-violet-400 to-violet-700 p-2 font-medium uppercase text-black">
+              <button className="mt-2 w-full rounded-xl bg-gradient-to-t from-violet-400 to-violet-700 hover:to-violet-900 p-2 font-medium uppercase text-white">
                 <Link to="/login">Login</Link>
               </button>
             </div>
           )}
         </div>
-        <p className="text-md mt-2">
-          Have an account?{" "}
-          <Link to={"/login"} className="text-violet-700 underline">
-            Login Here
-          </Link>
-        </p>
+        {!loggedIn && (
+  <p className="text-md mt-2">
+    Have an account?{" "}
+    <Link to={"/login"} className="text-violet-700 underline">
+      Login Here
+    </Link>
+  </p>
+)}
       </form>
     </div>
   );

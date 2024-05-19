@@ -25,8 +25,8 @@ const ProfilePage = () => {
   );
 
   return (
-    <div className="mx-auto max-w-screen-md">
-      <div className="border bg-white md:mt-10 md:rounded-xl">
+    <div className="mx-auto max-w-screen-md mb-10 p- md:py-10">
+      <div className="border bg-white  md:rounded-xl">
         {profileData && (
           <div>
             <div className="relative">
@@ -52,7 +52,9 @@ const ProfilePage = () => {
             <div className="mt-16 text-center">
               <p className="font-semibold">{profileData.name}</p>
               <p>{profileData.email}</p>
-              <p className="mt-3">Bio: "{profileData.bio}"</p>
+              {profileData.bio && (
+                <p className="mt-3">Bio: "{profileData.bio}"</p>
+              )}
               <div className="flex items-center justify-center gap-1 py-2">
                 <p
                   className={`h-5 w-5 rounded-full ${

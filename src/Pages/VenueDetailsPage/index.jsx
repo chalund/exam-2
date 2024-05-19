@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { BASE_URL } from "../../components/API";
 import { useFetch } from "../../components/Hooks/useFetch";
 import { MdOutlineEmail } from "react-icons/md";
@@ -8,15 +8,17 @@ import { MdOutlinePets, MdBreakfastDining } from "react-icons/md";
 import { useEffect, useState } from "react";
 import StarRate from "../../components/StarRating";
 import formatDate from "../../components/DateFormatter";
-
 import NoImage from "../../assets/no_image.jpg";
 import Spinner from "../../components/Spinner/Loader";
 import BookingFormLink from "../../components/CreateBooking/BookingFormLink";
 import BookingForm from "../../components/CreateBooking/BookingForm";
 import UpdateVenueForm from "../../components/Profile/VenueManager/UpdateVenue";
+import { GoTrash } from "react-icons/go";
+import handleDeleteVenue from "../../components/API/Venue/deleteVenue";
 
 const VenueDetailsPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate(); // Use the useNavigate hook
   const { data, loading, error } = useFetch(
     `${BASE_URL}/venues/${id}?_owner=true&_bookings=true`,
   );
@@ -256,11 +258,18 @@ const VenueDetailsPage = () => {
               </div>
             )}
             {isOwner && isLoggedIn && (
-              <div className="flex justify-end">
+              <div className="flex items-center gap-4">
                 <UpdateVenueForm
                   venueData={data.data}
                   onUpdate={handleUpdateVenueForm}
                 />
+                <button
+                  onClick={() => handleDeleteVenue(id, navigate)} // Use `id` here and pass `navigate`
+                  className="mt-4 px-3 py-1 flex flex-row items-center rounded-full bg-gradient-to-t from-red-500 to-red-700 hover:font-semibold uppercase hover:to-red-800 text-white"
+                >
+                  <GoTrash size={14} />
+                  Delete Venue
+                </button>
               </div>
             )}
             {!isLoggedIn && (

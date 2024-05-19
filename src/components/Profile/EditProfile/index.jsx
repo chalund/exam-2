@@ -57,9 +57,8 @@ const EditProfileForm = () => {
       console.log("Data to be saved:", newData);
       await updateProfile(username, newData, apiKey);
 
-      console.log("Profile updated successfully");
-      setIsModalOpen(false); // Close modal on success
-      window.location.reload(); // Reload the page
+      setIsModalOpen(false);
+      window.location.reload();
     } catch (error) {
       console.error("Error updating profile:", error);
     }
@@ -78,7 +77,7 @@ const EditProfileForm = () => {
 
       setOriginalBio(profile.data.bio);
       setBio(profile.data.bio);
-      setUserType(profile.data.userType); // Ensure userType is set from profile data
+      setUserType(profile.data.userType);
 
       setIsModalOpen(true);
     } catch (error) {
@@ -95,7 +94,7 @@ const EditProfileForm = () => {
     <div style={{ position: "relative" }}>
       <button
         onClick={openModal}
-        className="mb-5 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-8 py-2 font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white"
+        className="mb-5 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-8 py-2 font-semibold uppercase hover:to-orange-500"
       >
         Edit Profile
       </button>
@@ -226,7 +225,7 @@ const EditProfileForm = () => {
                       id="guestRadio"
                       checked={userType === "Guest"}
                       onChange={() => setUserType("Guest")}
-                      className="checked:bg-violet-700 text-violet-700 focus:ring-violet-700 mr-2"
+                      className="mr-2 text-violet-700 checked:bg-violet-700 focus:ring-violet-700"
                     />
                     <label htmlFor="guestRadio">Guest</label>
                   </div>
@@ -237,7 +236,7 @@ const EditProfileForm = () => {
                       name="userType"
                       checked={userType === "Venue Manager"}
                       onChange={() => setUserType("Venue Manager")}
-                      className="checked:bg-violet-700 text-violet-700 focus:ring-violet-700 mr-2"
+                      className="mr-2 text-violet-700 checked:bg-violet-700 focus:ring-violet-700"
                     />
                     <label htmlFor="venueManagerRadio">Venue Manager</label>
                   </div>
@@ -245,7 +244,7 @@ const EditProfileForm = () => {
               </div>
               <button
                 type="submit"
-                className="mb-5 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-8 py-2 font-semibold uppercase hover:from-orange-400 hover:to-orange-500"
+                className="mb-5 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 w-44 py-2 font-semibold uppercase hover:to-orange-500"
               >
                 Update Profile
               </button>
