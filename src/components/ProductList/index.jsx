@@ -10,59 +10,105 @@ import FilterDropdown from "../DropdownFilter";
 function ProductList() {
   const [pageCounter, setPageCounter] = useState(1);
   const [productsPerPage] = useState(100);
-  const [filter, setFilter] = useState(""); // Default state for filter option
-  const [fetchUrl, setFetchUrl] = useState(
-    `${BASE_URL}${Venues}?sort=created&sortOrder=desc&page=${pageCounter}&limit=${productsPerPage}`,
-  );
-  const { data, loading, error } = useFetch(fetchUrl);
+  const [filter, setFilter] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [allData, setAllData] = useState([]);
   const [meta, setMeta] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const checkMeta = data && Object.keys(data)[1] === "meta";
-    if (checkMeta) {
-      setMeta(data.meta);
-    }
+    const fetchAllData = async () => {
+      setLoading(true);
+      setError(null);
+      let allDataTemp = [];
+      let currentPage = 1;
+      let totalPageCount = 1;
 
-    let sortField = "created";
-    let sortOrder = "desc";
+      while (currentPage <= totalPageCount) {
+        try {
+          let sortField = "created";
+          let sortOrder = "desc";
 
+          switch (filter) {
+            case "oldest":
+              sortField = "created";
+              sortOrder = "asc";
+              break;
+            case "a-z":
+              sortField = "name";
+              sortOrder = "asc";
+              break;
+            case "z-a":
+              sortField = "name";
+              sortOrder = "desc";
+              break;
+            case "price-low-high":
+              sortField = "price";
+              sortOrder = "asc";
+              break;
+            case "price-high-low":
+              sortField = "price";
+              sortOrder = "desc";
+              break;
+            default:
+              sortField = "created";
+              sortOrder = "desc";
+          }
+
+          const response = await fetch(
+            `${BASE_URL}${Venues}?sort=${sortField}&sortOrder=${sortOrder}&limit=${productsPerPage}&page=${currentPage}`
+          );
+          const newData = await response.json();
+
+          if (currentPage === 1) {
+            totalPageCount = newData.meta.pageCount;
+            setMeta(newData.meta);
+          }
+
+          allDataTemp = [...allDataTemp, ...newData.data];
+          currentPage += 1;
+        } catch (err) {
+          setError(err);
+          break;
+        }
+      }
+
+      setAllData(allDataTemp);
+      setLoading(false);
+    };
+
+    fetchAllData();
+  }, [filter, productsPerPage]);
+
+  // Scroll to the top when pageCounter changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [pageCounter]);
+
+  const getSortedData = (data) => {
+    let sortedData = [...data];
     switch (filter) {
       case "oldest":
-        sortField = "created";
-        sortOrder = "asc";
+        sortedData.sort((a, b) => new Date(a.created) - new Date(b.created));
         break;
       case "a-z":
-        sortField = "name";
-        sortOrder = "asc";
+        sortedData.sort((a, b) => a.name.localeCompare(b.name));
         break;
       case "z-a":
-        sortField = "name";
-        sortOrder = "desc";
+        sortedData.sort((a, b) => b.name.localeCompare(a.name));
         break;
       case "price-low-high":
-        sortField = "price";
-        sortOrder = "asc";
+        sortedData.sort((a, b) => a.price - b.price);
         break;
       case "price-high-low":
-        sortField = "price";
-        sortOrder = "desc";
+        sortedData.sort((a, b) => b.price - a.price);
         break;
       default:
-        sortField = "created";
-        sortOrder = "desc";
+        sortedData.sort((a, b) => new Date(b.created) - new Date(a.created));
     }
-
-    if (searchTerm) {
-      setFetchUrl(
-        `${BASE_URL}${Venues}/search?sort=${sortField}&sortOrder=${sortOrder}&limit=${productsPerPage}&q=${searchTerm}&page=${pageCounter}`,
-      );
-    } else {
-      setFetchUrl(
-        `${BASE_URL}${Venues}?sort=${sortField}&sortOrder=${sortOrder}&page=${pageCounter}&limit=${productsPerPage}`,
-      );
-    }
-  }, [meta, data, searchTerm, productsPerPage, pageCounter, filter]);
+    return sortedData;
+  };
 
   if (loading) {
     return (
@@ -76,38 +122,43 @@ function ProductList() {
     return <div>Error fetching data: {error.message}</div>;
   }
 
-  const filteredProducts = data.data.filter((product) => {
+  const filteredData = allData.filter((product) => {
     return product.name.toLowerCase().includes(searchTerm.toLowerCase());
   });
 
-  console.log(filteredProducts);
+  const sortedFilteredProducts = getSortedData(filteredData);
 
   const handleClearInput = () => {
     setSearchTerm("");
   };
 
   const handleNextPage = () => {
-    console.log({ nextPage: meta.nextPage });
-    setPageCounter(meta.nextPage);
+    const totalPages = Math.ceil(sortedFilteredProducts.length / productsPerPage);
+    if (pageCounter < totalPages) {
+      setPageCounter((prevCounter) => prevCounter + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (pageCounter > 1) {
+      setPageCounter((prevCounter) => prevCounter - 1);
+    }
   };
 
   const indexOfLastProduct = pageCounter * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = filteredProducts.slice(
+  const currentProducts = sortedFilteredProducts.slice(
     indexOfFirstProduct,
-    indexOfLastProduct,
+    indexOfLastProduct
   );
-
-  const sortedData = data.data.sort((a, b) => new Date(b.created) - new Date(a.created));
-  const newestVenues = sortedData.slice(0, 3);
 
   return (
     <div className="flex flex-col items-center">
-      <div className="mx-auto mb-6 flex w-full max-w-[990px] flex-col items-center bg-violet-700 p-8 md:my-6 md:mt-10 md:rounded-xl">
+      <div className="mx-auto mb-6 flex w-full max-w-[990px] flex-col items-center bg-violet-700 px-2 py-6 md:my-6 md:mt-10 md:rounded-xl">
         <h1 className="mb-4 text-2xl font-medium capitalize text-white md:text-3xl">
           Find new Venue
         </h1>
-        <div className="flex w-full items-center justify-center gap-4">
+        <div className="flex w-full items-center justify-center gap-1 md:gap-4">
           <div className="relative flex w-full max-w-[600px] items-center rounded-xl bg-white shadow-md">
             <BiSearch
               size={24}
@@ -126,10 +177,8 @@ function ProductList() {
               className="absolute right-0 top-0 mr-3 mt-2 cursor-pointer text-gray-800"
             />
           </div>
-          <div className="relative flex items-center">
-          <div>
+          <div className="relative flex items-center ">
             <FilterDropdown filter={filter} setFilter={setFilter} />
-        </div>
           </div>
         </div>
       </div>
@@ -139,16 +188,20 @@ function ProductList() {
 
       <div className="my-10 flex justify-center gap-4">
         <button
-          onClick={() => setPageCounter(meta.previousPage)}
-          className={`w-24 rounded-xl p-2 py-2 ${!meta.previousPage ? "cursor-not-allowed opacity-50 border border-zinc-300" : "bg-violet-700 text-white"}`}
-          disabled={!meta.previousPage}
+          onClick={handlePreviousPage}
+          className={`w-24 rounded-xl p-2 py-2 ${
+            pageCounter === 1 ? "cursor-not-allowed opacity-50 border border-zinc-300" : "bg-violet-700 text-white"
+          }`}
+          disabled={pageCounter === 1}
         >
           Previous
         </button>
         <button
           onClick={handleNextPage}
-          className={`w-24 rounded-xl p-2 py-2 ${!meta.nextPage ? "cursor-not-allowed opacity-50 border border-zinc-300" : "bg-violet-700 text-white hover:bg-violet-800"}`}
-          disabled={!meta.nextPage}
+          className={`w-24 rounded-xl p-2 py-2 ${
+            pageCounter * productsPerPage >= sortedFilteredProducts.length ? "cursor-not-allowed opacity-50 border border-zinc-300" : "bg-violet-700 text-white hover:bg-violet-800"
+          }`}
+          disabled={pageCounter * productsPerPage >= sortedFilteredProducts.length}
         >
           Next
         </button>
