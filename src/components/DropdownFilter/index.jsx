@@ -13,7 +13,6 @@ const FilterDropdown = ({ filter, setFilter }) => {
     };
 
     const options = [
-   
         { value: 'newest', label: 'Sort by Newest' },
         { value: 'oldest', label: 'Sort by Oldest' },
         { value: 'price-low-high', label: 'Sort by Price: Low to High' },
@@ -24,12 +23,12 @@ const FilterDropdown = ({ filter, setFilter }) => {
 
     return (
         <div className="relative inline-block text-left">
-           <div className="flex items-center">
+            <div className="flex items-center">
                 <button
                     onClick={toggleDropdown}
-                    className="py-2 px-4 bg-white rounded-lg flex items-center focus:outline-none focus:ring-2 focus:ring-purple-700"
+                    className="py-2 px-4 bg-gradient-to-t from-orange-300 to-orange-400 rounded-full flex items-center focus:outline-none focus:ring-2 focus:ring-purple-700"
                 >
-                    {options.find(option => option.value === filter)?.label || 'Filter'}
+                   Filter
                     {!isOpen ? (
                         <IoIosArrowDown className='ml-3' />
                     ) : (
@@ -38,10 +37,10 @@ const FilterDropdown = ({ filter, setFilter }) => {
                 </button>
             </div>
             {isOpen && (
-                <div ref={dropdownRef} className="absolute z-10 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg">
+                <div ref={dropdownRef} className="absolute z-10 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg right-1 md:left-1">
                     <ul className="py-1">
                         {options.map((option, index) => (
-                            <li key={index} className={`px-4 py-2 cursor-pointer ${option.disabled ? 'text-gray-400 cursor-not-allowed' : 'hover:bg-orange-400'}`}
+                            <li key={index} className={`px-4 py-2 cursor-pointer ${option.disabled ? 'text-gray-400 cursor-not-allowed' : 'hover:bg-gradient-to-t hover:from-orange-300 hover:to-orange-400'}`}
                                 onClick={() => !option.disabled && handleOptionClick(option.value)}>
                                 {option.label}
                             </li>

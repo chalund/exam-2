@@ -1,4 +1,3 @@
-// VenueCard.js
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaMapMarkerAlt } from "react-icons/fa";
@@ -6,10 +5,9 @@ import NoImage from "../../../assets/no_image.jpg";
 import StarRatingCards from "../../StarRating/StarRatingCards";
 import formatDate from "../../DateFormatter";
 
-// Helper function to handle image error
 function handleImageError(e) {
-  e.target.src = NoImage; // Set placeholder image
-  e.target.onError = null; // Remove error handler to prevent loops
+  e.target.src = NoImage;
+  e.target.onError = null;
 }
 
 const VenueCard = ({ venue }) => {
@@ -17,7 +15,7 @@ const VenueCard = ({ venue }) => {
     <Link to={`/venue/${venue.id}`} className="block">
       <div className="flex h-full  w-full max-w-[300px] flex-col justify-between rounded-lg border bg-white p-4 py-4 hover:border-4 hover:border-violet-700">
         {venue.media && venue.media.length > 0 ? (
-          <div className="relative block h-32 w-full sm:h-48 ">
+          <div className="relative block  h-48 w-full">
             <img
               src={venue.media[0].url}
               alt={venue.media[0].alt || "Venue image"}
@@ -35,7 +33,7 @@ const VenueCard = ({ venue }) => {
             <img
               src={NoImage}
               alt="No Image"
-              className="h-full w-full rounded-lg object-cover"
+              className="h-full w-full rounded-lg border object-cover"
             />
           </div>
         )}
@@ -55,16 +53,10 @@ const VenueCard = ({ venue }) => {
               </p>
             </div>
           </div>
-          <div className="mt-3 flex items-center justify-between">
-            <p>
-              Price <b>${venue.price}</b>
-            </p>
-            <button className="rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-5 py-1 text-sm uppercase text-white hover:to-violet-900 hover:font-semibold">
-              View
-            </button>
-          </div>
-          <p>Created: {formatDate(venue.created)}</p>
-          <p>{formatDate(venue.updated)}</p>
+          <p className="mt-3">
+            Price <b>${venue.price}</b>
+          </p>
+          <p className="mt-3">Created: {formatDate(venue.created)}</p>
         </div>
       </div>
     </Link>
