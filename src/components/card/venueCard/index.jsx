@@ -63,7 +63,7 @@ const VenueCard = ({ venue }) => {
               View
             </button>
           </div>
-          <p>{formatDate(venue.created)}</p>
+          <p>Created: {formatDate(venue.created)}</p>
           <p>{formatDate(venue.updated)}</p>
         </div>
       </div>

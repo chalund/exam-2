@@ -98,6 +98,9 @@ function ProductList() {
     indexOfLastProduct,
   );
 
+  const sortedData = data.data.sort((a, b) => new Date(b.created) - new Date(a.created));
+  const newestVenues = sortedData.slice(0, 3);
+
   return (
     <div className="flex flex-col items-center">
       <div className="mx-auto mb-6 flex w-full max-w-[990px] flex-col items-center bg-violet-700 p-8 md:my-6 md:mt-10 md:rounded-xl">
