@@ -147,7 +147,7 @@ const BookingForm = ({ price, venueId }) => {
                       unavailableDate.toISOString().split("T")[0] ===
                       formattedDate,
                   )
-                    ? "bg-red-500 text-white"
+                    ? "bg-red-600 text-white"
                     : undefined;
                 }}
                 minDate={new Date()}
@@ -171,7 +171,7 @@ const BookingForm = ({ price, venueId }) => {
                       unavailableDate.toISOString().split("T")[0] ===
                       formattedDate,
                   )
-                    ? "redDate"
+                  ? "bg-red-600 text-white"
                     : undefined;
                 }}
                 minDate={startDate}

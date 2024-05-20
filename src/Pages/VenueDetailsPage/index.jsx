@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { BASE_URL } from "../../components/API";
 import { useFetch } from "../../components/Hooks/useFetch";
 import { MdOutlineEmail } from "react-icons/md";
@@ -8,15 +8,17 @@ import { MdOutlinePets, MdBreakfastDining } from "react-icons/md";
 import { useEffect, useState } from "react";
 import StarRate from "../../components/StarRating";
 import formatDate from "../../components/DateFormatter";
-
 import NoImage from "../../assets/no_image.jpg";
 import Spinner from "../../components/Spinner/Loader";
 import BookingFormLink from "../../components/CreateBooking/BookingFormLink";
 import BookingForm from "../../components/CreateBooking/BookingForm";
 import UpdateVenueForm from "../../components/Profile/VenueManager/UpdateVenue";
+import { GoTrash } from "react-icons/go";
+import handleDeleteVenue from "../../components/API/Venue/deleteVenue";
 
 const VenueDetailsPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate(); // Use the useNavigate hook
   const { data, loading, error } = useFetch(
     `${BASE_URL}/venues/${id}?_owner=true&_bookings=true`,
   );
@@ -165,10 +167,45 @@ const VenueDetailsPage = () => {
               </div>
             </div>
 
-            <div className="flex items-center gap-1 md:hidden">
-              <IoCalendarNumberOutline />
-              <p></p>
-              <BookingFormLink venueId={id} />
+            <div >
+            
+            
+            <div className="flex md:hidden">
+            {!isOwner && isLoggedIn && (
+                <div className="flex items-center mt-2 gap-1 md:hidden">
+                <IoCalendarNumberOutline size={24} className="text-violet-700" />
+                <BookingFormLink venueId={id} />
+                </div>
+            )}
+            {isOwner && isLoggedIn && (
+              <div className="flex items-center gap-4">
+                <UpdateVenueForm
+                  venueData={data.data}
+                  onUpdate={handleUpdateVenueForm}
+                />
+                <button
+                  onClick={() => handleDeleteVenue(id, navigate)} // Use `id` here and pass `navigate`
+                  className="mt-4 gap-1 px-3 py-2 flex flex-row items-center rounded-full bg-gradient-to-t from-red-500 to-red-700 hover:font-semibold uppercase hover:to-red-800 text-white"
+                >
+                  <GoTrash size={16} />
+                  Delete Venue
+                </button>
+              </div>
+            )}
+           
+           
+            {!isLoggedIn && (
+              <div className="mt-6 rounded-xl border border-violet-700 bg-white p-4">
+                <p>
+                  You need to{" "}
+                  <Link to="/login" className="text-violet-700 underline uppercase font-semibold">
+                    log in
+                  </Link>{" "}
+                  to make a booking.
+                </p>
+              </div>
+            )}
+            </div>
             </div>
 
             <p className="mt-5 font-semibold">Description</p>
@@ -256,18 +293,25 @@ const VenueDetailsPage = () => {
               </div>
             )}
             {isOwner && isLoggedIn && (
-              <div className="flex justify-end">
+              <div className="flex items-center justify-between">
                 <UpdateVenueForm
                   venueData={data.data}
                   onUpdate={handleUpdateVenueForm}
                 />
+                <button
+                  onClick={() => handleDeleteVenue(id, navigate)} // Use `id` here and pass `navigate`
+                  className="mt-4 gap-1 px-3 py-2 flex flex-row items-center rounded-full bg-gradient-to-t from-red-500 to-red-700 hover:font-semibold uppercase hover:to-red-800 text-white"
+                >
+                  <GoTrash size={16} />
+                  Delete Venue
+                </button>
               </div>
             )}
-            {!isLoggedIn && (
-              <div className="mt-6 rounded-xl border bg-white p-4">
+             {!isLoggedIn && (
+              <div className="mt-6 rounded-xl border border-violet-700 bg-white p-4">
                 <p>
                   You need to{" "}
-                  <Link to="/login" className="text-violet-700 underline">
+                  <Link to="/login" className="text-violet-700 underline uppercase font-semibold">
                     log in
                   </Link>{" "}
                   to make a booking.

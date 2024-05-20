@@ -26,14 +26,8 @@ const MyBookingsProfilePage = ({ bookings, totalCount }) => {
         <h2 className="ms-6 text-xl font-semibold uppercase text-violet-700 md:text-2xl">
           My bookings
         </h2>
-        <p className="ms-6 mt-3 text-lg">No bookings available...</p>
-        <div className="mt-1 flex items-center gap-1">
-          <p className="ms-6">Find your next holiday</p>
-          <Link to="/listings" className="text-violet-700 underline">
-            here
-          </Link>
-          <GoSmiley size={20} />
-        </div>
+        <p className="ms-6 mt-3 text-lg"> You currently have no bookings available..</p>
+      
       </div>
     );
   }

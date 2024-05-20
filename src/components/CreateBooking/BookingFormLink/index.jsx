@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { IoClose } from "react-icons/io5";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { createApiKey } from "../../API/ApiKey";
@@ -116,7 +115,7 @@ const BookingFormLink = ({ price, venueId }) => {
     <div style={{ position: "relative" }}>
       <button
         onClick={openModal}
-        className="uppercase text-violet-700 underline"
+        className="uppercase text-violet-700 underline text-xl font-semibold"
       >
         Book your stay
       </button>

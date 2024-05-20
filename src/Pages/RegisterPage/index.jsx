@@ -113,8 +113,8 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="mx-auto flex min-h-full max-w-sm flex-col px-6 py-12">
-      <div className="mb-6 flex justify-end">
+    <div className="mx-auto flex  max-w-sm flex-col px-6 mt-8 mb-16">
+      <div className="mb-2 flex justify-end">
         <button onClick={closeLoginModal}>
           <IoClose size={30} />
         </button>
@@ -123,7 +123,7 @@ const RegisterPage = () => {
         <Logo />
       </div>
       <div className="mb-6">
-        <h1 className="py-2 text-lg font-semibold">Create an account</h1>
+        <h1 className="py-2 text-lg font-semibold">Create a new account</h1>
         <p>
           Welcome! Please complete your registration to access your account.
         </p>
@@ -131,7 +131,7 @@ const RegisterPage = () => {
       <form onSubmit={handleSubmit}>
         <div>
           <div>
-            <div className="relative mb-5 flex flex-col text-lg">
+            <div className={`relative mb-5 flex flex-col ${nameError ? "mb-1" : "mb-5"}`}>
               <AiOutlineUser className="absolute ml-4 mt-2" size={24} />
               <input
                 type="text"
@@ -139,7 +139,7 @@ const RegisterPage = () => {
                 onChange={(e) => setName(e.target.value)}
                 onBlur={validateName}
                 id="name"
-                className={`w-full rounded-xl border py-2  pl-12 focus:outline-none ${
+                className={`w-full rounded-xl border py-2  pl-12 focus:outline-none focus:bg-white  focus:border-violet-700 ${
                   nameError && "border-red-700"
                 }`}
                 placeholder="Name"
@@ -152,7 +152,7 @@ const RegisterPage = () => {
               {nameError && <p className="mt-1 text-red-700">{nameError}</p>}
             </div>
 
-            <div className=" relative mb-5 flex flex-col text-lg">
+            <div className={`relative mb-5 flex flex-col ${emailError ? "mb-1" : "mb-5"}`}>
               <MdOutlineEmail className="absolute ml-4 mt-3" size={24} />
               <input
                 type="email"
@@ -160,7 +160,7 @@ const RegisterPage = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 onBlur={validateEmail}
                 id="email"
-                className={`w-full rounded-xl border py-2  pl-12 focus:outline-none ${
+                className={`w-full rounded-xl border py-2  pl-12 focus:outline-none focus:bg-white  focus:border-violet-700 ${
                   emailError && "border-red-700"
                 }`}
                 placeholder="Email address"
@@ -173,7 +173,7 @@ const RegisterPage = () => {
               {emailError && <p className="mt-1  text-red-700">{emailError}</p>}
             </div>
 
-            <div className="relative mb-5 flex flex-col text-lg">
+            <div className={`relative mb-5 flex flex-col ${passwordError ? "mb-1" : "mb-5"}`}>
               <FaLock className="absolute ml-4 mt-3" size={24} />
               <input
                 type="password"
@@ -181,7 +181,7 @@ const RegisterPage = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 onBlur={validatePassword}
                 id="password"
-                className={`w-full rounded-xl border py-2  pl-12 focus:outline-none ${
+                className={`w-full rounded-xl border py-2  pl-12 focus:outline-none focus:bg-white  focus:border-violet-700${
                   passwordError && "border-red-700"
                 }`}
                 placeholder="Password"
@@ -195,48 +195,57 @@ const RegisterPage = () => {
                 <p className="mt-1 text-red-700">{passwordError}</p>
               )}
             </div>
-
             <div className="mb-3 flex gap-4">
-              <div>
-                <input
-                  type="radio"
-                  id="guestRadio"
-                  checked={userType === "Guest"}
-                  onChange={(e) => setUserType(e.target.value)}
-                  name="userType"
-                  value="Guest"
-                  className="form-radio text-indigo-600"
-                />
-                <label htmlFor="guestRadio"> Guest</label>{" "}
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  id="venueManagerRadio"
-                  checked={userType === "Venue Manager"}
-                  onChange={(e) => setUserType(e.target.value)}
-                  name="userType"
-                  value="Venue Manager"
-                />
-                <label htmlFor="venueManagerRadio"> Venue Manager </label>{" "}
-              </div>
-            </div>
+  <div>
+    <input
+      type="radio"
+      id="guestRadio"
+      checked={userType === "Guest"}
+      onChange={(e) => setUserType(e.target.value)}
+      name="userType"
+      value="Guest"
+      className="checked:bg-violet-700 text-violet-700 focus:ring-violet-700"
+    />
+    <label htmlFor="guestRadio"> Guest</label>{" "}
+  </div>
+  <div>
+    <input
+      type="radio"
+      id="venueManagerRadio"
+      checked={userType === "Venue Manager"}
+      onChange={(e) => setUserType(e.target.value)}
+      name="userType"
+      value="Venue Manager"
+      className="checked:bg-violet-700 text-violet-700 focus:ring-violet-700  "
+    />
+    <label htmlFor="venueManagerRadio"> Venue Manager </label>{" "}
+  </div>
+</div>
+
           </div>
           <button
             type="submit"
-            className="mb-2 w-full rounded-xl bg-gradient-to-t from-orange-300 to-orange-400 p-2 font-medium uppercase text-black"
+            className="mb-2 w-full rounded-xl bg-gradient-to-t from-orange-300 to-orange-400 hover:to-orange-500 p-2 font-medium uppercase text-black"
           >
             Submit
           </button>
           {loggedIn && (
             <div className="mt-3">
               <p>Registration was successful!! Please login:</p>
-              <button className="mt-2 w-full rounded-xl bg-gradient-to-t from-violet-400 to-violet-700 p-2 font-medium uppercase text-black">
+              <button className="mt-2 w-full rounded-xl bg-gradient-to-t from-violet-400 to-violet-700 hover:to-violet-900 p-2 font-medium uppercase text-white">
                 <Link to="/login">Login</Link>
               </button>
             </div>
           )}
         </div>
+        {!loggedIn && (
+  <p className="text-md mt-2">
+    Have an account?{" "}
+    <Link to={"/login"} className="text-violet-700 underline">
+      Login Here
+    </Link>
+  </p>
+)}
       </form>
     </div>
   );

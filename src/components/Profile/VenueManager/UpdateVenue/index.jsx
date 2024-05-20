@@ -140,9 +140,9 @@ const UpdateVenueForm = ({ venueData }) => {
     <div>
       <button
         onClick={openModal}
-        className="mt-4 flex justify-end gap-1 rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-4 py-2  uppercase text-white hover:to-violet-900 hover:font-semibold"
+        className="mt-4 flex items-center gap-1 rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-3 py-2   uppercase text-white hover:to-violet-900 hover:font-semibold"
       >
-        <MdOutlineModeEdit size={24} />
+        <MdOutlineModeEdit size={16} />
         <p>Update venue</p>
       </button>
 
@@ -195,7 +195,7 @@ const UpdateVenueForm = ({ venueData }) => {
                     type="text"
                     name="name"
                     placeholder="Title.."
-                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
+                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
                   />
                   <IoCloseOutline
                     size={30}
@@ -210,7 +210,7 @@ const UpdateVenueForm = ({ venueData }) => {
                     type="text"
                     name="description"
                     placeholder="Description.."
-                    className="w-full rounded-xl border py-2 pl-3 pr-10 focus:outline-none"
+                    className="w-full rounded-xl border py-2 pl-3 pr-10 focus:outline-none focus:bg-white  focus:border-violet-700"
                     style={{ height: "130px" }}
                   />
                   <IoCloseOutline
@@ -232,7 +232,7 @@ const UpdateVenueForm = ({ venueData }) => {
                         type="url"
                         name={`url-${index}`}
                         placeholder="Image URL.."
-                        className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
+                        className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
                       />
 
                       <button
@@ -250,7 +250,7 @@ const UpdateVenueForm = ({ venueData }) => {
                       onChange={(e) => setNewImageUrl(e.target.value)}
                       type="url"
                       placeholder="New Image URL..."
-                      className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
+                      className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
                     />
 
                     <button
@@ -272,7 +272,7 @@ const UpdateVenueForm = ({ venueData }) => {
                         type="number"
                         name="price"
                         placeholder="Price.."
-                        className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
+                        className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
                       />
                     </div>
                     <div className="mb-4 flex items-center ">
@@ -282,7 +282,7 @@ const UpdateVenueForm = ({ venueData }) => {
                         type="number"
                         name="maxGuests"
                         placeholder="Max guests.."
-                        className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
+                        className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
                       />
                     </div>
                   </div>
@@ -298,7 +298,7 @@ const UpdateVenueForm = ({ venueData }) => {
                         name="meta"
                         checked={meta["wifi"]}
                         onChange={() => handleCheckboxChangeMeta("wifi")}
-                        className="mr-2"
+                        className="mr-2  accent-violet-700"
                       />
                       <label htmlFor="wifi">Wifi</label>
                     </div>
@@ -309,7 +309,7 @@ const UpdateVenueForm = ({ venueData }) => {
                         name="meta"
                         checked={meta["pets"]}
                         onChange={() => handleCheckboxChangeMeta("pets")}
-                        className="mr-2"
+                        className="mr-2  accent-violet-700"
                       />
                       <label htmlFor="pets">Pets</label>
                     </div>
@@ -320,7 +320,7 @@ const UpdateVenueForm = ({ venueData }) => {
                         name="parking"
                         checked={meta["parking"]}
                         onChange={() => handleCheckboxChangeMeta("parking")}
-                        className="mr-2"
+                        className="mr-2  accent-violet-700"
                       />
                       <label htmlFor="parking">Parking</label>
                     </div>
@@ -332,7 +332,7 @@ const UpdateVenueForm = ({ venueData }) => {
                         name="meta"
                         checked={meta["breakfast"]}
                         onChange={() => handleCheckboxChangeMeta("breakfast")}
-                        className="mr-2"
+                        className="mr-2  accent-violet-700"
                       />
                       <label htmlFor="breakfast">Breakfast</label>
                     </div>
@@ -349,7 +349,7 @@ const UpdateVenueForm = ({ venueData }) => {
                     type="text"
                     name="address"
                     placeholder="Address..."
-                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
+                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
                   />
                   <IoCloseOutline
                     size={30}
@@ -364,7 +364,7 @@ const UpdateVenueForm = ({ venueData }) => {
                     type="text"
                     name="zip"
                     placeholder="Post code..."
-                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
+                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
                   />
                   <IoCloseOutline
                     size={30}
@@ -379,7 +379,7 @@ const UpdateVenueForm = ({ venueData }) => {
                     type="text"
                     name="city"
                     placeholder="City..."
-                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
+                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
                   />
                   <IoCloseOutline
                     size={30}
@@ -394,7 +394,7 @@ const UpdateVenueForm = ({ venueData }) => {
                     type="text"
                     name="country"
                     placeholder="Country..."
-                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none"
+                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
                   />
                   <IoCloseOutline
                     size={30}
@@ -413,7 +413,7 @@ const UpdateVenueForm = ({ venueData }) => {
                           name="rating"
                           checked={rating === option}
                           onChange={() => setRating(option)}
-                          className="mr-2"
+                          className="mr-2  accent-violet-700"
                         />
                         <label htmlFor="rating">{option}</label>
                       </div>
