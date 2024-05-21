@@ -96,14 +96,15 @@ const VenueDetailsPage = () => {
 
   return (
     <div className="mx-auto max-w-screen-md rounded-xl border bg-white md:my-6">
-      <div className="ms-2 mt-4 flex items-center gap-2">
-        <FaArrowLeft />
+      <div className="ms-4 mt-4">
         {isOwner ? (
-          <Link to={`/profile`} className="underline">
+          <Link to={`/profile`} className="underline flex items-center gap-2 hover:text-violet-700">
+            <FaArrowLeft />
             Back to Profile
           </Link>
         ) : (
-          <Link to={`/listings`} className="underline">
+          <Link to={`/listings`} className="underline flex items-center gap-2 hover:text-violet-700">
+            <FaArrowLeft />
             Back to List of Venues
           </Link>
         )}
@@ -266,8 +267,8 @@ const VenueDetailsPage = () => {
                   alt="profile image of host"
                   className="h-20 w-20 rounded-full"
                   onError={(e) => {
-                    e.target.onerror = null; // Prevent infinite loop
-                    e.target.src = NoImage; // Set placeholder image
+                    e.target.onerror = null;
+                    e.target.src = NoImage;
                   }}
                 />
                 <div className="flex flex-col">

@@ -15,7 +15,7 @@ const CreateNewVenueForm = () => {
   const [meta, setMeta] = useState([]);
   const [maxGuests, setMaxGuests] = useState("");
   const [maxGuestsError, setMaxGuestsError] = useState("");
-  const [price, setprice] = useState("");
+  const [price, setPrice] = useState("");
   const [priceError, setPriceError] = useState("");
   const [rating, setRating] = useState("");
   const [address, setAddress] = useState("");
@@ -292,7 +292,7 @@ const CreateNewVenueForm = () => {
                     <div className="relative mb-5 flex flex-col ">
                       <input
                         value={price}
-                        onChange={(e) => setprice(e.target.value)}
+                        onChange={(e) => setPrice(e.target.value)}
                         type="number"
                         name="price"
                         placeholder="Price.."
