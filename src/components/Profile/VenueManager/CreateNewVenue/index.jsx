@@ -500,7 +500,7 @@ const CreateNewVenueForm = () => {
               <div style={{ position: "relative", textAlign: "center" }}>
                 <button
                   type="submit"
-                  className="mb-5 w-44 rounded-full bg-gradient-to-t from-violet-500 to-violet-700  py-2 font-semibold uppercase text-white hover:to-violet-900 hover:font-semibold"
+                  className="mb-5 w-44 rounded-full bg-gradient-to-t from-violet-500 to-violet-700  py-2 font-semibold uppercase text-white hover:to-violet-900 hover:font-bold"
                 >
                   Create Venue
                 </button>

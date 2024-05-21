@@ -204,21 +204,21 @@ const RegisterPage = () => {
           </div>
           <button
             type="submit"
-            className="mb-2 w-full rounded-xl bg-gradient-to-t from-orange-300 to-orange-400 p-2 font-medium uppercase text-black hover:to-orange-500"
+            className="mb-2 w-full rounded-full bg-gradient-to-t from-orange-300 to-orange-400 p-2 font-semibold hover:font-bold uppercase text-black hover:to-orange-500"
           >
             Submit
           </button>
           {loggedIn && (
             <div className="mt-3">
               <p className="text-xl text-center mb-2">Registration was successful!!</p>
-              <button className="mt-2 w-full rounded-xl bg-gradient-to-t from-violet-400 to-violet-700 p-2 font-medium uppercase text-white hover:to-violet-900">
+              <button className="mt-2 w-full rounded-full bg-gradient-to-t from-violet-500 to-violet-700 p-2 font-semibold hover:font-bold uppercase text-white hover:to-violet-900">
                 <Link to="/login">Login</Link>
               </button>
             </div>
           )}
         </div>
         {!loggedIn && (
-          <p className="text-md mt-2">
+          <p className="text-md mt-2 text-center">
             Have an account?{" "}
             <Link to={"/login"} className="text-violet-700 underline">
               Login Here

@@ -61,7 +61,7 @@ const Footer = () => {
 
         <div className="hidden w-1/4 flex-col justify-center md:flex">
           {/* Flex container for Subscribe */}
-          <p className="text-sm">Subscribe to Holidaze</p>
+          <p className="text-sm">Subscribe to the Holidaze newsletter</p>
           <form action="" className="mt-2 flex gap-1">
             {/* Align Subscribe and input button horizontally */}
             <input
@@ -70,7 +70,7 @@ const Footer = () => {
             />
             <button
               type="submit"
-              className="rounded-full border border-violet-300 bg-violet-700 px-3 py-1 text-sm font-semibold uppercase text-white hover:bg-gradient-to-t hover:from-orange-300 hover:to-orange-400 hover:text-black"
+              className="rounded-full border bg-gradient-to-t  from-violet-500 to-violet-700 px-3 py-1  uppercase text-white hover:bg-gradient-to-t hover:to-violet-900 hover:font-bold"
             >
               Submit
             </button>

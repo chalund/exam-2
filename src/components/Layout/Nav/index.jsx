@@ -92,7 +92,7 @@ const Nav = () => {
           ) : (
             <NavLink
               to="/login"
-              className="mr-3 rounded-full bg-violet-700 px-4 py-2 font-semibold uppercase text-white md:mr-0"
+              className="mr-3  rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-6 py-2 font-semibold uppercase text-white md:mr-0 hover:to-violet-900 hover:font-bold"
               onClick={closeMenu} // Close the menu on login
             >
               Login

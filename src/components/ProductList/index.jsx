@@ -196,7 +196,7 @@ function ProductList() {
       <div className="my-10 flex justify-center items-center gap-4">
         <button
           onClick={handlePreviousPage}
-          className={`w-24 rounded-xl p-2 py-2 ${
+          className={`w-24 rounded-full p-2 py-2 ${
             pageCounter === 1 ? "cursor-not-allowed opacity-50 border border-zinc-300" : "bg-violet-700 text-white"
           }`}
           disabled={pageCounter === 1}
@@ -208,7 +208,7 @@ function ProductList() {
         </span>
         <button
           onClick={handleNextPage}
-          className={`w-24 rounded-xl p-2 py-2 ${
+          className={`w-24 rounded-full p-2 py-2 ${
             pageCounter === totalPages ? "cursor-not-allowed opacity-50 border border-zinc-300" : "bg-violet-700 text-white hover:bg-violet-800"
           }`}
           disabled={pageCounter === totalPages}
