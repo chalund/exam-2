@@ -15,7 +15,6 @@ const RegisterPage = () => {
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [errorMessage, setErrorMessage] = useState(""); // State variable for the specific error message
   const [loggedIn, setLoggedIn] = useState(false);
 
   const navigate = useNavigate();
@@ -24,31 +23,23 @@ const RegisterPage = () => {
     navigate("/");
   };
 
-  const handleClearName = () => {
-    setName("");
-  };
-  const handleClearEmail = () => {
-    setEmail("");
-  };
-  const handleClearPassword = () => {
-    setPassword("");
+  const handleClearField = (setter) => {
+    setter("");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validate inputs
     validateName();
     validateEmail();
     validatePassword();
 
-    // Check if any errors
     if (nameError || emailError || passwordError) {
       return;
     }
 
     // If no errors, proceed with registration
-    let regobj = {
+    let registrationData = {
       name: name,
       email: email,
       password: password,
@@ -60,14 +51,13 @@ const RegisterPage = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(regobj),
+      body: JSON.stringify(registrationData),
     })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Registration failed");
         }
         console.log("User registered");
-        // navigate("/login");
         setLoggedIn(true);
       })
       .catch((error) => {
@@ -113,7 +103,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="mx-auto flex  max-w-sm flex-col px-6 mt-8 mb-16">
+    <div className="mx-auto mb-16 mt-8 flex max-w-sm flex-col px-6">
       <div className="mb-2 flex justify-end">
         <button onClick={closeLoginModal}>
           <IoClose size={30} />
@@ -131,7 +121,9 @@ const RegisterPage = () => {
       <form onSubmit={handleSubmit}>
         <div>
           <div>
-            <div className={`relative mb-5 flex flex-col ${nameError ? "mb-1" : "mb-5"}`}>
+            <div
+              className={`relative flex flex-col ${nameError ? "mb-2" : "mb-5"}`}
+            >
               <AiOutlineUser className="absolute ml-4 mt-2" size={24} />
               <input
                 type="text"
@@ -139,113 +131,111 @@ const RegisterPage = () => {
                 onChange={(e) => setName(e.target.value)}
                 onBlur={validateName}
                 id="name"
-                className={`w-full rounded-xl border py-2  pl-12 focus:outline-none focus:bg-white  focus:border-violet-700 ${
-                  nameError && "border-red-700"
-                }`}
+                className={`w-full rounded-xl border py-2 pl-12 focus:border-violet-700 focus:bg-white focus:outline-none ${nameError ? "border-red-700" : ""}`}
                 placeholder="Name"
               />
               <IoClose
                 size={30}
-                onClick={handleClearName}
-                className="absolute right-3 top-2  cursor-pointer text-gray-800"
+                onClick={() => handleClearField(setName)}
+                className="absolute right-3 top-2 cursor-pointer text-gray-800"
               />
               {nameError && <p className="mt-1 text-red-700">{nameError}</p>}
             </div>
 
-            <div className={`relative mb-5 flex flex-col ${emailError ? "mb-1" : "mb-5"}`}>
-              <MdOutlineEmail className="absolute ml-4 mt-3" size={24} />
+            <div
+              className={`relative flex flex-col ${emailError ? "mb-2" : "mb-5"}`}
+            >
+              <MdOutlineEmail className="absolute ml-4 mt-2" size={24} />
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 onBlur={validateEmail}
                 id="email"
-                className={`w-full rounded-xl border py-2  pl-12 focus:outline-none focus:bg-white  focus:border-violet-700 ${
-                  emailError && "border-red-700"
-                }`}
+                className={`w-full rounded-xl border py-2 pl-12 focus:border-violet-700 focus:bg-white focus:outline-none ${emailError ? "border-red-700" : ""}`}
                 placeholder="Email address"
               />
               <IoClose
                 size={30}
-                onClick={handleClearEmail}
-                className="absolute right-3 top-2  cursor-pointer text-gray-800"
+                onClick={() => handleClearField(setEmail)}
+                className="absolute right-3 top-2 cursor-pointer text-gray-800"
               />
-              {emailError && <p className="mt-1  text-red-700">{emailError}</p>}
+              {emailError && <p className="mt-1 text-red-700">{emailError}</p>}
             </div>
 
-            <div className={`relative mb-5 flex flex-col ${passwordError ? "mb-1" : "mb-5"}`}>
-              <FaLock className="absolute ml-4 mt-3" size={24} />
+            <div
+              className={`relative flex flex-col ${passwordError ? "mb-2" : "mb-5"}`}
+            >
+              <FaLock className="absolute ml-4 mt-2" size={24} />
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 onBlur={validatePassword}
                 id="password"
-                className={`w-full rounded-xl border py-2  pl-12 focus:outline-none focus:bg-white  focus:border-violet-700${
-                  passwordError && "border-red-700"
-                }`}
+                className={`w-full rounded-xl border py-2 pl-12 focus:border-violet-700 focus:bg-white focus:outline-none ${passwordError ? "border-red-700" : ""}`}
                 placeholder="Password"
               />
               <IoClose
                 size={30}
-                onClick={handleClearPassword}
-                className="absolute right-3 top-2  cursor-pointer text-gray-800"
+                onClick={() => handleClearField(setPassword)}
+                className="absolute right-3 top-2 cursor-pointer text-gray-800"
               />
               {passwordError && (
                 <p className="mt-1 text-red-700">{passwordError}</p>
               )}
             </div>
-            <div className="mb-3 flex gap-4">
-  <div>
-    <input
-      type="radio"
-      id="guestRadio"
-      checked={userType === "Guest"}
-      onChange={(e) => setUserType(e.target.value)}
-      name="userType"
-      value="Guest"
-      className="checked:bg-violet-700 text-violet-700 focus:ring-violet-700"
-    />
-    <label htmlFor="guestRadio"> Guest</label>{" "}
-  </div>
-  <div>
-    <input
-      type="radio"
-      id="venueManagerRadio"
-      checked={userType === "Venue Manager"}
-      onChange={(e) => setUserType(e.target.value)}
-      name="userType"
-      value="Venue Manager"
-      className="checked:bg-violet-700 text-violet-700 focus:ring-violet-700  "
-    />
-    <label htmlFor="venueManagerRadio"> Venue Manager </label>{" "}
-  </div>
-</div>
 
+            <div className="mb-3 flex gap-4">
+              <div>
+                <input
+                  type="radio"
+                  id="guestRadio"
+                  checked={userType === "Guest"}
+                  onChange={(e) => setUserType(e.target.value)}
+                  name="userType"
+                  value="Guest"
+                  className="text-violet-700 checked:bg-violet-700 focus:ring-violet-700"
+                />
+                <label htmlFor="guestRadio"> Guest</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="venueManagerRadio"
+                  checked={userType === "Venue Manager"}
+                  onChange={(e) => setUserType(e.target.value)}
+                  name="userType"
+                  value="Venue Manager"
+                  className="text-violet-700 checked:bg-violet-700 focus:ring-violet-700"
+                />
+                <label htmlFor="venueManagerRadio"> Venue Manager </label>
+              </div>
+            </div>
           </div>
           <button
             type="submit"
-            className="mb-2 w-full rounded-xl bg-gradient-to-t from-orange-300 to-orange-400 hover:to-orange-500 p-2 font-medium uppercase text-black"
+            className="mb-2 w-full rounded-xl bg-gradient-to-t from-orange-300 to-orange-400 p-2 font-medium uppercase text-black hover:to-orange-500"
           >
             Submit
           </button>
           {loggedIn && (
             <div className="mt-3">
               <p>Registration was successful!! Please login:</p>
-              <button className="mt-2 w-full rounded-xl bg-gradient-to-t from-violet-400 to-violet-700 hover:to-violet-900 p-2 font-medium uppercase text-white">
+              <button className="mt-2 w-full rounded-xl bg-gradient-to-t from-violet-400 to-violet-700 p-2 font-medium uppercase text-white hover:to-violet-900">
                 <Link to="/login">Login</Link>
               </button>
             </div>
           )}
         </div>
         {!loggedIn && (
-  <p className="text-md mt-2">
-    Have an account?{" "}
-    <Link to={"/login"} className="text-violet-700 underline">
-      Login Here
-    </Link>
-  </p>
-)}
+          <p className="text-md mt-2">
+            Have an account?{" "}
+            <Link to={"/login"} className="text-violet-700 underline">
+              Login Here
+            </Link>
+          </p>
+        )}
       </form>
     </div>
   );

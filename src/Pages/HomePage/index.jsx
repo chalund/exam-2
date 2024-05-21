@@ -42,7 +42,7 @@ const HomePage = () => {
             Discover new amazing places to visit
           </h2>
 
-          <button className="mt-8 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-8 py-2 font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white">
+          <button className="mt-8 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-8 py-2 font-semibold uppercase  hover:to-orange-500">
             <Link to="/listings">Discover</Link>
           </button>
         </div>
@@ -94,12 +94,12 @@ const HomePage = () => {
           <div className="card rounded-xl border bg-white">
             <img
               src={Travel}
-              alt="Travelling things, passport, sunglasses and camera"
+              alt="Traveling things, passport, sunglasses and camera"
               className="card-img-top h-56 w-full rounded-xl object-cover md:h-32"
             />
             <div className="card-body p-2">
               <h5 className="card-title font-semibold">
-                Book your next vacay now
+                Book your next trip now
               </h5>
               <h6 className="card-subtitle text-muted mb-2">
                 Find your holiday
@@ -132,7 +132,7 @@ const HomePage = () => {
               placeholder="yourmail@example.com"
               className="font-sm md:font-md rounded-full border p-4 py-2 md:mt-4 md:px-14 md:pl-6 "
             />
-            <button className=" md:text-md rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-4 py-2 text-sm font-semibold uppercase hover:from-orange-400 hover:to-orange-500 hover:text-white md:mb-5 md:ms-4">
+            <button className=" md:text-md rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-4 py-2 text-sm font-semibold uppercase hover:to-orange-500 md:mb-5 md:ms-4">
               subscribe
             </button>
           </div>

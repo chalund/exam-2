@@ -41,63 +41,37 @@ const VenueImages = () => {
 
   return (
     <div className="mx-auto mt-4 max-w-screen-md">
-      <div className="flex items-center gap-2">
+      <Link to={`/venue/${id}`} className="underline flex items-center gap-2 hover:text-violet-700">
         <FaArrowLeft />
-        <Link to={`/venue/${id}`} className="underline">
-          Back to Venue
-        </Link>
-      </div>
+        Back to Venue
+      </Link>
 
-      <div className="mb-10 mt-4 grid grid-cols-1  gap-4 md:grid-cols-2 lg:grid-cols-2">
+      <div className="mb-10 mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2">
         {media.map((image, index) => (
           <img
             key={index}
             src={image.url}
             alt={`Image ${index}`}
-            className="h-72 w-full md:block md:max-h-72 md:cursor-pointer lg:block cursor-pointer"
+            className="h-72 w-full cursor-pointer md:block md:max-h-72 lg:block"
             onClick={() => openModal(image.url)}
           />
         ))}
       </div>
 
       {isModalOpen && (
-        <div
-          className="modal"
-          style={{
-            position: "fixed",
-            top: -60,
-            left: 0,
-            width: "100%",
-            height: "110vh",
-            zIndex: 999,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "rgba(0, 0, 0, 0.5)", // Apply background color only when modal is open
-          }}
-        >
-          <div
-            className="modal-content hidden md:block lg:block"
-            style={{
-              backgroundColor: "white",
-              padding: "20px",
-              borderRadius: "8px",
-              width: "80%",
-              maxWidth: "800px",
-            }}
-          >
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-4 rounded-lg lg:w-1/2 max-w-2xl mt-4 md:mt-0">
             <span
-              className="close flex cursor-pointer justify-end text-2xl"
+              className="cursor-pointer text-2xl flex justify-end"
               onClick={closeModal}
             >
               &times;
             </span>
-
             <img
               src={selectedImage}
               alt="Selected"
-              className="mt-4 h-auto w-full rounded-xl"
-              style={{ maxHeight: "calc(100vh - 200px)" }}
+              className="mt-4 w-full rounded-lg min-h-72"
+              
             />
           </div>
         </div>

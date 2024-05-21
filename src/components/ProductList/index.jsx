@@ -9,7 +9,7 @@ import FilterDropdown from "../DropdownFilter";
 
 function ProductList() {
   const [pageCounter, setPageCounter] = useState(1);
-  const [productsPerPage] = useState(100);
+  const [productsPerPage] = useState(48);
   const [filter, setFilter] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [allData, setAllData] = useState([]);
@@ -152,6 +152,8 @@ function ProductList() {
     indexOfLastProduct
   );
 
+  const totalPages = Math.ceil(sortedFilteredProducts.length / productsPerPage);
+
   return (
     <div className="flex flex-col items-center">
       <div className="mx-auto mb-6 flex w-full max-w-[990px] flex-col items-center bg-violet-700 px-2 py-6 md:my-6 md:mt-10 md:rounded-xl">
@@ -177,16 +179,21 @@ function ProductList() {
               className="absolute right-0 top-0 mr-3 mt-2 cursor-pointer text-gray-800"
             />
           </div>
-          <div className="relative flex items-center ">
+          <div className="relative flex items-center">
             <FilterDropdown filter={filter} setFilter={setFilter} />
           </div>
         </div>
+      </div>
+      <div className="w-full max-w-[990px] mb-4 text-start ms-2">
+        <p className="text-lg font-medium">
+          {sortedFilteredProducts.length} products found
+        </p>
       </div>
       <div className="flex w-full max-w-[990px] flex-wrap justify-center">
         <ProductCard venues={currentProducts} />
       </div>
 
-      <div className="my-10 flex justify-center gap-4">
+      <div className="my-10 flex justify-center items-center gap-4">
         <button
           onClick={handlePreviousPage}
           className={`w-24 rounded-xl p-2 py-2 ${
@@ -196,12 +203,15 @@ function ProductList() {
         >
           Previous
         </button>
+        <span className="text-lg font-medium">
+          Page {pageCounter} of {totalPages}
+        </span>
         <button
           onClick={handleNextPage}
           className={`w-24 rounded-xl p-2 py-2 ${
-            pageCounter * productsPerPage >= sortedFilteredProducts.length ? "cursor-not-allowed opacity-50 border border-zinc-300" : "bg-violet-700 text-white hover:bg-violet-800"
+            pageCounter === totalPages ? "cursor-not-allowed opacity-50 border border-zinc-300" : "bg-violet-700 text-white hover:bg-violet-800"
           }`}
-          disabled={pageCounter * productsPerPage >= sortedFilteredProducts.length}
+          disabled={pageCounter === totalPages}
         >
           Next
         </button>
