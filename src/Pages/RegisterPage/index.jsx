@@ -11,7 +11,7 @@ const RegisterPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userType, setUserType] = useState("Guest");
+  const [venueManager, setVenueManager] = useState(false);
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -38,12 +38,11 @@ const RegisterPage = () => {
       return;
     }
 
-    // If no errors, proceed with registration
     let registrationData = {
       name: name,
       email: email,
       password: password,
-      userType: userType,
+      venueManager: venueManager,
     };
 
     fetch(Register, {
@@ -62,13 +61,7 @@ const RegisterPage = () => {
       })
       .catch((error) => {
         console.error("Error:", error);
-        // Check if the error is due to a profile already existing
-        {
-          // Set email error message to indicate email is taken
-          setEmailError(
-            "This email is already in use. Please use a different one.",
-          );
-        }
+        setEmailError("This email is already in use. Please use a different one.");
       });
   };
 
@@ -114,16 +107,12 @@ const RegisterPage = () => {
       </div>
       <div className="mb-6">
         <h1 className="py-2 text-lg font-semibold">Create a new account</h1>
-        <p>
-          Welcome! Please complete your registration to access your account.
-        </p>
+        <p>Welcome! Please complete your registration to access your account.</p>
       </div>
       <form onSubmit={handleSubmit}>
         <div>
           <div>
-            <div
-              className={`relative flex flex-col ${nameError ? "mb-2" : "mb-5"}`}
-            >
+            <div className={`relative flex flex-col ${nameError ? "mb-2" : "mb-5"}`}>
               <AiOutlineUser className="absolute ml-4 mt-2" size={24} />
               <input
                 type="text"
@@ -131,7 +120,9 @@ const RegisterPage = () => {
                 onChange={(e) => setName(e.target.value)}
                 onBlur={validateName}
                 id="name"
-                className={`w-full rounded-xl border py-2 pl-12 focus:border-violet-700 focus:bg-white focus:outline-none ${nameError ? "border-red-700" : ""}`}
+                className={`w-full rounded-xl border py-2 pl-12 focus:border-violet-700 focus:bg-white focus:outline-none ${
+                  nameError ? "border-red-700" : ""
+                }`}
                 placeholder="Name"
               />
               <IoClose
@@ -142,9 +133,7 @@ const RegisterPage = () => {
               {nameError && <p className="mt-1 text-red-700">{nameError}</p>}
             </div>
 
-            <div
-              className={`relative flex flex-col ${emailError ? "mb-2" : "mb-5"}`}
-            >
+            <div className={`relative flex flex-col ${emailError ? "mb-2" : "mb-5"}`}>
               <MdOutlineEmail className="absolute ml-4 mt-2" size={24} />
               <input
                 type="email"
@@ -152,7 +141,9 @@ const RegisterPage = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 onBlur={validateEmail}
                 id="email"
-                className={`w-full rounded-xl border py-2 pl-12 focus:border-violet-700 focus:bg-white focus:outline-none ${emailError ? "border-red-700" : ""}`}
+                className={`w-full rounded-xl border py-2 pl-12 focus:border-violet-700 focus:bg-white focus:outline-none ${
+                  emailError ? "border-red-700" : ""
+                }`}
                 placeholder="Email address"
               />
               <IoClose
@@ -163,9 +154,7 @@ const RegisterPage = () => {
               {emailError && <p className="mt-1 text-red-700">{emailError}</p>}
             </div>
 
-            <div
-              className={`relative flex flex-col ${passwordError ? "mb-2" : "mb-5"}`}
-            >
+            <div className={`relative flex flex-col ${passwordError ? "mb-2" : "mb-5"}`}>
               <FaLock className="absolute ml-4 mt-2" size={24} />
               <input
                 type="password"
@@ -173,7 +162,9 @@ const RegisterPage = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 onBlur={validatePassword}
                 id="password"
-                className={`w-full rounded-xl border py-2 pl-12 focus:border-violet-700 focus:bg-white focus:outline-none ${passwordError ? "border-red-700" : ""}`}
+                className={`w-full rounded-xl border py-2 pl-12 focus:border-violet-700 focus:bg-white focus:outline-none ${
+                  passwordError ? "border-red-700" : ""
+                }`}
                 placeholder="Password"
               />
               <IoClose
@@ -181,9 +172,7 @@ const RegisterPage = () => {
                 onClick={() => handleClearField(setPassword)}
                 className="absolute right-3 top-2 cursor-pointer text-gray-800"
               />
-              {passwordError && (
-                <p className="mt-1 text-red-700">{passwordError}</p>
-              )}
+              {passwordError && <p className="mt-1 text-red-700">{passwordError}</p>}
             </div>
 
             <div className="mb-3 flex gap-4">
@@ -191,8 +180,8 @@ const RegisterPage = () => {
                 <input
                   type="radio"
                   id="guestRadio"
-                  checked={userType === "Guest"}
-                  onChange={(e) => setUserType(e.target.value)}
+                  checked={!venueManager}
+                  onChange={() => setVenueManager(false)}
                   name="userType"
                   value="Guest"
                   className="text-violet-700 checked:bg-violet-700 focus:ring-violet-700"
@@ -203,8 +192,8 @@ const RegisterPage = () => {
                 <input
                   type="radio"
                   id="venueManagerRadio"
-                  checked={userType === "Venue Manager"}
-                  onChange={(e) => setUserType(e.target.value)}
+                  checked={venueManager}
+                  onChange={() => setVenueManager(true)}
                   name="userType"
                   value="Venue Manager"
                   className="text-violet-700 checked:bg-violet-700 focus:ring-violet-700"
@@ -221,7 +210,7 @@ const RegisterPage = () => {
           </button>
           {loggedIn && (
             <div className="mt-3">
-              <p>Registration was successful!! Please login:</p>
+              <p className="text-xl text-center mb-2">Registration was successful!!</p>
               <button className="mt-2 w-full rounded-xl bg-gradient-to-t from-violet-400 to-violet-700 p-2 font-medium uppercase text-white hover:to-violet-900">
                 <Link to="/login">Login</Link>
               </button>
