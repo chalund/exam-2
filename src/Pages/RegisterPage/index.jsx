@@ -15,7 +15,9 @@ const RegisterPage = () => {
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [registrationError, setRegistrationError] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
+  const [registeredEmail, setRegisteredEmail] = useState("");
 
   const navigate = useNavigate();
 
@@ -23,16 +25,17 @@ const RegisterPage = () => {
     navigate("/");
   };
 
-  const handleClearField = (setter) => {
+  const handleClearField = (setter, validateFunc) => {
     setter("");
+    validateFunc(""); // Trigger validation with empty string
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    validateName();
-    validateEmail();
-    validatePassword();
+    validateName(name);
+    validateEmail(email);
+    validatePassword(password);
 
     if (nameError || emailError || passwordError) {
       return;
@@ -61,40 +64,66 @@ const RegisterPage = () => {
 
       console.log("User registered");
       setLoggedIn(true);
+      setRegistrationError("");
+      setRegisteredEmail(email); 
+      setName("");
+      setEmail("");
+      setPassword("");
     } catch (error) {
       console.error("Error:", error);
+      setRegistrationError(error.message);
     }
   };
 
-  const validateName = () => {
-    if (!name.trim()) {
+  const validateName = (value) => {
+    if (!value.trim()) {
       setNameError("Name is required");
     } else {
       setNameError("");
     }
   };
 
-  const validateEmail = () => {
-    if (!email.trim()) {
+  const validateEmail = (value) => {
+    if (!value.trim()) {
       setEmailError("Email must be a @stud.noroff.no address");
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
       setEmailError("Invalid email address");
-    } else if (!email.endsWith("@stud.noroff.no")) {
+    } else if (!value.endsWith("@stud.noroff.no")) {
       setEmailError("Email must be a @stud.noroff.no address");
     } else {
       setEmailError("");
     }
   };
 
-  const validatePassword = () => {
-    if (!password.trim()) {
+  const validatePassword = (value) => {
+    if (!value.trim()) {
       setPasswordError("Password must be at least 8 characters");
-    } else if (password.length < 8) {
+    } else if (value.length < 8) {
       setPasswordError("Password must be at least 8 characters");
     } else {
       setPasswordError("");
     }
   };
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+    validateName(e.target.value);
+    setRegistrationError(""); // Clear registration error on typing
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    validateEmail(e.target.value);
+    setRegistrationError(""); // Clear registration error on typing
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    validatePassword(e.target.value);
+    setRegistrationError(""); // Clear registration error on typing
+  };
+
+
 
   return (
     <div className="mx-auto mb-16 mt-8 flex max-w-sm flex-col px-6">
@@ -118,8 +147,8 @@ const RegisterPage = () => {
               <input
                 type="text"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
-                onBlur={validateName}
+                onChange={handleNameChange}
+                onBlur={() => validateName(name)}
                 id="name"
                 className={`w-full rounded-xl border py-2 pl-12 focus:border-violet-700 focus:bg-white focus:outline-none ${
                   nameError ? "border-red-700" : ""
@@ -128,7 +157,7 @@ const RegisterPage = () => {
               />
               <IoClose
                 size={30}
-                onClick={() => handleClearField(setName)}
+                onClick={() => handleClearField(setName, validateName)}
                 className="absolute right-3 top-2 cursor-pointer text-gray-800"
               />
               {nameError && <p className="mt-1 text-red-700">{nameError}</p>}
@@ -139,8 +168,8 @@ const RegisterPage = () => {
               <input
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                onBlur={validateEmail}
+                onChange={handleEmailChange}
+                onBlur={() => validateEmail(email)}
                 id="email"
                 className={`w-full rounded-xl border py-2 pl-12 focus:border-violet-700 focus:bg-white focus:outline-none ${
                   emailError ? "border-red-700" : ""
@@ -149,7 +178,7 @@ const RegisterPage = () => {
               />
               <IoClose
                 size={30}
-                onClick={() => handleClearField(setEmail)}
+                onClick={() => handleClearField(setEmail, validateEmail)}
                 className="absolute right-3 top-2 cursor-pointer text-gray-800"
               />
               {emailError && <p className="mt-1 text-red-700">{emailError}</p>}
@@ -160,8 +189,8 @@ const RegisterPage = () => {
               <input
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                onBlur={validatePassword}
+                onChange={handlePasswordChange}
+                onBlur={() => validatePassword(password)}
                 id="password"
                 className={`w-full rounded-xl border py-2 pl-12 focus:border-violet-700 focus:bg-white focus:outline-none ${
                   passwordError ? "border-red-700" : ""
@@ -170,7 +199,7 @@ const RegisterPage = () => {
               />
               <IoClose
                 size={30}
-                onClick={() => handleClearField(setPassword)}
+                onClick={() => handleClearField(setPassword, validatePassword)}
                 className="absolute right-3 top-2 cursor-pointer text-gray-800"
               />
               {passwordError && <p className="mt-1 text-red-700">{passwordError}</p>}
@@ -203,6 +232,9 @@ const RegisterPage = () => {
               </div>
             </div>
           </div>
+          {registrationError && (
+            <p className="text-red-700">{registrationError}</p>
+          )}
           <button
             type="submit"
             className="mb-2 w-full rounded-full bg-gradient-to-t from-orange-300 to-orange-400 p-2 font-semibold hover:font-bold uppercase text-black hover:to-orange-500"
@@ -211,7 +243,7 @@ const RegisterPage = () => {
           </button>
           {loggedIn && (
             <div className="mt-3">
-              <p className="text-xl text-center mb-2">Registration was successful!!</p>
+              <p className="text-xl text-center mb-2">Your account <b>{registeredEmail}</b> is successfully created!!</p>
               <button className="mt-2 w-full rounded-full bg-gradient-to-t from-violet-500 to-violet-700 p-2 font-semibold hover:font-bold uppercase text-white hover:to-violet-900">
                 <Link to="/login">Login</Link>
               </button>

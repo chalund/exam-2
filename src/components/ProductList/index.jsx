@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useFetch } from "../Hooks/useFetch";
 import { BASE_URL, Venues } from "../API";
 import Spinner from "../Spinner/Loader";
 import { IoCloseOutline } from "react-icons/io5";
 import { BiSearch } from "react-icons/bi";
 import ProductCard from "../card";
-import FilterDropdown from "../DropdownFilter";
+import FilterDropdown from "../FilterDropdown";
 
 function ProductList() {
   const [pageCounter, setPageCounter] = useState(1);
@@ -13,7 +12,6 @@ function ProductList() {
   const [filter, setFilter] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [allData, setAllData] = useState([]);
-  const [meta, setMeta] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -35,14 +33,6 @@ function ProductList() {
               sortField = "created";
               sortOrder = "asc";
               break;
-            case "a-z":
-              sortField = "name";
-              sortOrder = "asc";
-              break;
-            case "z-a":
-              sortField = "name";
-              sortOrder = "desc";
-              break;
             case "price-low-high":
               sortField = "price";
               sortOrder = "asc";
@@ -63,7 +53,6 @@ function ProductList() {
 
           if (currentPage === 1) {
             totalPageCount = newData.meta.pageCount;
-            setMeta(newData.meta);
           }
 
           allDataTemp = [...allDataTemp, ...newData.data];
@@ -92,12 +81,6 @@ function ProductList() {
       case "oldest":
         sortedData.sort((a, b) => new Date(a.created) - new Date(b.created));
         break;
-      case "a-z":
-        sortedData.sort((a, b) => a.name.localeCompare(b.name));
-        break;
-      case "z-a":
-        sortedData.sort((a, b) => b.name.localeCompare(a.name));
-        break;
       case "price-low-high":
         sortedData.sort((a, b) => a.price - b.price);
         break;
@@ -123,7 +106,9 @@ function ProductList() {
   }
 
   const filteredData = allData.filter((product) => {
-    return product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesPetsFilter = filter === "pets-allowed" ? product.meta.pets : true;
+    return matchesSearch && matchesPetsFilter;
   });
 
   const sortedFilteredProducts = getSortedData(filteredData);

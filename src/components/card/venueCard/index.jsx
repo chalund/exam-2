@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaMapMarkerAlt, FaBed, FaWifi, FaParking } from "react-icons/fa";
+import { MdBreakfastDining, MdOutlinePets } from "react-icons/md";
 import NoImage from "../../../assets/no_image.jpg";
 import StarRatingCards from "../../StarRating/StarRatingCards";
-import formatDate from "../../DateFormatter";
 
 function handleImageError(e) {
   e.target.src = NoImage;
@@ -11,6 +11,8 @@ function handleImageError(e) {
 }
 
 const VenueCard = ({ venue }) => {
+  const { wifi, parking, breakfast, pets } = venue.meta;
+
   return (
     <Link to={`/venue/${venue.id}`} className="block">
       <div className="flex h-full  w-full max-w-[300px] flex-col justify-between rounded-lg border bg-white p-4 py-4 hover:border-4 hover:border-violet-700">
@@ -53,10 +55,20 @@ const VenueCard = ({ venue }) => {
               </p>
             </div>
           </div>
-          <p className="mt-3">
-            Price <b>${venue.price}</b>
+       
+        
+          <p className="mt-3 text-lg">
+            <b>${venue.price} </b>
+            per night
           </p>
-          <p className="mt-3">Created: {formatDate(venue.created)}</p>
+        
+       
+            <div className="mt-3 flex flex-wrap gap-2">
+            {wifi && <FaWifi size={24} title="WiFi Available" className="text-violet-700"/>}
+            {parking && <FaParking size={24} title="Parking Available" className="text-violet-700" />}
+            {breakfast && <MdBreakfastDining size={24} title="Breakfast Included" className="text-violet-700" />}
+            {pets && <MdOutlinePets size={24} title="Pets Allowed"  className="text-violet-700"/>}
+          </div>
         </div>
       </div>
     </Link>
