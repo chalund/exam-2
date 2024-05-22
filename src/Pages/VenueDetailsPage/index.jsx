@@ -33,7 +33,6 @@ const VenueDetailsPage = () => {
     }
   }, [data, loggedInUserEmail]);
 
-
   if (loading) {
     return (
       <div className="text-center text-2xl">
@@ -56,7 +55,6 @@ const VenueDetailsPage = () => {
       const apiKey = apiKeyData.data.key;
 
       const response = await updateVenue(venueData, apiKey);
-
     } catch (error) {
       console.error("Error updating venue:", error);
     }
@@ -114,8 +112,8 @@ const VenueDetailsPage = () => {
                   alt={`Image 1`}
                   className="h-full max-h-[300px] w-full md:rounded-xl"
                   onError={(e) => {
-                    e.target.onerror = null; 
-                    e.target.src = NoImage; 
+                    e.target.onerror = null;
+                    e.target.src = NoImage;
                   }}
                 />
               </div>
@@ -126,8 +124,8 @@ const VenueDetailsPage = () => {
                   alt={`Image 1`}
                   className="h-full max-h-[300px] w-full md:rounded-xl"
                   onError={(e) => {
-                    e.target.onerror = null; 
-                    e.target.src = NoImage; 
+                    e.target.onerror = null;
+                    e.target.src = NoImage;
                   }}
                 />
                 {media.length > 1 && (
@@ -149,9 +147,9 @@ const VenueDetailsPage = () => {
           </div>
         ) : null}
 
-        <div className="grid grid-cols-1 md:grid-cols-2">
+        <div className="grid grid-cols-1 break-all md:grid-cols-2">
           <div className="m-4 mt-4">
-            <div className="flex gap-3">
+            <div className="flex flex-col md:flex-row md:gap-3">
               <h1 className="text-xl font-bold">{name}</h1>
               <div className="flex items-center py-1">
                 {rating ? (
@@ -181,10 +179,10 @@ const VenueDetailsPage = () => {
                     />
                     <button
                       onClick={() => handleDeleteVenue(id, navigate)}
-                      className="mt-4 flex flex-row items-center gap-1 rounded-full bg-gradient-to-t from-red-500 to-red-700 px-3 py-2 uppercase text-white hover:to-red-800 hover:font-semibold"
+                      className="mt-4 flex flex-row items-center gap-1 rounded-full bg-gradient-to-t from-red-500 to-red-700 px-4 py-2 uppercase text-white hover:to-red-800 hover:font-semibold"
                     >
-                      <GoTrash size={16} />
-                      Delete Venue
+                      <GoTrash size={20} />
+                      Delete
                     </button>
                   </div>
                 )}
@@ -289,27 +287,6 @@ const VenueDetailsPage = () => {
               </div>
             ) : null}
 
-            <div className="max-w-sm py-4 md:hidden">
-              <p className="font-semibold">Hosted by</p>
-              <div className="mt-2 flex items-center gap-4 rounded-xl border p-3">
-                <img
-                  src={ownerAvatarUrl}
-                  alt="profile image of host"
-                  className="h-20 w-20 rounded-full"
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = NoImage;
-                  }}
-                />
-                <div className="flex flex-col">
-                  <p className="font-semibold">{ownerName}</p>
-                  <div className="flex items-center gap-1">
-                    <MdOutlineEmail size={20} />
-                    <p className="text-xs ">{ownerEmail}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
             <div className="mt-6">
               <p className="text-xs">Venue created: {formatDate(created)}</p>
               {created !== updated && (
@@ -317,30 +294,36 @@ const VenueDetailsPage = () => {
               )}
             </div>
 
-            <div className="mt-3 hidden py-4 md:block">
+            <div className="mt-3 py-4">
               <p className="font-semibold">Hosted by</p>
               <div className="mt-2 flex items-center gap-4 rounded-xl border p-3">
                 <img
                   src={ownerAvatarUrl}
                   alt="profile image of host"
-                  className="h-20 w-20 rounded-full"
+                  className="h-16 w-16 rounded-full"
                   onError={(e) => {
-                    e.target.onerror = null; 
+                    e.target.onerror = null;
                     e.target.src = NoImage;
                   }}
                 />
-                <div>
+                <div className="flex-1">
                   <p
                     className="truncate font-semibold"
-                    style={{ maxWidth: "200px" }}
+                    style={{ maxWidth: "180px" }}
                   >
                     {ownerName}
                   </p>
-                  <div className="flex items-center gap-1">
+                  <div className="group relative flex items-center gap-1">
                     <MdOutlineEmail size={20} />
-                    <p className="truncate" style={{ maxWidth: "200px" }}>
-                      {ownerEmail}
-                    </p>
+                    <p className="max-w-[160px] truncate">{ownerEmail}</p>
+                    {ownerEmail.length > 20 && (
+                      <span className="absolute top-0 m-2 hidden w-auto whitespace-nowrap rounded-lg bg-zinc-700 p-2 text-white group-hover:block">
+                        {ownerName}
+                        <div className="flex items-center gap-1">
+                          <MdOutlineEmail size={20} /> {ownerEmail}
+                        </div>
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>

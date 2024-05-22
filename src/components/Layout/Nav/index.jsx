@@ -10,8 +10,6 @@ export function isLoggedIn() {
 
 const NavLinks = ({ isOpen, closeMenu }) => {
   const { pathname } = useLocation();
-
-  // Function to determine if a NavLink should be active
   const isActiveNavLink = (path) => {
     return pathname === path ? "text-violet-700 font-bold" : "text-black";
   };
@@ -70,7 +68,7 @@ const Nav = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
-    closeMenu(); // Close the menu on logout
+    closeMenu();
     navigate("/");
   };
 
@@ -92,14 +90,14 @@ const Nav = () => {
           ) : (
             <NavLink
               to="/login"
-              className="mr-3  rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-6 py-2 font-semibold uppercase text-white md:mr-0 hover:to-violet-900 hover:font-bold"
-              onClick={closeMenu} // Close the menu on login
+              className="mr-3  rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-6 py-2 font-semibold uppercase text-white hover:to-violet-900 hover:font-bold md:mr-0"
+              onClick={closeMenu}
             >
               Login
             </NavLink>
           )}
         </div>
-        <div className="mr-1 flex py-2 md:hidden">
+        <div className=" flex py-2 md:hidden">
           <button onClick={toggleNavbar}>
             {isOpen ? <IoClose size={30} /> : <HiOutlineMenu size={30} />}
           </button>

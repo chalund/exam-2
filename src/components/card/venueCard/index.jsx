@@ -14,10 +14,10 @@ const VenueCard = ({ venue }) => {
   const { wifi, parking, breakfast, pets } = venue.meta;
 
   return (
-    <Link to={`/venue/${venue.id}`} className="block">
-      <div className="flex h-full  w-full max-w-[300px] flex-col justify-between rounded-lg border bg-white p-4 py-4 hover:border-4 hover:border-violet-700">
+<Link to={`/venue/${venue.id}`} className="block h-full">
+      <div className="flex h-full flex-col justify-between rounded-lg border bg-white p-4 py-4 hover:border-4 hover:border-violet-700">
         {venue.media && venue.media.length > 0 ? (
-          <div className="relative block  h-48 w-full">
+          <div className="relative block h-48 w-full">
             <img
               src={venue.media[0].url}
               alt={venue.media[0].alt || "Venue image"}
@@ -25,8 +25,8 @@ const VenueCard = ({ venue }) => {
               onError={handleImageError}
             />
             {venue.rating > 0 && (
-              <div className="absolute left-2 top-2">
-                <StarRatingCards rating={venue.rating} size={20} />
+              <div className="absolute right-2 top-2">
+                <StarRatingCards rating={venue.rating} size={18} />
               </div>
             )}
           </div>
@@ -43,31 +43,56 @@ const VenueCard = ({ venue }) => {
           <div>
             <h2 className="mt-1 truncate font-bold">{venue.name}</h2>
             <div className="flex items-center gap-1 border-b-2 border-violet-700 pb-2">
-              <p>
-                <FaMapMarkerAlt />
-              </p>
-
+              <FaMapMarkerAlt />
               <p className="md:text-md truncate text-sm">
-                {venue.location?.city}
-              </p>
-              <p className="md:text-md truncate text-sm">
-                {venue.location?.country}
+                {venue.location?.city}, {venue.location?.country}
               </p>
             </div>
           </div>
-       
-        
+          <div className="mt-3 flex items-center gap-1">
+            <FaBed size={20} />
+            <span>{venue.maxGuests} Guests</span>
+          </div>
           <p className="mt-3 text-lg">
-            <b>${venue.price} </b>
-            per night
+            <b>${venue.price} </b> per night
           </p>
-        
-       
-            <div className="mt-3 flex flex-wrap gap-2">
-            {wifi && <FaWifi size={24} title="WiFi Available" className="text-violet-700"/>}
-            {parking && <FaParking size={24} title="Parking Available" className="text-violet-700" />}
-            {breakfast && <MdBreakfastDining size={24} title="Breakfast Included" className="text-violet-700" />}
-            {pets && <MdOutlinePets size={24} title="Pets Allowed"  className="text-violet-700"/>}
+          <div className="mt-3 flex flex-wrap gap-2">
+            {wifi && (
+              <div className="flex items-center gap-1">
+                <FaWifi
+                  size={20}
+                  title="WiFi Available"
+                  className="h-8 w-8 rounded-full bg-violet-700 p-1 text-white"
+                />
+              </div>
+            )}
+            {parking && (
+              <div className="flex items-center gap-1">
+                <FaParking
+                  size={20}
+                  title="Parking Available"
+                  className="h-8 w-8 rounded-full bg-violet-700 p-1 text-white"
+                />
+              </div>
+            )}
+            {breakfast && (
+              <div className="flex items-center gap-1">
+                <MdBreakfastDining
+                  size={20}
+                  title="Breakfast Included"
+                  className="h-8 w-8 rounded-full bg-violet-700 p-1 text-white"
+                />
+              </div>
+            )}
+            {pets && (
+              <div className="flex items-center gap-1">
+                <MdOutlinePets
+                  size={20}
+                  title="Pets Allowed"
+                  className="h-8 w-8 rounded-full bg-violet-700 p-1 text-white"
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
