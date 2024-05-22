@@ -15,7 +15,6 @@ const RegisterPage = () => {
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [registrationError, setRegistrationError] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
 
   const navigate = useNavigate();
@@ -64,7 +63,6 @@ const RegisterPage = () => {
       setLoggedIn(true);
     } catch (error) {
       console.error("Error:", error);
-      setRegistrationError(error.message);
     }
   };
 
@@ -205,9 +203,6 @@ const RegisterPage = () => {
               </div>
             </div>
           </div>
-          {registrationError && (
-            <p className="text-red-700">{registrationError}</p>
-          )}
           <button
             type="submit"
             className="mb-2 w-full rounded-full bg-gradient-to-t from-orange-300 to-orange-400 p-2 font-semibold hover:font-bold uppercase text-black hover:to-orange-500"
