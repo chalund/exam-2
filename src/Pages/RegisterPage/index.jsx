@@ -15,6 +15,7 @@ const RegisterPage = () => {
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [registrationError, setRegistrationError] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
 
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const RegisterPage = () => {
     setter("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     validateName();
@@ -38,31 +39,33 @@ const RegisterPage = () => {
       return;
     }
 
-    let registrationData = {
+    const registrationData = {
       name: name,
       email: email,
       password: password,
       venueManager: venueManager,
     };
 
-    fetch(Register, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(registrationData),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Registration failed");
-        }
-        console.log("User registered");
-        setLoggedIn(true);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setEmailError("This email is already in use. Please use a different one.");
+    try {
+      const response = await fetch(Register, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(registrationData),
       });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.errors[0].message || "Registration failed");
+      }
+
+      console.log("User registered");
+      setLoggedIn(true);
+    } catch (error) {
+      console.error("Error:", error);
+      setRegistrationError(error.message);
+    }
   };
 
   const validateName = () => {
@@ -202,6 +205,9 @@ const RegisterPage = () => {
               </div>
             </div>
           </div>
+          {registrationError && (
+            <p className="text-red-700">{registrationError}</p>
+          )}
           <button
             type="submit"
             className="mb-2 w-full rounded-full bg-gradient-to-t from-orange-300 to-orange-400 p-2 font-semibold hover:font-bold uppercase text-black hover:to-orange-500"
