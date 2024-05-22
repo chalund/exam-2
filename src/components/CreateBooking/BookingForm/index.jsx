@@ -14,7 +14,7 @@ const BookingForm = ({ price, venueId }) => {
   const [endDate, setEndDate] = useState(
     new Date(startDate.getTime() + 24 * 60 * 60 * 1000),
   );
-  const [guests, setGuests] = useState(2);
+  const [guests, setGuests] = useState(2); // Default guests value
   const [total, setTotal] = useState(0);
   const [unavailableDates, setUnavailableDates] = useState([]);
   const [maxGuests, setMaxGuests] = useState(1);
@@ -29,6 +29,12 @@ const BookingForm = ({ price, venueId }) => {
           const { bookings, maxGuests } = venueData.data;
 
           setMaxGuests(maxGuests);
+
+          if (maxGuests === 1) {
+            setGuests(1); // Set default guests to 1 if maxGuests is 1
+          } else {
+            setGuests(2); // Set default guests to 2 if maxGuests is greater than 1
+          }
 
           if (bookings && Array.isArray(bookings)) {
             const bookedDates = bookings
@@ -111,12 +117,12 @@ const BookingForm = ({ price, venueId }) => {
 
   const handleGuestsChange = (e) => {
     const value = Number(e.target.value);
-    if (value >= 1 && value <= maxGuests) {
-      setGuests(value);
-    } else if (value < 1) {
+    if (value < 1) {
       setGuests(1);
-    } else {
+    } else if (value > maxGuests) {
       setGuests(maxGuests);
+    } else {
+      setGuests(value);
     }
   };
 
@@ -125,8 +131,8 @@ const BookingForm = ({ price, venueId }) => {
       <form onSubmit={handleSubmit}>
         <div className="">
           <div className="mb-3">
-            <p>Select check-in</p>
-            <div className="flex items-center gap-2 rounded-xl border py-1 pl-3">
+            <p>Check-in</p>
+            <div className="flex items-center gap-2 rounded-xl border pl-3">
               <DatePicker
                 showIcon
                 selected={startDate}
@@ -156,8 +162,8 @@ const BookingForm = ({ price, venueId }) => {
             </div>
           </div>
           <div className="mb-3">
-            <p>Select check-out</p>
-            <div className="flex items-center gap-2 rounded-xl border py-1 pl-3">
+            <p>Check-out</p>
+            <div className="flex items-center gap-2 rounded-xl border pl-3">
               <DatePicker
                 showIcon
                 selected={endDate}
@@ -181,7 +187,10 @@ const BookingForm = ({ price, venueId }) => {
           </div>
         </div>
         <div className="relative">
-          <p>Select number of Guests</p>
+          <div className="flex items-center gap-1">
+            <p>Guests</p> 
+            <p className="text-sm">(Children count as 1 guest)</p>
+          </div>
           <input
             type="number"
             placeholder="Guests"
@@ -189,11 +198,8 @@ const BookingForm = ({ price, venueId }) => {
             onChange={handleGuestsChange}
             min={1}
             max={maxGuests}
-            className="flex h-10 w-full items-center rounded-xl border pl-44 pr-12 focus:outline-none"
+            className="flex h-9 w-1/3 items-center rounded-xl border pl-5 pr-4 focus:outline-none"
           />
-          <span className="absolute inset-y-0 left-3 top-6 flex items-center pr-2 text-gray-500">
-            Max Guests {maxGuests}:
-          </span>
         </div>
         <div className="mt-4 flex justify-center">
           <button
@@ -206,7 +212,7 @@ const BookingForm = ({ price, venueId }) => {
       </form>
       <div className="mr-3 flex justify-between border-b pb-2">
         <p>
-          ${price} per day x {calculateDays()} days
+          ${price} x {calculateDays()} nights 
         </p>
         <p>${total}</p>
       </div>

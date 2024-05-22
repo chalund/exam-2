@@ -26,14 +26,14 @@ const AboutPage = () => {
         <div className="flex justify-center">
           <img
             src={Travel}
-            alt="Travelling things, passport, sunglasses and camera"
+            alt="Traveling things, passport, sunglasses and camera"
             style={{ width: "100%", height: "300px" }}
             className="rounded-lg"
           />
         </div>
         <div className="py-4">
           <div className="mb-3">
-            <p className="font-semibold text-violet-700">
+            <p className="font-semibold text-lg text-violet-700">
               Discover New Destinations
             </p>
             <p>
@@ -44,7 +44,7 @@ const AboutPage = () => {
             </p>
           </div>
           <div className="mb-3">
-            <p className="font-semibold text-violet-700">Seamless Booking</p>
+            <p className="font-semibold text-lg text-violet-700">Seamless Booking</p>
             <p>
               Booking your dream vacation is a breeze with Holidaze. Our
               intuitive platform lets you effortlessly browse, compare, and book
@@ -53,7 +53,7 @@ const AboutPage = () => {
             </p>
           </div>
           <div className="mb-3">
-            <p className="font-semibold text-violet-700">
+            <p className="font-semibold text-lg text-violet-700">
               Unforgettable Experiences
             </p>
             <p>
@@ -64,7 +64,7 @@ const AboutPage = () => {
             </p>
           </div>
           <div className="mb-3">
-            <p className="font-semibold text-violet-700">
+            <p className="text-lg font-semibold text-violet-700">
               Your Adventure Awaits
             </p>
             <p>

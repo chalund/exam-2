@@ -10,9 +10,8 @@ const EditProfileForm = () => {
   const [bannerUrl, setBannerUrl] = useState("");
   const [bannerAlt, setBannerAlt] = useState("");
   const [bio, setBio] = useState("");
-  const [userType, setUserType] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [originalBio, setOriginalBio] = useState("");
+  const [venueManager, setVenueManager] = useState(false);
 
   useEffect(() => {
     const scrollbarWidth =
@@ -29,12 +28,10 @@ const EditProfileForm = () => {
 
   const handleClearField = (setter) => {
     setter("");
-    console.log("Field cleared");
   };
 
   const handleSave = async (e) => {
     e.preventDefault();
-    console.log("Saving data...");
 
     try {
       const apiKeyData = await createApiKey("User profile key");
@@ -43,16 +40,10 @@ const EditProfileForm = () => {
 
       let newData = {
         bio,
-        userType,
         avatar: avatarUrl ? { url: avatarUrl, alt: avatarAlt } : undefined,
         banner: bannerUrl ? { url: bannerUrl, alt: bannerAlt } : undefined,
+        venueManager,
       };
-
-      if (userType === "Venue Manager") {
-        newData.venueManager = true;
-      } else if (userType === "Guest") {
-        newData.venueManager = false;
-      }
 
       console.log("Data to be saved:", newData);
       await updateProfile(username, newData, apiKey);
@@ -75,9 +66,12 @@ const EditProfileForm = () => {
       const apiKey = apiKeyData.data.key;
       const profile = await getProfile(username, apiKey);
 
-      setOriginalBio(profile.data.bio);
       setBio(profile.data.bio);
-      setUserType(profile.data.userType);
+      setAvatarUrl(profile.data.avatar?.url || "");
+      setAvatarAlt(profile.data.avatar?.alt || "");
+      setBannerUrl(profile.data.banner?.url || "");
+      setBannerAlt(profile.data.banner?.alt || "");
+      setVenueManager(profile.data.venueManager || false);
 
       setIsModalOpen(true);
     } catch (error) {
@@ -223,8 +217,8 @@ const EditProfileForm = () => {
                       type="radio"
                       name="userType"
                       id="guestRadio"
-                      checked={userType === "Guest"}
-                      onChange={() => setUserType("Guest")}
+                      checked={!venueManager}
+                      onChange={() => setVenueManager(false)}
                       className="mr-2 text-violet-700 checked:bg-violet-700 focus:ring-violet-700"
                     />
                     <label htmlFor="guestRadio">Guest</label>
@@ -234,8 +228,8 @@ const EditProfileForm = () => {
                       type="radio"
                       id="venueManagerRadio"
                       name="userType"
-                      checked={userType === "Venue Manager"}
-                      onChange={() => setUserType("Venue Manager")}
+                      checked={venueManager}
+                      onChange={() => setVenueManager(true)}
                       className="mr-2 text-violet-700 checked:bg-violet-700 focus:ring-violet-700"
                     />
                     <label htmlFor="venueManagerRadio">Venue Manager</label>

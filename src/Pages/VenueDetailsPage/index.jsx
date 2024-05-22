@@ -18,14 +18,13 @@ import handleDeleteVenue from "../../components/API/Venue/deleteVenue";
 
 const VenueDetailsPage = () => {
   const { id } = useParams();
-  const navigate = useNavigate(); // Use the useNavigate hook
+  const navigate = useNavigate();
   const { data, loading, error } = useFetch(
     `${BASE_URL}/venues/${id}?_owner=true&_bookings=true`,
   );
   const [isOwner, setIsOwner] = useState(false);
-  const [editMode, setEditMode] = useState(false);
   const isLoggedIn = Boolean(localStorage.getItem("accessToken"));
-  const loggedInUserEmail = localStorage.getItem("userEmail"); // Assuming the user's email is stored in localStorage
+  const loggedInUserEmail = localStorage.getItem("userEmail");
 
   useEffect(() => {
     if (data && data.data) {
@@ -34,10 +33,6 @@ const VenueDetailsPage = () => {
     }
   }, [data, loggedInUserEmail]);
 
-  const handleFormSubmit = () => {
-    setEditMode(false); // Exit edit mode after form submission
-    window.location.reload(); // Refresh the page to reflect changes
-  };
 
   if (loading) {
     return (
@@ -62,15 +57,8 @@ const VenueDetailsPage = () => {
 
       const response = await updateVenue(venueData, apiKey);
 
-      if (response && response.success) {
-        console.log("Venue updated successfully");
-        // Optionally, you can handle UI updates here, like showing a success message
-      } else {
-        throw new Error("Failed to update venue");
-      }
     } catch (error) {
       console.error("Error updating venue:", error);
-      // Optionally, you can handle UI updates here, like showing an error message
     }
   };
 
@@ -98,12 +86,18 @@ const VenueDetailsPage = () => {
     <div className="mx-auto max-w-screen-md rounded-xl border bg-white md:my-6">
       <div className="ms-4 mt-4">
         {isOwner ? (
-          <Link to={`/profile`} className="underline flex items-center gap-2 hover:text-violet-700">
+          <Link
+            to={`/profile`}
+            className="flex items-center gap-2 underline hover:text-violet-700"
+          >
             <FaArrowLeft />
             Back to Profile
           </Link>
         ) : (
-          <Link to={`/listings`} className="underline flex items-center gap-2 hover:text-violet-700">
+          <Link
+            to={`/listings`}
+            className="flex items-center gap-2 underline hover:text-violet-700"
+          >
             <FaArrowLeft />
             Back to List of Venues
           </Link>
@@ -120,8 +114,8 @@ const VenueDetailsPage = () => {
                   alt={`Image 1`}
                   className="h-full max-h-[300px] w-full md:rounded-xl"
                   onError={(e) => {
-                    e.target.onerror = null; // Prevent infinite loop
-                    e.target.src = NoImage; // Set placeholder image
+                    e.target.onerror = null; 
+                    e.target.src = NoImage; 
                   }}
                 />
               </div>
@@ -132,8 +126,8 @@ const VenueDetailsPage = () => {
                   alt={`Image 1`}
                   className="h-full max-h-[300px] w-full md:rounded-xl"
                   onError={(e) => {
-                    e.target.onerror = null; // Prevent infinite loop
-                    e.target.src = NoImage; // Set placeholder image
+                    e.target.onerror = null; 
+                    e.target.src = NoImage; 
                   }}
                 />
                 {media.length > 1 && (
@@ -158,7 +152,7 @@ const VenueDetailsPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="m-4 mt-4">
             <div className="flex gap-3">
-              <h1 className="text-lg font-bold">{name}</h1>
+              <h1 className="text-xl font-bold">{name}</h1>
               <div className="flex items-center py-1">
                 {rating ? (
                   <StarRate rating={rating} size={20} />
@@ -168,96 +162,132 @@ const VenueDetailsPage = () => {
               </div>
             </div>
 
-            <div >
-            
-            
-            <div className="flex md:hidden">
-            {!isOwner && isLoggedIn && (
-                <div className="flex items-center mt-2 gap-1 md:hidden">
-                <IoCalendarNumberOutline size={24} className="text-violet-700" />
-                <BookingFormLink venueId={id} />
-                </div>
-            )}
-            {isOwner && isLoggedIn && (
-              <div className="flex items-center gap-4">
-                <UpdateVenueForm
-                  venueData={data.data}
-                  onUpdate={handleUpdateVenueForm}
-                />
-                <button
-                  onClick={() => handleDeleteVenue(id, navigate)} // Use `id` here and pass `navigate`
-                  className="mt-4 gap-1 px-3 py-2 flex flex-row items-center rounded-full bg-gradient-to-t from-red-500 to-red-700 hover:font-semibold uppercase hover:to-red-800 text-white"
-                >
-                  <GoTrash size={16} />
-                  Delete Venue
-                </button>
+            <div>
+              <div className="flex md:hidden">
+                {!isOwner && isLoggedIn && (
+                  <div className="mt-2 flex items-center gap-1 md:hidden">
+                    <IoCalendarNumberOutline
+                      size={24}
+                      className="text-violet-700"
+                    />
+                    <BookingFormLink venueId={id} />
+                  </div>
+                )}
+                {isOwner && isLoggedIn && (
+                  <div className="flex items-center gap-4">
+                    <UpdateVenueForm
+                      venueData={data.data}
+                      onUpdate={handleUpdateVenueForm}
+                    />
+                    <button
+                      onClick={() => handleDeleteVenue(id, navigate)}
+                      className="mt-4 flex flex-row items-center gap-1 rounded-full bg-gradient-to-t from-red-500 to-red-700 px-3 py-2 uppercase text-white hover:to-red-800 hover:font-semibold"
+                    >
+                      <GoTrash size={16} />
+                      Delete Venue
+                    </button>
+                  </div>
+                )}
+
+                {!isLoggedIn && (
+                  <div className="mt-6 rounded-xl border border-violet-700 bg-white p-4">
+                    <p>
+                      You need to{" "}
+                      <Link
+                        to="/login"
+                        className="font-semibold uppercase text-violet-700 underline"
+                      >
+                        log in
+                      </Link>{" "}
+                      to make a booking.
+                    </p>
+                  </div>
+                )}
               </div>
-            )}
-           
-           
-            {!isLoggedIn && (
-              <div className="mt-6 rounded-xl border border-violet-700 bg-white p-4">
-                <p>
-                  You need to{" "}
-                  <Link to="/login" className="text-violet-700 underline uppercase font-semibold">
-                    log in
-                  </Link>{" "}
-                  to make a booking.
-                </p>
-              </div>
-            )}
-            </div>
             </div>
 
             <p className="mt-5 font-semibold">Description</p>
             <p className="mb-3">{description}</p>
-            <div className="mt-1 flex items-center gap-1 font-semibold">
+            <div className="mt-1 flex items-center gap-1 font-medium">
               <FaBed size={24} />
               <p>{maxGuests} Guests</p>
             </div>
 
+            <div className="mt-6">
+              <p className="mt-1 flex gap-1 text-lg text-violet-700">
+                <p>Price</p>
+                <p>${price} per night</p>
+              </p>
+            </div>
+
             {wifi || breakfast || parking || pets ? (
-              <div className="mt-6">
-                <p className="font-semibold">Facilities</p>
-                <ul className="mt-2 flex gap-2">
+              <div className="py-4">
+                <p className="font-semibold">Facilities at Venue</p>
+                <ul className="mt-2 grid grid-cols-2 gap-4">
                   {wifi && (
-                    <li>
-                      <FaWifi size={30} />
+                    <li className="flex items-center gap-2">
+                      <FaWifi
+                        size={20}
+                        title="WiFi Available"
+                        className="h-8 w-8 rounded-full bg-violet-700 p-1 text-white"
+                      />
+                      <span>WiFi</span>
                     </li>
                   )}
                   {breakfast && (
-                    <li>
-                      <MdBreakfastDining size={30} />
+                    <li className="flex items-center gap-2">
+                      <MdBreakfastDining
+                        size={20}
+                        title="Breakfast Included"
+                        className="h-8 w-8 rounded-full bg-violet-700 p-1 text-white"
+                      />
+                      <span>Breakfast</span>
                     </li>
                   )}
                   {parking && (
-                    <li>
-                      <FaParking size={30} />
+                    <li className="flex items-center gap-2">
+                      <FaParking
+                        size={20}
+                        title="Parking Available"
+                        className="h-8 w-8 rounded-full bg-violet-700 p-1 text-white"
+                      />
+                      <span>Parking</span>
                     </li>
                   )}
                   {pets && (
-                    <li>
-                      <MdOutlinePets size={30} />
+                    <li className="flex items-center gap-2">
+                      <MdOutlinePets
+                        size={20}
+                        title="Pets Allowed"
+                        className="h-8 w-8 rounded-full bg-violet-700 p-1 text-white"
+                      />
+                      <span>Pets</span>
                     </li>
                   )}
                 </ul>
               </div>
             ) : null}
 
-            <div className="mt-6">
-              <p>
-                Price: <strong>${price}</strong> pr night
-              </p>
-            </div>
-
-            <div className="py-4 ">
-              <p className="font-semibold">Location</p>
-              <p className="truncate">Address: {location.address}</p>
-              <p className="truncate">
-                City: {location.zip} {location.city}
-              </p>
-              <p className="truncate">Country: {location.country}</p>
-            </div>
+            {location.address ||
+            location.city ||
+            location.zip ||
+            location.country ? (
+              <div className="mt-4">
+                <p className="font-semibold">Location</p>
+                {location.address && (
+                  <p className="truncate">Address: {location.address}</p>
+                )}
+                {location.city && (
+                  <p className="truncate">City: {location.city}</p>
+                )}
+                {location.zip && (
+                  <p className="truncate">ZIP: {location.zip}</p>
+                )}
+                {location.country && (
+                  <p className="truncate">Country: {location.country}</p>
+                )}
+              </div>
+            ) : null}
 
             <div className="max-w-sm py-4 md:hidden">
               <p className="font-semibold">Hosted by</p>
@@ -280,45 +310,12 @@ const VenueDetailsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="">
-              <p className="text-xs">Venue added: {formatDate(created)}</p>
+            <div className="mt-6">
+              <p className="text-xs">Venue created: {formatDate(created)}</p>
               {created !== updated && (
                 <p className="text-xs">Updated: {formatDate(updated)}</p>
               )}
             </div>
-          </div>
-          <div className="hidden grid-cols-6 p-2 md:block">
-            {!isOwner && isLoggedIn && (
-              <div className="mt-6 rounded-xl border bg-white p-4">
-                <BookingForm price={price} venueId={id} />
-              </div>
-            )}
-            {isOwner && isLoggedIn && (
-              <div className="flex items-center justify-between">
-                <UpdateVenueForm
-                  venueData={data.data}
-                  onUpdate={handleUpdateVenueForm}
-                />
-                <button
-                  onClick={() => handleDeleteVenue(id, navigate)} // Use `id` here and pass `navigate`
-                  className="mt-4 gap-1 px-3 py-2 flex flex-row items-center rounded-full bg-gradient-to-t from-red-500 to-red-700 hover:font-semibold uppercase hover:to-red-800 text-white"
-                >
-                  <GoTrash size={16} />
-                  Delete Venue
-                </button>
-              </div>
-            )}
-             {!isLoggedIn && (
-              <div className="mt-6 rounded-xl border border-violet-700 bg-white p-4">
-                <p>
-                  You need to{" "}
-                  <Link to="/login" className="text-violet-700 underline uppercase font-semibold">
-                    log in
-                  </Link>{" "}
-                  to make a booking.
-                </p>
-              </div>
-            )}
 
             <div className="mt-3 hidden py-4 md:block">
               <p className="font-semibold">Hosted by</p>
@@ -328,8 +325,8 @@ const VenueDetailsPage = () => {
                   alt="profile image of host"
                   className="h-20 w-20 rounded-full"
                   onError={(e) => {
-                    e.target.onerror = null; // Prevent infinite loop
-                    e.target.src = NoImage; // Set placeholder image
+                    e.target.onerror = null; 
+                    e.target.src = NoImage;
                   }}
                 />
                 <div>
@@ -348,6 +345,42 @@ const VenueDetailsPage = () => {
                 </div>
               </div>
             </div>
+          </div>
+          <div className="hidden grid-cols-6 p-2 md:block">
+            {!isOwner && isLoggedIn && (
+              <div className="mt-6 rounded-xl border bg-white p-4">
+                <BookingForm price={price} venueId={id} />
+              </div>
+            )}
+            {isOwner && isLoggedIn && (
+              <div className="flex items-center justify-between">
+                <UpdateVenueForm
+                  venueData={data.data}
+                  onUpdate={handleUpdateVenueForm}
+                />
+                <button
+                  onClick={() => handleDeleteVenue(id, navigate)}
+                  className="mt-4 flex flex-row items-center gap-1 rounded-full bg-gradient-to-t from-red-500 to-red-700 px-3 py-2 uppercase text-white hover:to-red-800 hover:font-semibold"
+                >
+                  <GoTrash size={16} />
+                  Delete Venue
+                </button>
+              </div>
+            )}
+            {!isLoggedIn && (
+              <div className="mt-6 rounded-xl border border-violet-700 bg-white p-4">
+                <p>
+                  You need to{" "}
+                  <Link
+                    to="/login"
+                    className="font-semibold uppercase text-violet-700 underline"
+                  >
+                    log in
+                  </Link>{" "}
+                  to make a booking.
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
