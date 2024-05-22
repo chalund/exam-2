@@ -115,7 +115,7 @@ const BookingFormLink = ({ price, venueId }) => {
     <div style={{ position: "relative" }}>
       <button
         onClick={openModal}
-        className="uppercase text-violet-700 underline text-xl font-semibold"
+        className="uppercase  text-violet-700 underline text-xl font-semibold"
       >
         Book your stay
       </button>
@@ -154,7 +154,7 @@ const BookingFormLink = ({ price, venueId }) => {
             </span>
 
             <form onSubmit={handleSubmit} className="">
-              <h2 className="mb-4 py-3 text-center text-lg font-bold uppercase text-violet-700">
+              <h2 className="mb-4 py-3 text-center text-2xl font-bold uppercase text-violet-700">
                 Book Your Stay
               </h2>
               <div className="m-3">
@@ -229,7 +229,7 @@ const BookingFormLink = ({ price, venueId }) => {
               </div>
               <div className="flex justify-center">
                 <button
-                  className="my-5 w-44 rounded-xl bg-violet-700 py-2 text-lg uppercase text-white"
+                  className="my-5 w-44 rounded-full bg-gradient-to-t from-violet-500 to-violet-700 py-2 text-lg font-semibold uppercase hover:font-bold text-white hover:to-violet-900"
                   type="submit"
                 >
                   Book now

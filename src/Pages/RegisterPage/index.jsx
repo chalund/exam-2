@@ -15,6 +15,7 @@ const RegisterPage = () => {
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [registrationError, setRegistrationError] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
 
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const RegisterPage = () => {
     setter("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     validateName();
@@ -38,31 +39,33 @@ const RegisterPage = () => {
       return;
     }
 
-    let registrationData = {
+    const registrationData = {
       name: name,
       email: email,
       password: password,
       venueManager: venueManager,
     };
 
-    fetch(Register, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(registrationData),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Registration failed");
-        }
-        console.log("User registered");
-        setLoggedIn(true);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setEmailError("This email is already in use. Please use a different one.");
+    try {
+      const response = await fetch(Register, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(registrationData),
       });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.errors[0].message || "Registration failed");
+      }
+
+      console.log("User registered");
+      setLoggedIn(true);
+    } catch (error) {
+      console.error("Error:", error);
+      setRegistrationError(error.message);
+    }
   };
 
   const validateName = () => {
@@ -202,23 +205,26 @@ const RegisterPage = () => {
               </div>
             </div>
           </div>
+          {registrationError && (
+            <p className="text-red-700">{registrationError}</p>
+          )}
           <button
             type="submit"
-            className="mb-2 w-full rounded-xl bg-gradient-to-t from-orange-300 to-orange-400 p-2 font-medium uppercase text-black hover:to-orange-500"
+            className="mb-2 w-full rounded-full bg-gradient-to-t from-orange-300 to-orange-400 p-2 font-semibold hover:font-bold uppercase text-black hover:to-orange-500"
           >
             Submit
           </button>
           {loggedIn && (
             <div className="mt-3">
               <p className="text-xl text-center mb-2">Registration was successful!!</p>
-              <button className="mt-2 w-full rounded-xl bg-gradient-to-t from-violet-400 to-violet-700 p-2 font-medium uppercase text-white hover:to-violet-900">
+              <button className="mt-2 w-full rounded-full bg-gradient-to-t from-violet-500 to-violet-700 p-2 font-semibold hover:font-bold uppercase text-white hover:to-violet-900">
                 <Link to="/login">Login</Link>
               </button>
             </div>
           )}
         </div>
         {!loggedIn && (
-          <p className="text-md mt-2">
+          <p className="text-md mt-2 text-center">
             Have an account?{" "}
             <Link to={"/login"} className="text-violet-700 underline">
               Login Here

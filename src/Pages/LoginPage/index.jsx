@@ -100,7 +100,7 @@ const LoginPage = () => {
           </div>
           {error && <p className="mb-2 text-red-700">{error}</p>}
 
-          <button className="mb-2 w-full rounded-xl bg-gradient-to-t from-orange-300 to-orange-400 hover:to-orange-500 p-2 font-medium uppercase text-black">
+          <button className="mb-2 w-full rounded-full bg-gradient-to-t from-orange-300 to-orange-400 hover:to-orange-500 hover:font-bold p-2 font-medium uppercase text-black">
             Login
           </button>
         </div>

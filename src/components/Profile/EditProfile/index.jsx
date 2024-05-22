@@ -244,7 +244,7 @@ const EditProfileForm = () => {
               </div>
               <button
                 type="submit"
-                className="mb-5 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 w-44 py-2 font-semibold uppercase hover:to-orange-500"
+                className="mb-5 rounded-full bg-gradient-to-t  from-violet-500 to-violet-700 text-white w-44 py-2 font-semibold uppercase hover:font-bold hover:to-violet-900"
               >
                 Update Profile
               </button>
