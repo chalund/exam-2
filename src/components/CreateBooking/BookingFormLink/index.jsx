@@ -115,7 +115,7 @@ const BookingFormLink = ({ price, venueId }) => {
     <div style={{ position: "relative" }}>
       <button
         onClick={openModal}
-        className="uppercase  text-violet-700 underline text-xl font-semibold"
+        className="text-xl  font-semibold uppercase text-violet-700 underline"
       >
         Book your stay
       </button>
@@ -158,7 +158,7 @@ const BookingFormLink = ({ price, venueId }) => {
                 Book Your Stay
               </h2>
               <div className="m-3">
-                <p>Select check-in</p>
+                <p>Check-in</p>
                 <div className="flex items-center gap-2 rounded-xl border py-1 pl-3">
                   <DatePicker
                     showIcon
@@ -189,7 +189,7 @@ const BookingFormLink = ({ price, venueId }) => {
                 </div>
               </div>
               <div className="m-3">
-                <p>Select check-out</p>
+                <p>Check-out</p>
                 <div className="flex items-center gap-2 rounded-xl border py-1 pl-3">
                   <DatePicker
                     showIcon
@@ -213,7 +213,10 @@ const BookingFormLink = ({ price, venueId }) => {
                 </div>
               </div>
               <div className="relative m-3">
-                <p>Select number of Guests</p>
+                <div className="flex items-center gap-1">
+                  <p>Guests</p>
+                  <p className="text-sm">(Children count as 1 guest)</p>
+                </div>
                 <input
                   type="number"
                   placeholder="Guests"
@@ -221,15 +224,12 @@ const BookingFormLink = ({ price, venueId }) => {
                   onChange={handleGuestsChange}
                   min={1}
                   max={maxGuests}
-                  className="flex h-10 w-full items-center rounded-xl border pl-40 pr-20 focus:outline-none"
+                  className="flex h-9 w-1/3 items-center rounded-xl border pl-5 pr-4 focus:outline-none"
                 />
-                <span className="absolute inset-y-0 left-3 top-6 flex items-center pr-2 text-gray-500">
-                  (Max Guests {maxGuests}):
-                </span>
               </div>
               <div className="flex justify-center">
                 <button
-                  className="my-5 w-44 rounded-full bg-gradient-to-t from-violet-500 to-violet-700 py-2 text-lg font-semibold uppercase hover:font-bold text-white hover:to-violet-900"
+                  className="my-5 w-44 rounded-full bg-gradient-to-t from-violet-500 to-violet-700 py-2 text-lg font-semibold uppercase text-white hover:to-violet-900 hover:font-bold"
                   type="submit"
                 >
                   Book now
