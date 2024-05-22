@@ -42,8 +42,12 @@ const HomePage = () => {
             Discover new amazing places to visit
           </h2>
 
-          <button className="mt-8 rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-8 py-2 font-semibold uppercase  hover:to-orange-500">
-            <Link to="/listings">Discover</Link>
+          <button className="mt-8  rounded-full bg-gradient-to-t from-orange-300 to-orange-400 px-6 py-2 font-semibold uppercase  hover:to-orange-500">
+            <Link to="/listings">
+              <div className="flex items-center gap-2">
+                <BiSearch size={24} /> Search
+              </div>
+            </Link>
           </button>
         </div>
       </div>
@@ -81,12 +85,14 @@ const HomePage = () => {
               className="card-img-top h-56 w-full rounded-xl object-cover md:h-96"
             />
             <div className="card-body p-2">
-              <h5 className="card-title font-semibold">
-                Explore Exciting New Destinations
-              </h5>
-              <h6 className="card-subtitle text-muted mb-2">
-                Check out our latest places
-              </h6>
+              <Link to="/listings">
+                <h5 className="card-title font-semibold">
+                  Explore Exciting New Destinations
+                </h5>
+                <h6 className="card-subtitle text-muted mb-2">
+                  Check out our latest places
+                </h6>
+              </Link>
             </div>
           </div>
         </div>
@@ -98,12 +104,14 @@ const HomePage = () => {
               className="card-img-top h-56 w-full rounded-xl object-cover md:h-32"
             />
             <div className="card-body p-2">
-              <h5 className="card-title font-semibold">
-                Book your next trip now
-              </h5>
-              <h6 className="card-subtitle text-muted mb-2">
-                Find your holiday
-              </h6>
+              <Link to="/listings">
+                <h5 className="card-title font-semibold">
+                  Book your next trip now
+                </h5>
+                <h6 className="card-subtitle text-muted mb-2">
+                  Find your holiday
+                </h6>
+              </Link>
             </div>
           </div>
         </div>
@@ -115,7 +123,9 @@ const HomePage = () => {
               className="card-img-top h-56 w-full rounded-xl object-cover md:h-40"
             />
             <div className="card-body p-2">
-              <h5 className="card-title mb-2 font-semibold">Travel Tips</h5>
+              <Link to="/about">
+                <h5 className="card-title mb-2 font-semibold">Travel Tips</h5>
+              </Link>
             </div>
           </div>
         </div>

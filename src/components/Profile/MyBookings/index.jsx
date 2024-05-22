@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { GoSmiley } from "react-icons/go";
 import formatDate from "../../DateFormatter";
 import { calculateDaysDifference } from "../../CalculateDays";
 
@@ -26,22 +25,24 @@ const MyBookingsProfilePage = ({ bookings, totalCount }) => {
         <h2 className="ms-6 text-xl font-semibold uppercase text-violet-700 md:text-2xl">
           My bookings
         </h2>
-        <p className="ms-6 mt-3 text-lg"> You currently have no bookings available..</p>
-      
+        <p className="ms-6 mt-3 text-lg">
+          {" "}
+          You currently have no bookings available..
+        </p>
       </div>
     );
   }
 
   return (
     <div className="mt-6 border bg-white py-6 md:rounded-xl">
-      <div className="mr-8 flex items-baseline justify-between">
-        <h2 className="ms-6 text-xl font-semibold uppercase text-violet-700 md:text-2xl">
+      <div className="flex flex-col items-center md:mr-8 md:flex-row md:justify-between">
+        <h2 className="text-xl font-semibold uppercase text-violet-700 md:ms-6 md:text-2xl">
           My bookings
         </h2>
         {expiredBookings.length > 0 && (
           <button
             onClick={() => setShowExpired(!showExpired)}
-            className="text-violet-700 underline"
+            className="mt-3 text-center text-violet-700 underline md:mt-0"
           >
             {showExpired ? "View upcoming bookings" : "View expired bookings"}
           </button>

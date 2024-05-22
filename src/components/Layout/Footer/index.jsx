@@ -14,7 +14,7 @@ export function isLoggedIn() {
 const Footer = () => {
   return (
     <div className="bg-zinc-700 p-6 text-white">
-      <div className="mx-auto max-w-screen-lg items-center justify-evenly md:flex md:flex-row md:justify-between">
+      <div className="mx-auto max-w-screen-lg items-center justify-evenly md:flex md:flex-row ">
         <div className="mb-10 flex flex-col items-center md:mb-0 md:w-1/4">
           <Logo colorClass="text-violet-400" />
           <div className="mt-2 flex gap-3">
@@ -25,7 +25,7 @@ const Footer = () => {
         </div>
 
         <div className="flex-3 text-center">
-          <ul className="flex flex-col gap-2 text-xl uppercase md:flex-row md:gap-6 md:text-start">
+          <ul className="flex flex-col gap-2 text-xl uppercase md:flex-row md:gap-6 ">
             {isLoggedIn() ? (
               <NavLink
                 to="/profile"
@@ -59,11 +59,9 @@ const Footer = () => {
           </ul>
         </div>
 
-        <div className="hidden w-1/4 flex-col justify-center md:flex">
-          {/* Flex container for Subscribe */}
+        <div className="hidden w-1/4 justify-center lg:flex lg:flex-col">
           <p className="text-sm">Subscribe to the Holidaze newsletter</p>
           <form action="" className="mt-2 flex gap-1">
-            {/* Align Subscribe and input button horizontally */}
             <input
               type="email"
               className="w-36 rounded-full border bg-white focus:outline-none"
@@ -77,7 +75,7 @@ const Footer = () => {
           </form>
         </div>
       </div>
-      <div className="mt-6 text-center text-sm md:mt-3">
+      <div className="mt-8 text-center text-sm md:mt-3">
         &copy; 2024 Designed by Charlotte Lund
       </div>
     </div>

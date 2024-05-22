@@ -41,13 +41,17 @@ function ProductList() {
               sortField = "price";
               sortOrder = "desc";
               break;
+            case "highest-rated":
+              sortField = "rating";
+              sortOrder = "desc";
+              break;
             default:
               sortField = "created";
               sortOrder = "desc";
           }
 
           const response = await fetch(
-            `${BASE_URL}${Venues}?sort=${sortField}&sortOrder=${sortOrder}&limit=${productsPerPage}&page=${currentPage}`
+            `${BASE_URL}${Venues}?sort=${sortField}&sortOrder=${sortOrder}&limit=${productsPerPage}&page=${currentPage}`,
           );
           const newData = await response.json();
 
@@ -70,7 +74,6 @@ function ProductList() {
     fetchAllData();
   }, [filter, productsPerPage]);
 
-  // Scroll to the top when pageCounter changes
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [pageCounter]);
@@ -86,6 +89,9 @@ function ProductList() {
         break;
       case "price-high-low":
         sortedData.sort((a, b) => b.price - a.price);
+        break;
+      case "highest-rated":
+        sortedData.sort((a, b) => b.rating - a.rating);
         break;
       default:
         sortedData.sort((a, b) => new Date(b.created) - new Date(a.created));
@@ -106,8 +112,11 @@ function ProductList() {
   }
 
   const filteredData = allData.filter((product) => {
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesPetsFilter = filter === "pets-allowed" ? product.meta.pets : true;
+    const matchesSearch = product.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const matchesPetsFilter =
+      filter === "pets-allowed" ? product.meta.pets : true;
     return matchesSearch && matchesPetsFilter;
   });
 
@@ -118,7 +127,9 @@ function ProductList() {
   };
 
   const handleNextPage = () => {
-    const totalPages = Math.ceil(sortedFilteredProducts.length / productsPerPage);
+    const totalPages = Math.ceil(
+      sortedFilteredProducts.length / productsPerPage,
+    );
     if (pageCounter < totalPages) {
       setPageCounter((prevCounter) => prevCounter + 1);
     }
@@ -134,7 +145,7 @@ function ProductList() {
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = sortedFilteredProducts.slice(
     indexOfFirstProduct,
-    indexOfLastProduct
+    indexOfLastProduct,
   );
 
   const totalPages = Math.ceil(sortedFilteredProducts.length / productsPerPage);
@@ -169,7 +180,7 @@ function ProductList() {
           </div>
         </div>
       </div>
-      <div className="w-full max-w-[990px] mb-4 text-start ms-2">
+      <div className="mb-4 ms-2 w-full max-w-[990px] text-start">
         <p className="text-lg font-medium">
           {sortedFilteredProducts.length} products found
         </p>
@@ -178,11 +189,13 @@ function ProductList() {
         <ProductCard venues={currentProducts} />
       </div>
 
-      <div className="my-10 flex justify-center items-center gap-4">
+      <div className="my-10 flex items-center justify-center gap-4">
         <button
           onClick={handlePreviousPage}
           className={`w-24 rounded-full p-2 py-2 ${
-            pageCounter === 1 ? "cursor-not-allowed opacity-50 border border-zinc-300" : "bg-violet-700 text-white"
+            pageCounter === 1
+              ? "cursor-not-allowed border border-zinc-300 opacity-50"
+              : "bg-violet-700 text-white"
           }`}
           disabled={pageCounter === 1}
         >
@@ -194,7 +207,9 @@ function ProductList() {
         <button
           onClick={handleNextPage}
           className={`w-24 rounded-full p-2 py-2 ${
-            pageCounter === totalPages ? "cursor-not-allowed opacity-50 border border-zinc-300" : "bg-violet-700 text-white hover:bg-violet-800"
+            pageCounter === totalPages
+              ? "cursor-not-allowed border border-zinc-300 opacity-50"
+              : "bg-violet-700 text-white hover:bg-violet-800"
           }`}
           disabled={pageCounter === totalPages}
         >

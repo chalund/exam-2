@@ -22,17 +22,10 @@ const UpdateVenueForm = ({ venueData }) => {
   const navigate = useNavigate();
 
   const handleCheckboxChangeMeta = (option) => {
-    // Check if the option already exists in meta
-    const updatedMeta = { ...meta }; // Create a copy of the current meta object
-
-    // Toggle the value of the option
+    const updatedMeta = { ...meta };
     updatedMeta[option] = !updatedMeta[option];
-
-    // Update the meta state with the updated object
     setMeta(updatedMeta);
   };
-
-  console.log(venueData.meta);
 
   useEffect(() => {
     const scrollbarWidth =
@@ -85,11 +78,7 @@ const UpdateVenueForm = ({ venueData }) => {
     try {
       const apiKeyData = await createApiKey("User profile key");
       const apiKey = apiKeyData.data.key;
-
-      console.log("Updated Venue Data:", newData);
-
       await updateVenue(venueData.id, newData, apiKey);
-      console.log("Venue updated successfully");
       setIsModalOpen(false);
       navigate(`/venue/${venueData.id}`);
       window.location.reload();
@@ -101,7 +90,6 @@ const UpdateVenueForm = ({ venueData }) => {
 
   const handleClearField = (setter) => {
     setter("");
-    console.log("clicked");
   };
 
   const openModal = () => {
@@ -140,10 +128,10 @@ const UpdateVenueForm = ({ venueData }) => {
     <div>
       <button
         onClick={openModal}
-        className="mt-4 flex items-center gap-1 rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-3 py-2   uppercase text-white hover:to-violet-900 hover:font-semibold"
+        className="mt-4 flex items-center gap-1 rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-4 py-2   uppercase text-white hover:to-violet-900 hover:font-semibold"
       >
-        <MdOutlineModeEdit size={16} />
-        <p>Update venue</p>
+        <MdOutlineModeEdit size={20} />
+        <p>Update</p>
       </button>
 
       {isModalOpen && (
@@ -195,7 +183,7 @@ const UpdateVenueForm = ({ venueData }) => {
                     type="text"
                     name="name"
                     placeholder="Title.."
-                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
+                    className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white  focus:outline-none"
                   />
                   <IoCloseOutline
                     size={30}
@@ -210,7 +198,7 @@ const UpdateVenueForm = ({ venueData }) => {
                     type="text"
                     name="description"
                     placeholder="Description.."
-                    className="w-full rounded-xl border py-2 pl-3 pr-10 focus:outline-none focus:bg-white  focus:border-violet-700"
+                    className="w-full rounded-xl border py-2 pl-3 pr-10 focus:border-violet-700 focus:bg-white  focus:outline-none"
                     style={{ height: "130px" }}
                   />
                   <IoCloseOutline
@@ -232,7 +220,7 @@ const UpdateVenueForm = ({ venueData }) => {
                         type="url"
                         name={`url-${index}`}
                         placeholder="Image URL.."
-                        className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
+                        className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white  focus:outline-none"
                       />
 
                       <button
@@ -250,7 +238,7 @@ const UpdateVenueForm = ({ venueData }) => {
                       onChange={(e) => setNewImageUrl(e.target.value)}
                       type="url"
                       placeholder="New Image URL..."
-                      className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
+                      className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white  focus:outline-none"
                     />
 
                     <button
@@ -272,7 +260,7 @@ const UpdateVenueForm = ({ venueData }) => {
                         type="number"
                         name="price"
                         placeholder="Price.."
-                        className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
+                        className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white  focus:outline-none"
                       />
                     </div>
                     <div className="mb-4 flex items-center ">
@@ -282,7 +270,7 @@ const UpdateVenueForm = ({ venueData }) => {
                         type="number"
                         name="maxGuests"
                         placeholder="Max guests.."
-                        className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
+                        className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white  focus:outline-none"
                       />
                     </div>
                   </div>
@@ -349,7 +337,7 @@ const UpdateVenueForm = ({ venueData }) => {
                     type="text"
                     name="address"
                     placeholder="Address..."
-                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
+                    className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white  focus:outline-none"
                   />
                   <IoCloseOutline
                     size={30}
@@ -364,7 +352,7 @@ const UpdateVenueForm = ({ venueData }) => {
                     type="text"
                     name="zip"
                     placeholder="Post code..."
-                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
+                    className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white  focus:outline-none"
                   />
                   <IoCloseOutline
                     size={30}
@@ -379,7 +367,7 @@ const UpdateVenueForm = ({ venueData }) => {
                     type="text"
                     name="city"
                     placeholder="City..."
-                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
+                    className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white  focus:outline-none"
                   />
                   <IoCloseOutline
                     size={30}
@@ -394,7 +382,7 @@ const UpdateVenueForm = ({ venueData }) => {
                     type="text"
                     name="country"
                     placeholder="Country..."
-                    className="w-full rounded-xl border py-1 pl-3 focus:outline-none focus:bg-white  focus:border-violet-700"
+                    className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white  focus:outline-none"
                   />
                   <IoCloseOutline
                     size={30}

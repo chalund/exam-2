@@ -33,9 +33,9 @@ function LastThreeCards() {
   return (
 <div className="mt-4 py-5">
   <h2 className="mb-4 text-xl uppercase">Recently Added Venues</h2>
-  <div className="flex gap-2 overflow-x-auto  md:overflow-visible">
+  <div className="flex gap-2 overflow-x-auto ">
     {newestVenues.map((venue) => (
-      <div key={venue.id} className="mx-3 flex-shrink-0 h-96 md:w-80 md:flex-shrink-0">
+      <div key={venue.id} className="mx-2 flex-shrink-0 w-80 md:flex-shrink-0">
         <div className="h-full flex flex-col">
           <VenueCard venue={venue} className="flex-1 overflow-hidden flex flex-col" />
         </div>
