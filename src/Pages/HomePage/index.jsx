@@ -6,7 +6,6 @@ import GirlSun from "../../assets/girlInSun.jpg";
 import Travel from "../../assets/travel.jpg";
 import { BiSearch } from "react-icons/bi";
 import { IoCalendarNumberOutline } from "react-icons/io5";
-
 import { RiHome2Line } from "react-icons/ri";
 import Spinner from "../../components/Spinner/Loader";
 

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
-import { createApiKey } from "../../API/ApiKey";
-import { createBooking } from "../../API/Bookings/createBookings";
 import { getVenueById } from "../../API/Venue/getVenueById";
+import { createApiKey } from "../../API/ApiKey";
+import { createBooking } from "../../API/Bookings";
 
 const BookingForm = ({ price, venueId }) => {
   const isLoggedIn = Boolean(localStorage.getItem("accessToken"));
@@ -14,7 +14,7 @@ const BookingForm = ({ price, venueId }) => {
   const [endDate, setEndDate] = useState(
     new Date(startDate.getTime() + 24 * 60 * 60 * 1000),
   );
-  const [guests, setGuests] = useState(2); // Default guests value
+  const [guests, setGuests] = useState(2);
   const [total, setTotal] = useState(0);
   const [unavailableDates, setUnavailableDates] = useState([]);
   const [maxGuests, setMaxGuests] = useState(1);
@@ -31,9 +31,9 @@ const BookingForm = ({ price, venueId }) => {
           setMaxGuests(maxGuests);
 
           if (maxGuests === 1) {
-            setGuests(1); // Set default guests to 1 if maxGuests is 1
+            setGuests(1);
           } else {
-            setGuests(2); // Set default guests to 2 if maxGuests is greater than 1
+            setGuests(2);
           }
 
           if (bookings && Array.isArray(bookings)) {
@@ -177,7 +177,7 @@ const BookingForm = ({ price, venueId }) => {
                       unavailableDate.toISOString().split("T")[0] ===
                       formattedDate,
                   )
-                  ? "bg-red-600 text-white"
+                    ? "bg-red-600 text-white"
                     : undefined;
                 }}
                 minDate={startDate}
@@ -188,7 +188,7 @@ const BookingForm = ({ price, venueId }) => {
         </div>
         <div className="relative">
           <div className="flex items-center gap-1">
-            <p>Guests</p> 
+            <p>Guests</p>
             <p className="text-sm">(Children count as 1 guest)</p>
           </div>
           <input
@@ -212,7 +212,7 @@ const BookingForm = ({ price, venueId }) => {
       </form>
       <div className="mr-3 flex justify-between border-b pb-2">
         <p>
-          ${price} x {calculateDays()} nights 
+          ${price} x {calculateDays()} nights
         </p>
         <p>${total}</p>
       </div>

@@ -29,10 +29,3 @@ import { apiRequest } from "../../ApiRequest/index.jsx";
 //     throw error;
 //   }
 // }
-
-export const updateProfile = async (username, newData, apiKey) => {
-  const endpoint = `/profiles/${username}`;
-  console.log(`Fetching updateProfile for ${username} with API key: ${apiKey}`);
-  const response = await apiRequest(endpoint,"PUT", newData, apiKey)
-  return Response;
-};

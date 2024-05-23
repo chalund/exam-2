@@ -22,7 +22,6 @@ export const apiRequest = async (
   };
 
   try {
-    console.log(`Making ${method} request to ${url} with options:`, options);
     const response = await fetch(url, options);
 
     if (!response.ok) {
@@ -30,7 +29,6 @@ export const apiRequest = async (
     }
 
     const responseData = await response.json();
-    console.log(`Response from ${url}:`, responseData);
     return responseData;
   } catch (error) {
     console.error(`Error in ${method} request to ${endpoint}:`, error);

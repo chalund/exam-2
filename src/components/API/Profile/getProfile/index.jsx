@@ -29,12 +29,12 @@ import { apiRequest } from "../../ApiRequest";
 
 
 
-export const getProfile = async (username, apiKey) => {
-  const endpoint = `/profiles/${username}?_bookings=true&_venues=true`;
-  // console.log(`Fetching profile for ${username} with API key: ${apiKey}`); // Log before making the request
-  const response = await apiRequest(endpoint, "GET", null, apiKey);
-  // console.log(`Fetched profile data:`, response); // Log after receiving the response
-  return response;
-};
+// export const getProfile = async (username, apiKey) => {
+//   const endpoint = `/profiles/${username}?_bookings=true&_venues=true`;
+//   // console.log(`Fetching profile for ${username} with API key: ${apiKey}`); // Log before making the request
+//   const response = await apiRequest(endpoint, "GET", null, apiKey);
+//   // console.log(`Fetched profile data:`, response); // Log after receiving the response
+//   return response;
+// };
 
 

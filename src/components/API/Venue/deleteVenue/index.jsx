@@ -1,5 +1,6 @@
 import { BASE_URL, Venues } from "../..";
 import { createApiKey } from "../../ApiKey";
+import { apiRequest } from "../../ApiRequest";
 
 const handleDeleteVenue = async (venueId, navigate) => {
   const accessToken = localStorage.getItem("accessToken");

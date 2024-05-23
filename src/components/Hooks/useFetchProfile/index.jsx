@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createApiKey } from "../../API/ApiKey";
-import { getProfile } from "../../API/Profile/getProfile";
+import { getProfile } from "../../API/Profile";
+
 
 const useFetchProfile = () => {
   const [profileData, setProfileData] = useState(null);
