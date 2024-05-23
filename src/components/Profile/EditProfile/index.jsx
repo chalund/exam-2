@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { updateProfile } from "../../API/Profile/updateUser";
 import { createApiKey } from "../../API/ApiKey";
-import { getProfile } from "../../API/Profile/getProfile";
 import { IoCloseOutline } from "react-icons/io5";
+import { getProfile, updateProfile } from "../../API/Profile";
 
 const EditProfileForm = () => {
   const [avatarUrl, setAvatarUrl] = useState("");

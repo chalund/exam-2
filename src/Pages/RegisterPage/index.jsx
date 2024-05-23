@@ -5,7 +5,9 @@ import { IoClose } from "react-icons/io5";
 import { AiOutlineUser } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../components/Layout/Logo";
-import { Register } from "../../components/API";
+import { REGISTER_ENDPOINT_URL } from "../../components/API";
+
+
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -27,7 +29,7 @@ const RegisterPage = () => {
 
   const handleClearField = (setter, validateFunc) => {
     setter("");
-    validateFunc(""); // Trigger validation with empty string
+    validateFunc("");
   };
 
   const handleSubmit = async (e) => {
@@ -49,7 +51,7 @@ const RegisterPage = () => {
     };
 
     try {
-      const response = await fetch(Register, {
+      const response = await fetch(REGISTER_ENDPOINT_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -108,19 +110,19 @@ const RegisterPage = () => {
   const handleNameChange = (e) => {
     setName(e.target.value);
     validateName(e.target.value);
-    setRegistrationError(""); // Clear registration error on typing
+    setRegistrationError(""); 
   };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
     validateEmail(e.target.value);
-    setRegistrationError(""); // Clear registration error on typing
+    setRegistrationError(""); 
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
     validatePassword(e.target.value);
-    setRegistrationError(""); // Clear registration error on typing
+    setRegistrationError(""); 
   };
 
 

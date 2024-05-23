@@ -1,7 +1,7 @@
-import { Login } from "../../index.jsx";
+import { LOGIN_ENDPOINT_URL } from "../..";
 
 export const loginUser = async (email, password) => {
-  const response = await fetch(Login, {
+  const response = await fetch(LOGIN_ENDPOINT_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

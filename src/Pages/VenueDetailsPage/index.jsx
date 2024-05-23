@@ -189,7 +189,7 @@ const VenueDetailsPage = () => {
 
                 {!isLoggedIn && (
                   <div className="mt-6 rounded-xl border border-violet-700 bg-white p-4">
-                    <p>
+                    <div>
                       You need to{" "}
                       <Link
                         to="/login"
@@ -198,7 +198,7 @@ const VenueDetailsPage = () => {
                         log in
                       </Link>{" "}
                       to make a booking.
-                    </p>
+                    </div>
                   </div>
                 )}
               </div>
@@ -212,10 +212,10 @@ const VenueDetailsPage = () => {
             </div>
 
             <div className="mt-6">
-              <p className="mt-1 flex gap-1 text-lg text-violet-700">
+              <div className="mt-1 flex gap-1 text-lg text-violet-700">
                 <p>Price</p>
                 <p>${price} per night</p>
-              </p>
+              </div>
             </div>
 
             {wifi || breakfast || parking || pets ? (

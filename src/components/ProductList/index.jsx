@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BASE_URL, Venues } from "../API";
+import { BASE_URL } from "../API";
 import Spinner from "../Spinner/Loader";
 import { IoCloseOutline } from "react-icons/io5";
 import { BiSearch } from "react-icons/bi";
@@ -51,7 +51,7 @@ function ProductList() {
           }
 
           const response = await fetch(
-            `${BASE_URL}${Venues}?sort=${sortField}&sortOrder=${sortOrder}&limit=${productsPerPage}&page=${currentPage}`,
+            `${BASE_URL}/venues?sort=${sortField}&sortOrder=${sortOrder}&limit=${productsPerPage}&page=${currentPage}`,
           );
           const newData = await response.json();
 

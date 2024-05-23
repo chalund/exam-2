@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
 import { createApiKey } from "../../../API/ApiKey";
-import { getProfile } from "../../../API/Profile/getProfile";
+import { getProfile } from "../../../API/Profile";
 import { useFetch } from "../../../Hooks/useFetch";
-import { BASE_URL, Venues } from "../../../API";
+import { BASE_URL } from "../../../API";
 import formatDate from "../../../DateFormatter";
 import { calculateDaysDifference } from "../../../CalculateDays";
+import Spinner from "../../../Spinner/Loader";
 
 const VenueBookings = () => {
   const { id } = useParams();
   const { data, loading, error } = useFetch(
-    `${BASE_URL}${Venues}/${id}?_bookings=true`,
+    `${BASE_URL}/venues/${id}?_bookings=true`,
   );
   const [profileData, setProfileData] = useState(null);
 
@@ -99,7 +99,7 @@ const VenueBookings = () => {
           </ul>
         </>
       ) : (
-        <p>Loading profile data...</p>
+        <Spinner />
       )}
     </div>
   );

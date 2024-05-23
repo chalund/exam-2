@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { createApiKey } from "../../API/ApiKey";
-import { createBooking } from "../../API/Bookings/createBookings";
-import { getVenueById } from "../../API/Venue/getVenueById";
+import { getVenueById } from "../../API/Venue";
 import { useNavigate } from "react-router-dom";
+import { createBooking } from "../../API/Bookings";
 
 const BookingFormLink = ({ price, venueId }) => {
   const isLoggedIn = Boolean(localStorage.getItem("accessToken"));

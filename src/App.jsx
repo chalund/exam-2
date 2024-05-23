@@ -1,10 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./App.css";
-
 import HomePage from "./Pages/HomePage";
 import ListOfVenuesPage from "./Pages/ListOfVenuesPage";
 import AboutPage from "./Pages/AboutPage";
-
 import Layout from "./components/Layout";
 import ProfilePage from "./Pages/ProfilePage";
 import LoginPage from "./Pages/LoginPage";

@@ -1,4 +1,4 @@
-import { BASE_URL, Venues } from "../..";
+import { BASE_URL} from "../..";
 import { createApiKey } from "../../ApiKey";
 
 const handleDeleteVenue = async (venueId, navigate) => {
@@ -24,7 +24,7 @@ const handleDeleteVenue = async (venueId, navigate) => {
       },
     };
 
-    const response = await fetch(`${BASE_URL}${Venues}/${venueId}`, options);
+    const response = await fetch(`${BASE_URL}/venues/${venueId}`, options);
     if (!response.ok) {
       throw new Error("Failed to delete venue");
     }

@@ -1,4 +1,4 @@
-import { BASE_URL, Venues } from "../../components/API";
+import { BASE_URL} from "../../components/API";
 import { useFetch } from "../../components/Hooks/useFetch";
 import Nyksund from "../../assets/nyksund.jpg";
 import Lofoten from "../../assets/lofoten.jpg";
@@ -6,14 +6,14 @@ import GirlSun from "../../assets/girlInSun.jpg";
 import Travel from "../../assets/travel.jpg";
 import { BiSearch } from "react-icons/bi";
 import { IoCalendarNumberOutline } from "react-icons/io5";
-import { BsCurrencyDollar } from "react-icons/bs";
+import { RiHome2Line } from "react-icons/ri";
 import Spinner from "../../components/Spinner/Loader";
 
 import { Link } from "react-router-dom";
 import LastTreeCards from "../../components/lastTreeCards";
 
 const HomePage = () => {
-  const { data, loading, error } = useFetch(BASE_URL + Venues);
+  const { data, loading, error } = useFetch(BASE_URL + "/venues");
 
   if (loading) {
     return (
@@ -62,16 +62,29 @@ const HomePage = () => {
             Find and book your perfect stay
           </p>
           <div className="m-3 mx-6 flex w-1/3 flex-col items-center rounded-3xl border p-2 px-4 md:w-1/4">
-            <p>Search for new exiting places</p>
-            <BiSearch size={36} className="mt-2" />
+            <Link to="/listings">
+              <p>Search for your new favorite place</p>
+              <div className="mt-2 flex items-center justify-center">
+              <BiSearch size={36}/>
+              </div>
+            </Link>
           </div>
-          <div className="m-3 mx-6 flex  w-1/3 flex-col items-center rounded-3xl border p-2 px-4 md:w-1/4">
-            <p>Sign up and save money</p>
-            <BsCurrencyDollar size={36} className="mt-2" />
+          <div className="m-3 mx-6 flex w-1/3 flex-col items-center justify-center rounded-3xl border p-2 px-4 md:w-1/4">
+            <Link to="/login">
+              <p>Sign in or register to book your venue now</p>
+              <div className="mt-2 flex items-center justify-center">
+                <RiHome2Line size={36} />
+              </div>
+            </Link>
           </div>
+
           <div className="m-3 mx-6 flex w-1/3 flex-col items-center rounded-3xl border p-2 px-4 md:w-1/4">
-            <p>Explore available dates on venues</p>
-            <IoCalendarNumberOutline size={36} className="mt-2" />
+            <Link to="/listings">
+              <p>Explore available dates on venues</p>
+              <div className="mt-2 flex items-center justify-center">
+              <IoCalendarNumberOutline size={36}/>
+              </div>
+            </Link>
           </div>
         </div>
       </div>
