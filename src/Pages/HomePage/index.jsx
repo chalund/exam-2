@@ -1,4 +1,4 @@
-import { BASE_URL, Venues } from "../../components/API";
+import { BASE_URL} from "../../components/API";
 import { useFetch } from "../../components/Hooks/useFetch";
 import Nyksund from "../../assets/nyksund.jpg";
 import Lofoten from "../../assets/lofoten.jpg";
@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import LastTreeCards from "../../components/lastTreeCards";
 
 const HomePage = () => {
-  const { data, loading, error } = useFetch(BASE_URL + Venues);
+  const { data, loading, error } = useFetch(BASE_URL + "/venues");
 
   if (loading) {
     return (

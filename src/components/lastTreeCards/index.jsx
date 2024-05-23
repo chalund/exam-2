@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useFetch } from "../Hooks/useFetch";
-import { BASE_URL, Venues } from "../API";
+import { BASE_URL} from "../API";
 import Spinner from "../Spinner/Loader";
 import VenueCard from "../card/venueCard";
 
 function LastThreeCards() {
-  const { data, loading, error } = useFetch(`${BASE_URL}${Venues}?sort=created&sortOrder=desc&limit=3`);
+  const { data, loading, error } = useFetch(`${BASE_URL}/venues?sort=created&sortOrder=desc&limit=3`);
   const [newestVenues, setNewestVenues] = useState([]);
 
   useEffect(() => {

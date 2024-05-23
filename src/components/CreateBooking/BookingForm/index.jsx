@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
-import { getVenueById } from "../../API/Venue/getVenueById";
+import { getVenueById } from "../../API/Venue";
 import { createApiKey } from "../../API/ApiKey";
 import { createBooking } from "../../API/Bookings";
 

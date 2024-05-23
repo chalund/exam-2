@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createApiKey } from "../../../API/ApiKey";
-import { createVenue } from "../../../API/Venue/createVenue";
+import { createVenue } from "../../../API/Venue";
 import { IoCloseOutline } from "react-icons/io5";
 import { AiFillPlusCircle } from "react-icons/ai";
 

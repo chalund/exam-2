@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { createApiKey } from "../../../API/ApiKey";
 import { IoCloseOutline } from "react-icons/io5";
-import { updateVenue } from "../../../API/Venue/updateVenue";
+
 import { useNavigate } from "react-router-dom";
 import { MdOutlineModeEdit } from "react-icons/md";
+import { updateVenue } from "../../../API/Venue";
 
 const UpdateVenueForm = ({ venueData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
