@@ -1,18 +1,23 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import formatDate from "../../DateFormatter";
-import { calculateDaysDifference } from "../../CalculateDays";
+import BookingDetails from "../../BookingDetails";
 
 const MyBookingsProfilePage = ({ bookings, totalCount }) => {
   const [showExpired, setShowExpired] = useState(false);
+  const [activeTab, setActiveTab] = useState('tab1');
+  const [showAllBookings, setShowAllBookings] = useState(false); // State to track whether to show all bookings
+
+  const handleTabClick = (tabId) => {
+    setActiveTab(tabId);
+  };
+
   const today = new Date();
 
   const currentBookings = bookings.filter(
-    (booking) => new Date(booking.dateTo) >= today,
+    (booking) => new Date(booking.dateTo) >= today
   );
 
   const expiredBookings = bookings.filter(
-    (booking) => new Date(booking.dateTo) < today,
+    (booking) => new Date(booking.dateTo) < today
   );
 
   const calculateTotalPrice = (pricePerNight, numberOfNights) => {
@@ -27,11 +32,30 @@ const MyBookingsProfilePage = ({ bookings, totalCount }) => {
         </h2>
         <p className="ms-6 mt-3 text-lg">
           {" "}
-          You currently have no bookings available..
+          You currently have no bookings available.
         </p>
       </div>
     );
   }
+
+  const handleToggleBookings = () => {
+    setShowAllBookings(!showAllBookings); // Toggle between showing all bookings and showing only a few
+  };
+
+  const renderBookings = (bookingList, isUpcoming) => {
+    return (
+      <ul className="mt-4 md:m-6">
+        {bookingList.map((booking) => (
+          <BookingDetails
+            key={booking.id}
+            booking={booking}
+            calculateTotalPrice={calculateTotalPrice}
+            isUpcoming={isUpcoming} // Pass the isUpcoming prop
+          />
+        ))}
+      </ul>
+    );
+  };
 
   return (
     <div className="mt-6 border bg-white py-6 md:rounded-xl">
@@ -39,117 +63,61 @@ const MyBookingsProfilePage = ({ bookings, totalCount }) => {
         <h2 className="text-xl font-semibold uppercase text-violet-700 md:ms-6 md:text-2xl">
           My bookings
         </h2>
-        {expiredBookings.length > 0 && (
-          <button
-            onClick={() => setShowExpired(!showExpired)}
-            className="mt-3 text-center text-violet-700 underline md:mt-0"
-          >
-            {showExpired ? "View upcoming bookings" : "View expired bookings"}
-          </button>
-        )}
       </div>
-
-      {showExpired ? (
-        <ul className="m-6">
-          {expiredBookings.map((booking) => (
-            <li
-              key={booking.id}
-              className="mb-3 flex flex-col rounded-xl border hover:bg-zinc-100 md:flex-row "
-            >
-              <div className="flex items-center justify-center py-4 md:justify-start md:px-6">
-                {booking.venue.media && booking.venue.media.length > 0 && (
-                  <Link
-                    to={`/venue/${booking.venue.id}`}
-                    key={booking.venue.id}
-                    className="block"
-                  >
-                    <img
-                      src={booking.venue.media[0].url}
-                      alt={booking.venue.media[0].alt}
-                      className="h-36 w-48 rounded-xl md:h-24 md:w-24"
-                    />
-                  </Link>
-                )}
+      
+      <div className="tab-section backdrop-filter backdrop-blur-lg bg-opacity-40 mt-6">
+        <div className="flex flex-wrap">
+          <button
+            className={`text-xs md:text-lg md:p-4 border-gray-300 hover:bg-gray-300 hover:bg-opacity-40 uppercase flex-grow ${
+              activeTab === 'tab1' ? 'font-bold border-l border-r border-t text-violet-700' : ''
+            }`}
+            onClick={() => handleTabClick('tab1')}
+          >
+            Upcoming Booking
+          </button>
+          <button
+            className={`text-xs md:text-lg p-4 hover:bg-zinc-200 hover:bg-opacity-40 uppercase flex-grow ${
+              activeTab === 'tab2' ? 'font-bold border-l border-r border-t text-violet-700' : ''
+            }`}
+            onClick={() => handleTabClick('tab2')}
+          >
+            Expired Booking
+          </button>
+        </div>
+        <div>
+          {activeTab === 'tab1' && (
+            <div id="tab1" className="tab-content bg-white text-gray-700  p-3 md:p-6 border">
+              <div className="md:ms-6 md:text-lg">
+              You have {currentBookings.length} upcoming bookings
               </div>
-
-              <div className="mx-auto my-2 md:mx-0">
-                <p className="font-semibold">{booking.venue.name}</p>
-
-                <div className="gap-3 md:flex">
-                  <p>From: {formatDate(booking.dateFrom)}</p>
-                  <p>To: {formatDate(booking.dateTo)}</p>
+              
+              {showAllBookings ? renderBookings(currentBookings, true) : renderBookings(currentBookings.slice(0, 2), true)}
+              {currentBookings.length > 3 && (
+                <div className="text-center mt-4">
+                  <button className=" rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-4 py-2 mt-4  uppercase text-white hover:to-violet-900 hover:font-semibold" onClick={handleToggleBookings}>
+                    {showAllBookings ? "Show Less" : "View More"}
+                  </button>
                 </div>
-                <p>
-                  Number of Days:{" "}
-                  {calculateDaysDifference(booking.dateFrom, booking.dateTo)}
-                </p>
-
-                <p>Guests: {booking.guests}</p>
-                <div className="gap-3 md:flex">
-                  <p>Price per night: ${booking.venue.price}</p>
-                  <p>
-                    Total Price: ${" "}
-                    {calculateTotalPrice(
-                      booking.venue.price,
-                      calculateDaysDifference(booking.dateFrom, booking.dateTo),
-                    )}
-                  </p>
-                </div>
+              )}
+            </div>
+          )}
+          {activeTab === 'tab2' && (
+            <div id="tab2" className="tab-content bg-white text-gray-700 p-3 md:p-6 border ">
+               <div className="ms-6 text-red-700 md:text-lg">
+              You have {expiredBookings.length} expired bookings
               </div>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <ul className=" m-6 ">
-          {currentBookings.map((booking) => (
-            <li
-              key={booking.id}
-              className="mb-3 flex flex-col rounded-xl border hover:bg-zinc-100 md:flex-row"
-            >
-              <div className="flex items-center justify-center py-4 md:justify-start md:px-6">
-                {booking.venue.media && booking.venue.media.length > 0 && (
-                  <Link
-                    to={`/venue/${booking.venue.id}`}
-                    key={booking.venue.id}
-                    className="block"
-                  >
-                    <img
-                      src={booking.venue.media[0].url}
-                      alt={booking.venue.media[0].alt}
-                      className="h-36 w-48 rounded-xl md:h-24 md:w-24"
-                    />
-                  </Link>
-                )}
-              </div>
-
-              <div className="mx-auto my-2 md:mx-0">
-                <p className="font-semibold">{booking.venue.name}</p>
-
-                <div className="gap-3 md:flex">
-                  <p>From: {formatDate(booking.dateFrom)}</p>
-                  <p>To: {formatDate(booking.dateTo)}</p>
+              {showAllBookings ? renderBookings(expiredBookings, false) : renderBookings(expiredBookings.slice(0, 2), false)}
+              {expiredBookings.length > 3 && (
+                <div className="text-center mt-4">
+                  <button className=" rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-4 py-2 mt-4 uppercase text-white hover:to-violet-900 hover:font-semibold" onClick={handleToggleBookings}>
+                    {showAllBookings ? "Show Less" : "View More"}
+                  </button>
                 </div>
-                <p>
-                  Number of Days:{" "}
-                  {calculateDaysDifference(booking.dateFrom, booking.dateTo)}
-                </p>
-
-                <p>Guests: {booking.guests}</p>
-                <div className="gap-3 md:flex">
-                  <p>Price per night: ${booking.venue.price}</p>
-                  <p>
-                    Total Price: ${" "}
-                    {calculateTotalPrice(
-                      booking.venue.price,
-                      calculateDaysDifference(booking.dateFrom, booking.dateTo),
-                    )}
-                  </p>
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+              )}
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
