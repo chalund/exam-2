@@ -55,6 +55,8 @@ function ProductList() {
           );
           const newData = await response.json();
 
+          console.log(newData)
+
           if (currentPage === 1) {
             totalPageCount = newData.meta.pageCount;
           }

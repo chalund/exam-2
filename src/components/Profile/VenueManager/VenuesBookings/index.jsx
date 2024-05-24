@@ -11,9 +11,11 @@ import Spinner from "../../../Spinner/Loader";
 const VenueBookings = () => {
   const { id } = useParams();
   const { data, loading, error } = useFetch(
-    `${BASE_URL}/venues/${id}?_bookings=true`,
+    `${BASE_URL}/venues/${id}?_bookings=true`
   );
   const [profileData, setProfileData] = useState(null);
+  const [activeTab, setActiveTab] = useState('current');
+  const [showAllBookings, setShowAllBookings] = useState(false); // State to track whether to show all bookings
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -47,60 +49,121 @@ const VenueBookings = () => {
     return <p>No bookings available for this venue.</p>;
   }
 
-  const sortedBookings = data.data.bookings.sort(
-    (a, b) => new Date(a.dateFrom) - new Date(b.dateFrom),
+  const today = new Date();
+
+  const currentBookings = data.data.bookings.filter(
+    (booking) => new Date(booking.dateTo) >= today
+  );
+
+  const expiredBookings = data.data.bookings.filter(
+    (booking) => new Date(booking.dateTo) < today
+  );
+
+  const sortedCurrentBookings = currentBookings.sort(
+    (a, b) => new Date(a.dateFrom) - new Date(b.dateFrom)
+  );
+
+  const sortedExpiredBookings = expiredBookings.sort(
+    (a, b) => new Date(a.dateFrom) - new Date(b.dateFrom)
   );
 
   const venueName = data.data.name;
 
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+    setShowAllBookings(false); // Reset showAllBookings when tab changes
+  };
+
+  const handleToggleBookings = () => {
+    setShowAllBookings(!showAllBookings); // Toggle between showing all bookings and showing only a few
+  };
+
+  const renderBookings = (bookings) => {
+    return (
+      <ul className="mt-4 md:m-6">
+        {bookings.map((booking) => (
+          <li
+            key={booking.id}
+            className="m-5 mx-10 flex flex-col md:flex-row items-center gap-4 rounded-xl border bg-white p-4"
+          >
+            <img
+              src={booking.customer.avatar.url}
+              alt={booking.customer.avatar.alt}
+              className="h-36 w-48 rounded-full md:h-24 md:w-24"
+            />
+            <div>
+              <p>Name of Guest: {booking.customer.name}</p>
+              <p>Date From: {formatDate(booking.dateFrom)}</p>
+              <p>Date To: {formatDate(booking.dateTo)}</p>
+              <p>
+                Number of Days:{" "}
+                {calculateDaysDifference(booking.dateFrom, booking.dateTo)}
+              </p>
+              <p>Number of Guests: {booking.guests}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    );
+  };
+
   return (
-    <div className="mt-6 max-w-screen-md md:mb-12">
-      <h1 className="mb-6 text-center text-2xl uppercase text-violet-700">
+    <div className="mt-12 mb-6  bg-white  md:rounded-xl">
+      <h1 className="text-center text-2xl uppercase text-violet-700 mb-6">
         {venueName} Bookings
       </h1>
-      {profileData ? (
-        <>
-          {profileData.bookings.length === 0 ? (
-            <p className="ms-6 mt-3 text-lg">Your venue has no bookings</p>
-          ) : null}
-          <ul>
-            {sortedBookings.length === 0 ? (
-              <li className="text-center">No bookings yet in this venue.</li>
-            ) : (
-              sortedBookings.map((booking) => {
-                return (
-                  <li
-                    key={booking.id}
-                    className="m-5 mx-10 flex flex-col md:flex-row items-center gap-4 rounded-xl border bg-white p-4"
-                  >
-                    <img
-                      src={booking.customer.avatar.url}
-                      alt={booking.customer.avatar.alt}
-                      className="h-36 w-48 rounded-full md:h-24 md:w-24"
-                    />
-
-                    <div>
-                      <p>Name of Guest: {booking.customer.name}</p>
-                      <p>Date From: {formatDate(booking.dateFrom)}</p>
-                      <p>Date To: {formatDate(booking.dateTo)}</p>
-                      <p>
-                        Number of Days:{" "}
-                        {calculateDaysDifference(
-                          booking.dateFrom,
-                          booking.dateTo,
-                        )}
-                      </p>
-                      <p>Number of Guests: {booking.guests}</p>
-                    </div>
-                  </li>
-                );
-              })
-            )}
-          </ul>
-        </>
-      ) : (
-        <Spinner />
-      )}
+      <div className="tab-section backdrop-filter  backdrop-blur-lg bg-opacity-40 mt-6">
+        <div className="flex flex-wrap">
+          <button
+            className={`text-xs md:text-lg md:p-4 border-gray-300 hover:bg-gray-300 hover:bg-opacity-40 uppercase flex-grow ${
+              activeTab === 'current' ? 'font-bold border-l border-r border-t text-violet-700' : ''
+            }`}
+            onClick={() => handleTabClick('current')}
+          >
+            Current Bookings
+          </button>
+          <button
+            className={`text-xs md:text-lg p-4 hover:bg-zinc-200 hover:bg-opacity-40 uppercase flex-grow ${
+              activeTab === 'expired' ? 'font-bold border-l border-r border-t  text-violet-700' : ''
+            }`}
+            onClick={() => handleTabClick('expired')}
+          >
+            Expired Bookings
+          </button>
+        </div>
+        <div>
+          {activeTab === 'current' && (
+            <div id="current" className="tab-content bg-white text-gray-700 p-3 md:p-6 border rounded-b-xl">
+              <div className="md:ms-6 md:text-lg">
+                You have {sortedCurrentBookings.length} current bookings
+              </div>
+              {showAllBookings ? renderBookings(sortedCurrentBookings) : renderBookings(sortedCurrentBookings.slice(0, 3))}
+              {sortedCurrentBookings.length > 2 && (
+                <div className="text-center mt-4">
+                  <button className=" rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-4 py-2 mt-4 uppercase text-white hover:to-violet-900 hover:font-semibold" onClick={handleToggleBookings}>
+                    {showAllBookings ? "Show Less" : "View More"}
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+          {activeTab === 'expired' && (
+            <div id="expired" className="tab-content bg-white text-gray-700 p-3 md:p-6 border rounded-b-xl">
+              <div className="ms-6 text-red-700 md:text-lg">
+                You have {sortedExpiredBookings.length} expired bookings
+              </div>
+              {showAllBookings ? renderBookings(sortedExpiredBookings) : renderBookings(sortedExpiredBookings.slice(0, 3))}
+              {sortedExpiredBookings.length > 2 && (
+                <div className="text-center mt-4">
+                  <button className=" rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-4 py-2 mt-4 uppercase text-white hover:to-violet-900 hover:font-semibold" onClick={handleToggleBookings}>
+                    {showAllBookings ? "Show Less" : "View More"}
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
