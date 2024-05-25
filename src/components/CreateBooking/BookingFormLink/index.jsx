@@ -29,6 +29,12 @@ const BookingFormLink = ({ price, venueId }) => {
 
           setMaxGuests(maxGuests);
 
+          if (maxGuests === 1) {
+            setGuests(1);
+          } else {
+            setGuests(2);
+          }
+
           if (bookings && Array.isArray(bookings)) {
             const bookedDates = bookings
               .map((booking) => {
@@ -82,8 +88,6 @@ const BookingFormLink = ({ price, venueId }) => {
         await createBooking(newData, apiKey);
         navigate("/profile");
         setIsModalOpen(false); 
-      } else {
-        console.log("User not logged in. Booking not allowed.");
       }
     } catch (error) {
       console.error("Error creating booking:", error);

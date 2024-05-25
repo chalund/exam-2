@@ -65,7 +65,6 @@ const RegisterPage = () => {
         throw new Error(errorData.errors[0].message || "Registration failed");
       }
 
-      console.log("User registered");
       setLoggedIn(true);
       setRegistrationError("");
       setRegisteredEmail(email);

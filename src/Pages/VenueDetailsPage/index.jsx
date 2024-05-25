@@ -82,7 +82,6 @@ const VenueDetailsPage = () => {
     },
   } = data.data;
 
-  console.log(data.data);
 
   return (
     <div className="mx-auto max-w-screen-md rounded-xl border bg-white md:my-6">
@@ -133,7 +132,7 @@ const VenueDetailsPage = () => {
                   }}
                 />
                 {media.length > 1 && (
-                  <button className="absolute bottom-0 right-6 mb-5 rounded-full bg-gradient-to-t from-orange-300 to-orange-400   px-4 py-2 text-sm font-semibold uppercase  hover:from-orange-400 hover:to-orange-500 hover:text-white">
+                  <button className="absolute bottom-1 right-4 mb-5 rounded-full bg-gradient-to-t from-orange-300 to-orange-400   px-4 py-2 text-sm font-semibold uppercase  hover:from-orange-400 hover:to-orange-500 hover:text-white">
                     <Link to={`/venue/images/${id}`}>View all</Link>
                   </button>
                 )}
@@ -208,8 +207,8 @@ const VenueDetailsPage = () => {
               </div>
             </div>
 
-            <p className="mt-5 font-semibold">Description</p>
-            <p className="mb-3"> <TruncateText text={description} maxLength={maxDescriptionLength} /></p>
+            <div className="mt-5 font-semibold">Description</div>
+            <div className="mb-3"> <TruncateText text={description} maxLength={maxDescriptionLength} /></div>
             <div className="mt-1 flex items-center gap-1 font-medium">
               <FaBed size={24} />
               <p>{maxGuests} Guests</p>

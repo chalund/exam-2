@@ -16,26 +16,26 @@ import React, { useState } from 'react';
  * );
  */
 const TruncateText = ({ text, maxLength }) => {
-  const [isTruncated, setIsTruncated] = useState(true);
-
-  const handleToggle = () => {
-    setIsTruncated(!isTruncated);
+    const [isTruncated, setIsTruncated] = useState(true);
+  
+    const handleToggle = () => {
+      setIsTruncated(!isTruncated);
+    };
+  
+    const truncatedText = isTruncated && text.length > maxLength
+      ? text.substring(0, maxLength) + '...'
+      : text;
+  
+    return (
+      <div>
+        <span>{truncatedText}</span>
+        {text.length > maxLength && (
+          <button onClick={handleToggle} className="text-violet-700 text-sm">
+           ({isTruncated ? 'View More' : 'View Less'})
+          </button>
+        )}
+      </div>
+    );
   };
-
-  const truncatedText = isTruncated && text.length > maxLength
-    ? text.substring(0, maxLength) + '...'
-    : text;
-
-  return (
-    <div>
-      <p>{truncatedText}</p>
-      {text.length > maxLength && (
-        <button onClick={handleToggle} className="text-violet-700 text-sm">
-          ({isTruncated ? 'View More' : 'View Less'})
-        </button>
-      )}
-    </div>
-  );
-};
-
-export default TruncateText;
+  
+  export default TruncateText;

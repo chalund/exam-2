@@ -43,16 +43,7 @@ const UpdateVenueForm = ({ venueData }) => {
   const handleUpdateVenueForm = async (e) => {
     e.preventDefault();
 
-    if (
-      !name ||
-      !description ||
-      !address ||
-      !zip ||
-      !city ||
-      !country ||
-      isNaN(price) ||
-      isNaN(maxGuests)
-    ) {
+    if (!name || !description || isNaN(price) || isNaN(maxGuests)) {
       alert("Please fill out all required fields");
       return;
     }
@@ -64,14 +55,14 @@ const UpdateVenueForm = ({ venueData }) => {
       description,
       media,
       meta: updatedMeta,
-      maxGuests: parseInt(maxGuests),
-      price: parseFloat(price),
-      rating,
+      maxGuests: maxGuests ? parseInt(maxGuests) : venueData.maxGuests,
+      price: price ? parseFloat(price) : venueData.price,
+      rating: rating || venueData.rating,
       location: {
-        address,
-        zip,
-        city,
-        country,
+        address: address || venueData.location?.address,
+        zip: zip || venueData.location?.zip,
+        city: city || venueData.location?.city,
+        country: country || venueData.location?.country,
       },
     };
 
@@ -100,6 +91,10 @@ const UpdateVenueForm = ({ venueData }) => {
     setIsModalOpen(false);
   };
 
+  const handleSave = () => {
+    // Implement save logic if needed
+  };
+
   const handleMediaChangeAtIndex = (e, index) => {
     const newMediaUrl = e.target.value;
     const updatedMedia = [...media];
@@ -124,7 +119,7 @@ const UpdateVenueForm = ({ venueData }) => {
     <div>
       <button
         onClick={openModal}
-        className="mt-4 flex items-center gap-1 rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-4 py-2   uppercase text-white hover:to-violet-900 hover:font-semibold"
+        className="mt-4 flex items-center gap-1 rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-4 py-2 uppercase text-white hover:to-violet-900 hover:font-semibold"
       >
         <MdOutlineModeEdit size={20} />
         <p>Update</p>
@@ -179,12 +174,12 @@ const UpdateVenueForm = ({ venueData }) => {
                     type="text"
                     name="name"
                     placeholder="Title.."
-                    className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white  focus:outline-none"
+                    className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white focus:outline-none"
                   />
                   <IoCloseOutline
                     size={30}
                     onClick={() => handleClearField(setName)}
-                    className="absolute right-3  cursor-pointer text-gray-800"
+                    className="absolute right-3 cursor-pointer text-gray-800"
                   />
                 </div>
                 <div className="relative mb-4 flex items-center">
@@ -194,13 +189,13 @@ const UpdateVenueForm = ({ venueData }) => {
                     type="text"
                     name="description"
                     placeholder="Description.."
-                    className="w-full rounded-xl border py-2 pl-3 pr-10 focus:border-violet-700 focus:bg-white  focus:outline-none"
+                    className="w-full rounded-xl border py-2 pl-3 pr-10 focus:border-violet-700 focus:bg-white focus:outline-none"
                     style={{ height: "130px" }}
                   />
                   <IoCloseOutline
                     size={30}
                     onClick={() => handleClearField(setDescription)}
-                    className="absolute right-3 top-0  cursor-pointer text-gray-800"
+                    className="absolute right-3 top-0 cursor-pointer text-gray-800"
                   />
                 </div>
 
@@ -216,13 +211,13 @@ const UpdateVenueForm = ({ venueData }) => {
                         type="url"
                         name={`url-${index}`}
                         placeholder="Image URL.."
-                        className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white  focus:outline-none"
+                        className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white focus:outline-none"
                       />
 
                       <button
                         type="button"
                         onClick={() => removeMediaAtIndex(index)}
-                        className="ms-2 w-36 rounded-full bg-gradient-to-t from-red-400 to-red-500 py-1 hover:from-red-400  hover:to-red-700 hover:font-semibold hover:text-white"
+                        className="ms-2 w-36 rounded-full bg-gradient-to-t from-red-400 to-red-500 py-1 hover:from-red-400 hover:to-red-700 hover:font-semibold hover:text-white"
                       >
                         Delete
                       </button>
@@ -234,13 +229,13 @@ const UpdateVenueForm = ({ venueData }) => {
                       onChange={(e) => setNewImageUrl(e.target.value)}
                       type="url"
                       placeholder="New Image URL..."
-                      className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white  focus:outline-none"
+                      className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white focus:outline-none"
                     />
 
                     <button
                       type="button"
                       onClick={handleAddMedia}
-                      className="ms-2 w-36 whitespace-nowrap rounded-full bg-gradient-to-t  from-orange-300 to-orange-400 py-1 hover:from-orange-400 hover:to-orange-500 hover:font-semibold hover:text-white"
+                      className="ms-2 w-36 whitespace-nowrap rounded-full bg-gradient-to-t from-orange-300 to-orange-400 py-1 hover:from-orange-400 hover:to-orange-500 hover:font-semibold hover:text-white"
                     >
                       Add Image
                     </button>
@@ -256,7 +251,7 @@ const UpdateVenueForm = ({ venueData }) => {
                         type="number"
                         name="price"
                         placeholder="Price.."
-                        className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white  focus:outline-none"
+                        className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white focus:outline-none"
                       />
                     </div>
                     <div className="mb-4 flex items-center ">
@@ -266,7 +261,7 @@ const UpdateVenueForm = ({ venueData }) => {
                         type="number"
                         name="maxGuests"
                         placeholder="Max guests.."
-                        className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white  focus:outline-none"
+                        className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white focus:outline-none"
                       />
                     </div>
                   </div>
@@ -282,7 +277,7 @@ const UpdateVenueForm = ({ venueData }) => {
                         name="meta"
                         checked={meta["wifi"]}
                         onChange={() => handleCheckboxChangeMeta("wifi")}
-                        className="mr-2  accent-violet-700"
+                        className="mr-2 accent-violet-700"
                       />
                       <label htmlFor="wifi">Wifi</label>
                     </div>
@@ -293,7 +288,7 @@ const UpdateVenueForm = ({ venueData }) => {
                         name="meta"
                         checked={meta["pets"]}
                         onChange={() => handleCheckboxChangeMeta("pets")}
-                        className="mr-2  accent-violet-700"
+                        className="mr-2 accent-violet-700"
                       />
                       <label htmlFor="pets">Pets</label>
                     </div>
@@ -304,7 +299,7 @@ const UpdateVenueForm = ({ venueData }) => {
                         name="parking"
                         checked={meta["parking"]}
                         onChange={() => handleCheckboxChangeMeta("parking")}
-                        className="mr-2  accent-violet-700"
+                        className="mr-2 accent-violet-700"
                       />
                       <label htmlFor="parking">Parking</label>
                     </div>
@@ -316,7 +311,7 @@ const UpdateVenueForm = ({ venueData }) => {
                         name="meta"
                         checked={meta["breakfast"]}
                         onChange={() => handleCheckboxChangeMeta("breakfast")}
-                        className="mr-2  accent-violet-700"
+                        className="mr-2 accent-violet-700"
                       />
                       <label htmlFor="breakfast">Breakfast</label>
                     </div>
@@ -333,12 +328,12 @@ const UpdateVenueForm = ({ venueData }) => {
                     type="text"
                     name="address"
                     placeholder="Address..."
-                    className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white  focus:outline-none"
+                    className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white focus:outline-none"
                   />
                   <IoCloseOutline
                     size={30}
                     onClick={() => handleClearField(setAddress)}
-                    className="absolute right-3  cursor-pointer text-gray-800"
+                    className="absolute right-3 cursor-pointer text-gray-800"
                   />
                 </div>
                 <div className="relative mb-4 flex items-center">
@@ -348,12 +343,12 @@ const UpdateVenueForm = ({ venueData }) => {
                     type="text"
                     name="zip"
                     placeholder="Post code..."
-                    className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white  focus:outline-none"
+                    className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white focus:outline-none"
                   />
                   <IoCloseOutline
                     size={30}
                     onClick={() => handleClearField(setZip)}
-                    className="absolute right-3  cursor-pointer text-gray-800"
+                    className="absolute right-3 cursor-pointer text-gray-800"
                   />
                 </div>
                 <div className="relative mb-4 flex items-center">
@@ -363,12 +358,12 @@ const UpdateVenueForm = ({ venueData }) => {
                     type="text"
                     name="city"
                     placeholder="City..."
-                    className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white  focus:outline-none"
+                    className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white focus:outline-none"
                   />
                   <IoCloseOutline
                     size={30}
                     onClick={() => handleClearField(setCity)}
-                    className="absolute right-3  cursor-pointer text-gray-800"
+                    className="absolute right-3 cursor-pointer text-gray-800"
                   />
                 </div>
                 <div className="relative mb-4 flex items-center">
@@ -378,12 +373,12 @@ const UpdateVenueForm = ({ venueData }) => {
                     type="text"
                     name="country"
                     placeholder="Country..."
-                    className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white  focus:outline-none"
+                    className="w-full rounded-xl border py-1 pl-3 focus:border-violet-700 focus:bg-white focus:outline-none"
                   />
                   <IoCloseOutline
                     size={30}
                     onClick={() => handleClearField(setCountry)}
-                    className="absolute right-3  cursor-pointer text-gray-800"
+                    className="absolute right-3 cursor-pointer text-gray-800"
                   />
                 </div>
                 <div className="mb-4 flex flex-col text-lg">
@@ -397,7 +392,7 @@ const UpdateVenueForm = ({ venueData }) => {
                           name="rating"
                           checked={rating === option}
                           onChange={() => setRating(option)}
-                          className="mr-2  accent-violet-700"
+                          className="mr-2 accent-violet-700"
                         />
                         <label htmlFor="rating">{option}</label>
                       </div>
@@ -408,7 +403,7 @@ const UpdateVenueForm = ({ venueData }) => {
               <div style={{ position: "relative", textAlign: "center" }}>
                 <button
                   onClick={handleSave}
-                  className="mb-5 w-36 rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-4 py-2  uppercase text-white hover:to-violet-900 hover:font-semibold"
+                  className="mb-5 w-36 rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-4 py-2 uppercase text-white hover:to-violet-900 hover:font-semibold"
                 >
                   Update
                 </button>

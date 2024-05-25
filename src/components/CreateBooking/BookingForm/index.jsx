@@ -104,10 +104,8 @@ const BookingForm = ({ price, venueId }) => {
         const apiKey = apiKeyData.data.key;
 
         await createBooking(newData, apiKey);
-        console.log("Booking successful", newData);
         navigate("/profile");
-      } else {
-        console.log("User not logged in. Booking not allowed.");
+
       }
     } catch (error) {
       console.error("Error creating booking:", error);
