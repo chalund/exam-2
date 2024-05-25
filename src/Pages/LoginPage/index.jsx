@@ -19,7 +19,6 @@ const LoginPage = () => {
 
   const handleClearEmail = () => {
     setEmail("");
-    console.log("clicked");
   };
 
   const handleClearPassword = () => {
@@ -32,7 +31,6 @@ const LoginPage = () => {
     try {
       const data = await loginUser(email, password);
       navigate("/profile");
-      console.log(data); //remove this line
       localStorage.setItem("accessToken", data.data.accessToken);
       localStorage.setItem("userEmail", data.data.email);
       localStorage.setItem("username", data.data.name);

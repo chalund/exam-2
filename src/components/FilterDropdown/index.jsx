@@ -5,9 +5,7 @@ import { MdOutlinePets } from "react-icons/md";
 const FilterDropdown = ({ filter, setFilter }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-
   const toggleDropdown = () => setIsOpen(!isOpen);
-
   const handleOptionClick = (value) => {
     setFilter(value);
     setIsOpen(false);

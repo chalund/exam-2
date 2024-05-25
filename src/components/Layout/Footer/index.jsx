@@ -1,10 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Logo from "../Logo";
-
-import { FaFacebook } from "react-icons/fa";
-import { FaInstagram } from "react-icons/fa";
-import { FaSnapchat } from "react-icons/fa6";
+import { FaFacebook, FaInstagram, FaSnapchat } from "react-icons/fa";
 
 export function isLoggedIn() {
   const userToken = localStorage.getItem("accessToken");
@@ -25,37 +22,47 @@ const Footer = () => {
         </div>
 
         <div className="flex-3 text-center">
-          <ul className="flex flex-col gap-2 text-xl uppercase md:flex-row md:gap-6 ">
+          <ul className="flex flex-col gap-2 text-xl uppercase md:flex-row md:gap-6">
             {isLoggedIn() ? (
-              <NavLink
-                to="/profile"
-                className="hover:font-bold hover:text-violet-400"
-              >
-                Profile
-              </NavLink>
+              <li>
+                <NavLink
+                  to="/profile"
+                  className="hover:font-bold hover:text-violet-400"
+                >
+                  Profile
+                </NavLink>
+              </li>
             ) : (
+              <li>
+                <NavLink
+                  to="/login"
+                  className="hover:font-bold hover:text-violet-400"
+                >
+                  Login
+                </NavLink>
+              </li>
+            )}
+            <li>
+              <NavLink to="/" className="hover:font-bold hover:text-violet-400">
+                Home
+              </NavLink>
+            </li>
+            <li>
               <NavLink
-                to="/login"
+                to="/listings"
                 className="hover:font-bold hover:text-violet-400"
               >
-                Login
+                Listings
               </NavLink>
-            )}
-            <NavLink to="/" className="hover:font-bold hover:text-violet-400">
-              Home
-            </NavLink>
-            <NavLink
-              to="/listings"
-              className="hover:font-bold hover:text-violet-400"
-            >
-              Listings
-            </NavLink>
-            <NavLink
-              to="/about"
-              className="hover:font-bold hover:text-violet-400"
-            >
-              About
-            </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/about"
+                className="hover:font-bold hover:text-violet-400"
+              >
+                About
+              </NavLink>
+            </li>
           </ul>
         </div>
 
@@ -68,7 +75,7 @@ const Footer = () => {
             />
             <button
               type="submit"
-              className="rounded-full border bg-gradient-to-t  from-violet-500 to-violet-700 px-3 py-1  uppercase text-white hover:bg-gradient-to-t hover:to-violet-900 hover:font-bold"
+              className="rounded-full border bg-gradient-to-t from-violet-500 to-violet-700 px-3 py-1 uppercase text-white hover:bg-gradient-to-t hover:to-violet-900 hover:font-bold"
             >
               Submit
             </button>

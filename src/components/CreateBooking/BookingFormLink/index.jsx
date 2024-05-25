@@ -9,7 +9,6 @@ import { createBooking } from "../../API/Bookings";
 const BookingFormLink = ({ price, venueId }) => {
   const isLoggedIn = Boolean(localStorage.getItem("accessToken"));
   const navigate = useNavigate();
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(
@@ -29,6 +28,12 @@ const BookingFormLink = ({ price, venueId }) => {
           const { bookings, maxGuests } = venueData.data;
 
           setMaxGuests(maxGuests);
+
+          if (maxGuests === 1) {
+            setGuests(1);
+          } else {
+            setGuests(2);
+          }
 
           if (bookings && Array.isArray(bookings)) {
             const bookedDates = bookings
@@ -81,11 +86,8 @@ const BookingFormLink = ({ price, venueId }) => {
         const apiKey = apiKeyData.data.key;
 
         await createBooking(newData, apiKey);
-        console.log("Booking successful", newData);
         navigate("/profile");
-        setIsModalOpen(false); // Close the modal after successful booking
-      } else {
-        console.log("User not logged in. Booking not allowed.");
+        setIsModalOpen(false); 
       }
     } catch (error) {
       console.error("Error creating booking:", error);

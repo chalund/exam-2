@@ -5,7 +5,6 @@ const StarRatingCard = ({ rating, size = 16 }) => {
   const [ratingValue, setRatingValue] = useState(null);
 
   useEffect(() => {
-    // Set the rating value to one decimal point if not null or undefined
     if (rating !== null && rating !== undefined) {
       setRatingValue(parseFloat(rating).toFixed(0));
     } else {

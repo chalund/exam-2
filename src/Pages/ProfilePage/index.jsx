@@ -3,7 +3,7 @@ import MyVenues from "../../components/Profile/VenueManager/MyVenues";
 import MyBookings from "../../components/Profile/MyBookings";
 import Spinner from "../../components/Spinner/Loader";
 import useFetchProfile from "../../components/Hooks/useFetchProfile";
-import NoImage from "../../assets/no_image.jpg"; 
+import NoImage from "../../assets/no_image.jpg";
 import { MdOutlineEmail } from "react-icons/md";
 
 const ProfilePage = () => {
@@ -26,7 +26,7 @@ const ProfilePage = () => {
   );
 
   return (
-    <div className="mx-auto max-w-screen-md mb-10 p- md:py-10">
+    <div className="p- mx-auto mb-10 max-w-screen-md md:py-10">
       <div className="border bg-white  md:rounded-xl">
         {profileData && (
           <div>
@@ -51,16 +51,16 @@ const ProfilePage = () => {
               />
             </div>
             <div className="mt-16 text-center">
-              <p className="font-semibold text-xl">{profileData.name}</p>
-              <div className="flex items-center gap-1 justify-center">
-              <MdOutlineEmail size={20} />
-              <p>{profileData.email}</p>
+              <p className="text-xl font-semibold">{profileData.name}</p>
+              <div className="flex items-center justify-center gap-1">
+                <MdOutlineEmail size={20} />
+                <p>{profileData.email}</p>
               </div>
-             
+
               {profileData.bio && (
                 <p className="mt-3">Bio: "{profileData.bio}"</p>
               )}
-              <div className="flex items-center justify-center gap-1 mt-4 mb-1">
+              <div className="mb-1 mt-4 flex items-center justify-center gap-1">
                 <p
                   className={`h-5 w-5 rounded-full ${
                     profileData.venueManager ? "bg-violet-700" : "bg-orange-400"
@@ -85,11 +85,7 @@ const ProfilePage = () => {
         />
       )}
 
-      {profileData && profileData.venueManager && (
-   
-          <MyVenues />
-      
-      )}
+      {profileData && profileData.venueManager && <MyVenues />}
     </div>
   );
 };

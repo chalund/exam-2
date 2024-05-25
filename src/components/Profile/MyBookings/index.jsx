@@ -3,8 +3,8 @@ import BookingDetails from "../../BookingDetails";
 
 const MyBookingsProfilePage = ({ bookings, totalCount }) => {
   const [showExpired, setShowExpired] = useState(false);
-  const [activeTab, setActiveTab] = useState('tab1');
-  const [showAllBookings, setShowAllBookings] = useState(false); // State to track whether to show all bookings
+  const [activeTab, setActiveTab] = useState("tab1");
+  const [showAllBookings, setShowAllBookings] = useState(false);
 
   const handleTabClick = (tabId) => {
     setActiveTab(tabId);
@@ -13,11 +13,11 @@ const MyBookingsProfilePage = ({ bookings, totalCount }) => {
   const today = new Date();
 
   const currentBookings = bookings.filter(
-    (booking) => new Date(booking.dateTo) >= today
+    (booking) => new Date(booking.dateTo) >= today,
   );
 
   const expiredBookings = bookings.filter(
-    (booking) => new Date(booking.dateTo) < today
+    (booking) => new Date(booking.dateTo) < today,
   );
 
   const calculateTotalPrice = (pricePerNight, numberOfNights) => {
@@ -39,7 +39,7 @@ const MyBookingsProfilePage = ({ bookings, totalCount }) => {
   }
 
   const handleToggleBookings = () => {
-    setShowAllBookings(!showAllBookings); // Toggle between showing all bookings and showing only a few
+    setShowAllBookings(!showAllBookings);
   };
 
   const renderBookings = (bookingList, isUpcoming) => {
@@ -50,7 +50,7 @@ const MyBookingsProfilePage = ({ bookings, totalCount }) => {
             key={booking.id}
             booking={booking}
             calculateTotalPrice={calculateTotalPrice}
-            isUpcoming={isUpcoming} // Pass the isUpcoming prop
+            isUpcoming={isUpcoming}
           />
         ))}
       </ul>
@@ -64,52 +64,72 @@ const MyBookingsProfilePage = ({ bookings, totalCount }) => {
           My bookings
         </h2>
       </div>
-      
-      <div className="tab-section backdrop-filter backdrop-blur-lg bg-opacity-40 mt-6">
+
+      <div className="tab-section mt-6 bg-opacity-40 backdrop-blur-lg backdrop-filter">
         <div className="flex flex-wrap">
           <button
-            className={`text-xs md:text-lg md:p-4 border-gray-300 hover:bg-gray-300 hover:bg-opacity-40 uppercase flex-grow ${
-              activeTab === 'tab1' ? 'font-bold border-l border-r border-t text-violet-700' : ''
+            className={`flex-grow border-gray-300 text-xs uppercase hover:bg-gray-300 hover:bg-opacity-40 md:p-4 md:text-lg ${
+              activeTab === "tab1"
+                ? "border-l border-r border-t font-bold text-violet-700"
+                : ""
             }`}
-            onClick={() => handleTabClick('tab1')}
+            onClick={() => handleTabClick("tab1")}
           >
             Upcoming Booking
           </button>
           <button
-            className={`text-xs md:text-lg p-4 hover:bg-zinc-200 hover:bg-opacity-40 uppercase flex-grow ${
-              activeTab === 'tab2' ? 'font-bold border-l border-r border-t text-violet-700' : ''
+            className={`flex-grow p-4 text-xs uppercase hover:bg-zinc-200 hover:bg-opacity-40 md:text-lg ${
+              activeTab === "tab2"
+                ? "border-l border-r border-t font-bold text-violet-700"
+                : ""
             }`}
-            onClick={() => handleTabClick('tab2')}
+            onClick={() => handleTabClick("tab2")}
           >
             Expired Booking
           </button>
         </div>
         <div>
-          {activeTab === 'tab1' && (
-            <div id="tab1" className="tab-content bg-white text-gray-700  p-3 md:p-6 border">
+          {activeTab === "tab1" && (
+            <div
+              id="tab1"
+              className="tab-content border bg-white  p-3 text-gray-700 md:p-6"
+            >
               <div className="md:ms-6 md:text-lg">
-              You have {currentBookings.length} upcoming bookings
+                You have {currentBookings.length} upcoming bookings
               </div>
-              
-              {showAllBookings ? renderBookings(currentBookings, true) : renderBookings(currentBookings.slice(0, 2), true)}
+
+              {showAllBookings
+                ? renderBookings(currentBookings, true)
+                : renderBookings(currentBookings.slice(0, 2), true)}
               {currentBookings.length > 3 && (
-                <div className="text-center mt-4">
-                  <button className=" rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-4 py-2 mt-4  uppercase text-white hover:to-violet-900 hover:font-semibold" onClick={handleToggleBookings}>
+                <div className="mt-4 text-center">
+                  <button
+                    className=" mt-4 rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-4 py-2  uppercase text-white hover:to-violet-900 hover:font-semibold"
+                    onClick={handleToggleBookings}
+                  >
                     {showAllBookings ? "Show Less" : "View More"}
                   </button>
                 </div>
               )}
             </div>
           )}
-          {activeTab === 'tab2' && (
-            <div id="tab2" className="tab-content bg-white text-gray-700 p-3 md:p-6 border ">
-               <div className="ms-6 text-red-700 md:text-lg">
-              You have {expiredBookings.length} expired bookings
+          {activeTab === "tab2" && (
+            <div
+              id="tab2"
+              className="tab-content border bg-white p-3 text-gray-700 md:p-6 "
+            >
+              <div className="ms-6 text-red-700 md:text-lg">
+                You have {expiredBookings.length} expired bookings
               </div>
-              {showAllBookings ? renderBookings(expiredBookings, false) : renderBookings(expiredBookings.slice(0, 2), false)}
+              {showAllBookings
+                ? renderBookings(expiredBookings, false)
+                : renderBookings(expiredBookings.slice(0, 2), false)}
               {expiredBookings.length > 3 && (
-                <div className="text-center mt-4">
-                  <button className=" rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-4 py-2 mt-4 uppercase text-white hover:to-violet-900 hover:font-semibold" onClick={handleToggleBookings}>
+                <div className="mt-4 text-center">
+                  <button
+                    className=" mt-4 rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-4 py-2 uppercase text-white hover:to-violet-900 hover:font-semibold"
+                    onClick={handleToggleBookings}
+                  >
                     {showAllBookings ? "Show Less" : "View More"}
                   </button>
                 </div>

@@ -8,9 +8,8 @@ import { BiSearch } from "react-icons/bi";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import { RiHome2Line } from "react-icons/ri";
 import Spinner from "../../components/Spinner/Loader";
-
 import { Link } from "react-router-dom";
-import LastTreeCards from "../../components/lastTreeCards";
+import RecentlyAddedVenues from "../../components/RecentlyAddedVenues";
 
 const HomePage = () => {
   const { data, loading, error } = useFetch(BASE_URL + "/venues");
@@ -53,7 +52,7 @@ const HomePage = () => {
       </div>
 
       <div className="mx-auto ms-5 overflow-x-auto md:ms-0 md:items-center ">
-        <LastTreeCards />
+        <RecentlyAddedVenues />
       </div>
 
       <div className=" my-12 ml-8 flex overflow-auto md:ml-0 lg:ml-0">

@@ -7,16 +7,16 @@ import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../components/Layout/Logo";
 import { REGISTER_ENDPOINT_URL } from "../../components/API";
 
-
-
 const RegisterPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [venueManager, setVenueManager] = useState(false);
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [registrationError, setRegistrationError] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
   const [registeredEmail, setRegisteredEmail] = useState("");
@@ -38,8 +38,9 @@ const RegisterPage = () => {
     validateName(name);
     validateEmail(email);
     validatePassword(password);
+    validateConfirmPassword(confirmPassword);
 
-    if (nameError || emailError || passwordError) {
+    if (nameError || emailError || passwordError || confirmPasswordError) {
       return;
     }
 
@@ -64,13 +65,13 @@ const RegisterPage = () => {
         throw new Error(errorData.errors[0].message || "Registration failed");
       }
 
-      console.log("User registered");
       setLoggedIn(true);
       setRegistrationError("");
-      setRegisteredEmail(email); 
+      setRegisteredEmail(email);
       setName("");
       setEmail("");
       setPassword("");
+      setConfirmPassword("");
     } catch (error) {
       console.error("Error:", error);
       setRegistrationError(error.message);
@@ -80,6 +81,8 @@ const RegisterPage = () => {
   const validateName = (value) => {
     if (!value.trim()) {
       setNameError("Name is required");
+    } else if (!/^[a-zA-Z0-9_]*$/.test(value)) {
+      setNameError("Name can only use a-Z, 0-9, and _");
     } else {
       setNameError("");
     }
@@ -107,25 +110,37 @@ const RegisterPage = () => {
     }
   };
 
+  const validateConfirmPassword = (value) => {
+    if (value !== password) {
+      setConfirmPasswordError("Passwords do not match");
+    } else {
+      setConfirmPasswordError("");
+    }
+  };
+
   const handleNameChange = (e) => {
     setName(e.target.value);
     validateName(e.target.value);
-    setRegistrationError(""); 
+    setRegistrationError("");
   };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
     validateEmail(e.target.value);
-    setRegistrationError(""); 
+    setRegistrationError("");
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
     validatePassword(e.target.value);
-    setRegistrationError(""); 
+    setRegistrationError("");
   };
 
-
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+    validateConfirmPassword(e.target.value);
+    setRegistrationError("");
+  };
 
   return (
     <div className="mx-auto mb-16 mt-8 flex max-w-sm flex-col px-6">
@@ -163,6 +178,9 @@ const RegisterPage = () => {
                 className="absolute right-3 top-2 cursor-pointer text-gray-800"
               />
               {nameError && <p className="mt-1 text-red-700">{nameError}</p>}
+              {nameError === "Name can only use a-Z, 0-9, and _" && (
+                <p className="text-red-700">Spaces are not permitted</p>
+              )}
             </div>
 
             <div className={`relative flex flex-col ${emailError ? "mb-2" : "mb-5"}`}>
@@ -207,6 +225,27 @@ const RegisterPage = () => {
               {passwordError && <p className="mt-1 text-red-700">{passwordError}</p>}
             </div>
 
+            <div className={`relative flex flex-col ${confirmPasswordError ? "mb-2" : "mb-5"}`}>
+              <FaLock className="absolute ml-4 mt-2" size={24} />
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
+                onBlur={() => validateConfirmPassword(confirmPassword)}
+                id="confirmPassword"
+                className={`w-full rounded-xl border py-2 pl-12 focus:border-violet-700 focus:bg-white focus:outline-none ${
+                  confirmPasswordError ? "border-red-700" : ""
+                }`}
+                placeholder="Confirm Password"
+              />
+              <IoClose
+                size={30}
+                onClick={() => handleClearField(setConfirmPassword, validateConfirmPassword)}
+                className="absolute right-3 top-2 cursor-pointer text-gray-800"
+              />
+              {confirmPasswordError && <p className="mt-1 text-red-700">{confirmPasswordError}</p>}
+            </div>
+
             <div className="mb-3 flex gap-4">
               <div>
                 <input
@@ -235,7 +274,9 @@ const RegisterPage = () => {
             </div>
           </div>
           {registrationError && (
-            <p className="text-red-700">{registrationError}</p>
+            <div>
+              <p className="text-red-700">{registrationError} </p>
+            </div>
           )}
           <button
             type="submit"

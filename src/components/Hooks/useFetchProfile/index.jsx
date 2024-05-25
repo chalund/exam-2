@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { createApiKey } from "../../API/ApiKey";
 import { getProfile } from "../../API/Profile";
 
-
 const useFetchProfile = () => {
   const [profileData, setProfileData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -16,11 +15,8 @@ const useFetchProfile = () => {
           throw new Error("Username not found in local storage");
         }
 
-        // Create API key first
         const apiKeyData = await createApiKey("User profile key");
         const apiKey = apiKeyData.data.key;
-
-        // Fetch profile with the created API key
         const profile = await getProfile(username, apiKey);
         setProfileData(profile.data);
         setIsLoading(false);

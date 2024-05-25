@@ -9,7 +9,6 @@ import { createBooking } from "../../API/Bookings";
 const BookingForm = ({ price, venueId }) => {
   const isLoggedIn = Boolean(localStorage.getItem("accessToken"));
   const navigate = useNavigate();
-
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(
     new Date(startDate.getTime() + 24 * 60 * 60 * 1000),
@@ -105,10 +104,8 @@ const BookingForm = ({ price, venueId }) => {
         const apiKey = apiKeyData.data.key;
 
         await createBooking(newData, apiKey);
-        console.log("Booking successful", newData);
         navigate("/profile");
-      } else {
-        console.log("User not logged in. Booking not allowed.");
+
       }
     } catch (error) {
       console.error("Error creating booking:", error);

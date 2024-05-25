@@ -14,7 +14,8 @@ import BookingFormLink from "../../components/CreateBooking/BookingFormLink";
 import BookingForm from "../../components/CreateBooking/BookingForm";
 import UpdateVenueForm from "../../components/Profile/VenueManager/UpdateVenue";
 import { GoTrash } from "react-icons/go";
-import handleDeleteVenue from "../../components/API/Venue/deleteVenue";
+import TruncateText from "../../components/TruncateText";
+import { handleDeleteVenue } from "../../components/API/Delete";
 
 const VenueDetailsPage = () => {
   const { id } = useParams();
@@ -25,6 +26,9 @@ const VenueDetailsPage = () => {
   const [isOwner, setIsOwner] = useState(false);
   const isLoggedIn = Boolean(localStorage.getItem("accessToken"));
   const loggedInUserEmail = localStorage.getItem("userEmail");
+
+  const maxNameLength = 49;
+  const maxDescriptionLength = 200;
 
   useEffect(() => {
     if (data && data.data) {
@@ -78,7 +82,6 @@ const VenueDetailsPage = () => {
     },
   } = data.data;
 
-  console.log(data.data);
 
   return (
     <div className="mx-auto max-w-screen-md rounded-xl border bg-white md:my-6">
@@ -129,7 +132,7 @@ const VenueDetailsPage = () => {
                   }}
                 />
                 {media.length > 1 && (
-                  <button className="absolute bottom-1 right-4 mb-5 rounded-full bg-white bg-gradient-to-r px-3 py-2 text-sm font-semibold uppercase  hover:from-violet-500 hover:to-violet-700 hover:text-white">
+                  <button className="absolute bottom-1 right-4 mb-5 rounded-full bg-gradient-to-t from-orange-300 to-orange-400   px-4 py-2 text-sm font-semibold uppercase  hover:from-orange-400 hover:to-orange-500 hover:text-white">
                     <Link to={`/venue/images/${id}`}>View all</Link>
                   </button>
                 )}
@@ -150,7 +153,7 @@ const VenueDetailsPage = () => {
         <div className="grid grid-cols-1 break-all md:grid-cols-2">
           <div className="m-4 mt-4">
             <div className="flex flex-col md:flex-row md:gap-3">
-              <h1 className="text-xl font-bold">{name}</h1>
+              <h1 className="text-xl font-bold"> <TruncateText text={name} maxLength={maxNameLength} /></h1>
               <div className="flex items-center py-1">
                 {rating ? (
                   <StarRate rating={rating} size={20} />
@@ -204,8 +207,8 @@ const VenueDetailsPage = () => {
               </div>
             </div>
 
-            <p className="mt-5 font-semibold">Description</p>
-            <p className="mb-3">{description}</p>
+            <div className="mt-5 font-semibold">Description</div>
+            <div className="mb-3"> <TruncateText text={description} maxLength={maxDescriptionLength} /></div>
             <div className="mt-1 flex items-center gap-1 font-medium">
               <FaBed size={24} />
               <p>{maxGuests} Guests</p>
