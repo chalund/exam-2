@@ -14,7 +14,6 @@ import VenueCard from "../card/venueCard";
  * )
  */
 
-
 function RecentlyAddedVenues() {
   const { data, loading, error } = useFetch(
     `${BASE_URL}/venues?sort=created&sortOrder=desc&limit=3`,

@@ -13,7 +13,7 @@ export const updateVenue = async (id, newData, apiKey) => {
 };
 
 export const getVenueById = async (venueId, apiKey) => {
-    const endpoint = `/venues/${venueId}?_bookings=true`;
-    const response = await apiRequest(endpoint, "GET", null, apiKey)
-    return response
-  } 
+  const endpoint = `/venues/${venueId}?_bookings=true`;
+  const response = await apiRequest(endpoint, "GET", null, apiKey);
+  return response;
+};

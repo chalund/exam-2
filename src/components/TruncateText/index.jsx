@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 /**
  * Component to truncate text and toggle between truncated and full text.
@@ -16,26 +16,27 @@ import React, { useState } from 'react';
  * );
  */
 const TruncateText = ({ text, maxLength }) => {
-    const [isTruncated, setIsTruncated] = useState(true);
-  
-    const handleToggle = () => {
-      setIsTruncated(!isTruncated);
-    };
-  
-    const truncatedText = isTruncated && text.length > maxLength
-      ? text.substring(0, maxLength) + '...'
-      : text;
-  
-    return (
-      <div>
-        <span>{truncatedText}</span>
-        {text.length > maxLength && (
-          <button onClick={handleToggle} className="text-violet-700 text-sm">
-           ({isTruncated ? 'View More' : 'View Less'})
-          </button>
-        )}
-      </div>
-    );
+  const [isTruncated, setIsTruncated] = useState(true);
+
+  const handleToggle = () => {
+    setIsTruncated(!isTruncated);
   };
-  
-  export default TruncateText;
+
+  const truncatedText =
+    isTruncated && text.length > maxLength
+      ? text.substring(0, maxLength) + "..."
+      : text;
+
+  return (
+    <div>
+      <span>{truncatedText}</span>
+      {text.length > maxLength && (
+        <button onClick={handleToggle} className="text-sm text-violet-700">
+          ({isTruncated ? "View More" : "View Less"})
+        </button>
+      )}
+    </div>
+  );
+};
+
+export default TruncateText;

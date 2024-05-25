@@ -41,7 +41,10 @@ const VenueImages = () => {
 
   return (
     <div className="mx-auto mt-4 max-w-screen-md">
-      <Link to={`/venue/${id}`} className="underline flex items-center gap-2 hover:text-violet-700">
+      <Link
+        to={`/venue/${id}`}
+        className="flex items-center gap-2 underline hover:text-violet-700"
+      >
         <FaArrowLeft />
         Back to Venue
       </Link>
@@ -60,9 +63,9 @@ const VenueImages = () => {
 
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-4 rounded-lg lg:w-1/2 max-w-2xl mt-4 md:mt-0">
+          <div className="mt-4 max-w-2xl rounded-lg bg-white p-4 md:mt-0 lg:w-1/2">
             <span
-              className="cursor-pointer text-2xl flex justify-end"
+              className="flex cursor-pointer justify-end text-2xl"
               onClick={closeModal}
             >
               &times;
@@ -70,8 +73,7 @@ const VenueImages = () => {
             <img
               src={selectedImage}
               alt="Selected"
-              className="mt-4 w-full rounded-lg min-h-72"
-              
+              className="mt-4 min-h-72 w-full rounded-lg"
             />
           </div>
         </div>
