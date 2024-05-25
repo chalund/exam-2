@@ -1,8 +1,13 @@
 import { BASE_URL } from "..";
 import { createApiKey } from "../ApiKey";
 
-
-const deleteResource = async (resourceType, resourceId, confirmationMessage, successMessage, navigate) => {
+const deleteResource = async (
+  resourceType,
+  resourceId,
+  confirmationMessage,
+  successMessage,
+  navigate,
+) => {
   const accessToken = localStorage.getItem("accessToken");
   const shouldDelete = window.confirm(confirmationMessage);
 
@@ -23,7 +28,10 @@ const deleteResource = async (resourceType, resourceId, confirmationMessage, suc
       },
     };
 
-    const response = await fetch(`${BASE_URL}/${resourceType}s/${resourceId}`, options);
+    const response = await fetch(
+      `${BASE_URL}/${resourceType}s/${resourceId}`,
+      options,
+    );
     if (!response.ok) {
       throw new Error(`Failed to delete ${resourceType}`);
     }
@@ -52,18 +60,32 @@ const deleteResource = async (resourceType, resourceId, confirmationMessage, suc
     }
   } catch (error) {
     console.error(`Error deleting ${resourceType}:`, error);
-    alert(`An error occurred while deleting the ${resourceType}. Please try again.`);
+    alert(
+      `An error occurred while deleting the ${resourceType}. Please try again.`,
+    );
   }
 };
 
 export const handleDeleteVenue = async (venueId, navigate) => {
   const confirmationMessage = "Are you sure you want to delete this venue?";
   const successMessage = "Your venue is deleted successfully!";
-  await deleteResource("venue", venueId, confirmationMessage, successMessage, navigate);
+  await deleteResource(
+    "venue",
+    venueId,
+    confirmationMessage,
+    successMessage,
+    navigate,
+  );
 };
 
 export const handleDeleteBooking = async (bookingId, navigate) => {
   const confirmationMessage = "Are you sure you want to delete this booking?";
   const successMessage = "Your booking is deleted successfully!";
-  await deleteResource("booking", bookingId, confirmationMessage, successMessage, navigate);
+  await deleteResource(
+    "booking",
+    bookingId,
+    confirmationMessage,
+    successMessage,
+    navigate,
+  );
 };

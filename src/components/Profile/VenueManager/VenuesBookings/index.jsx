@@ -15,7 +15,7 @@ const VenueBookings = () => {
   );
   const [profileData, setProfileData] = useState(null);
   const [activeTab, setActiveTab] = useState('current');
-  const [showAllBookings, setShowAllBookings] = useState(false); // State to track whether to show all bookings
+  const [showAllBookings, setShowAllBookings] = useState(false); 
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -38,7 +38,11 @@ const VenueBookings = () => {
   }, []);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="text-center text-2xl">
+        <Spinner />
+      </div>
+    );
   }
 
   if (error) {
@@ -71,11 +75,11 @@ const VenueBookings = () => {
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-    setShowAllBookings(false); // Reset showAllBookings when tab changes
+    setShowAllBookings(false);
   };
 
   const handleToggleBookings = () => {
-    setShowAllBookings(!showAllBookings); // Toggle between showing all bookings and showing only a few
+    setShowAllBookings(!showAllBookings); 
   };
 
   const renderBookings = (bookings) => {

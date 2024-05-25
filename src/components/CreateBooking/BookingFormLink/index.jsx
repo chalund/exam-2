@@ -9,7 +9,6 @@ import { createBooking } from "../../API/Bookings";
 const BookingFormLink = ({ price, venueId }) => {
   const isLoggedIn = Boolean(localStorage.getItem("accessToken"));
   const navigate = useNavigate();
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(
@@ -81,9 +80,8 @@ const BookingFormLink = ({ price, venueId }) => {
         const apiKey = apiKeyData.data.key;
 
         await createBooking(newData, apiKey);
-        console.log("Booking successful", newData);
         navigate("/profile");
-        setIsModalOpen(false); // Close the modal after successful booking
+        setIsModalOpen(false); 
       } else {
         console.log("User not logged in. Booking not allowed.");
       }

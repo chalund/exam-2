@@ -44,9 +44,7 @@ const EditProfileForm = () => {
         venueManager,
       };
 
-      console.log("Data to be saved:", newData);
       await updateProfile(username, newData, apiKey);
-
       setIsModalOpen(false);
       window.location.reload();
     } catch (error) {
@@ -143,7 +141,7 @@ const EditProfileForm = () => {
                     type="url"
                     name="avatarUrl"
                     placeholder="Avatar URL..."
-                    className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none focus:bg-white  focus:border-violet-700"
+                    className="w-full rounded-xl border py-2 pl-3 pr-12 focus:border-violet-700 focus:bg-white  focus:outline-none"
                   />
                   <IoCloseOutline
                     size={24}
@@ -158,7 +156,7 @@ const EditProfileForm = () => {
                     type="text"
                     name="avatarAlt"
                     placeholder="Avatar Alt Text..."
-                    className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none focus:bg-white  focus:border-violet-700"
+                    className="w-full rounded-xl border py-2 pl-3 pr-12 focus:border-violet-700 focus:bg-white  focus:outline-none"
                   />
                   <IoCloseOutline
                     size={24}
@@ -173,7 +171,7 @@ const EditProfileForm = () => {
                     type="url"
                     name="bannerUrl"
                     placeholder="Banner URL..."
-                    className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none focus:bg-white  focus:border-violet-700"
+                    className="w-full rounded-xl border py-2 pl-3 pr-12 focus:border-violet-700 focus:bg-white  focus:outline-none"
                   />
                   <IoCloseOutline
                     size={24}
@@ -188,7 +186,7 @@ const EditProfileForm = () => {
                     type="text"
                     name="bannerAlt"
                     placeholder="Banner Alt Text..."
-                    className="w-full rounded-xl border py-2 pl-3 pr-12 focus:outline-none focus:bg-white  focus:border-violet-700"
+                    className="w-full rounded-xl border py-2 pl-3 pr-12 focus:border-violet-700 focus:bg-white  focus:outline-none"
                   />
                   <IoCloseOutline
                     size={24}
@@ -202,7 +200,7 @@ const EditProfileForm = () => {
                     onChange={(e) => setBio(e.target.value)}
                     name="bio"
                     placeholder="Update Bio"
-                    className="w-full rounded-xl border py-2 pl-3 pr-8 focus:outline-none focus:bg-white  focus:border-violet-700"
+                    className="w-full rounded-xl border py-2 pl-3 pr-8 focus:border-violet-700 focus:bg-white  focus:outline-none"
                   />
                   <IoCloseOutline
                     size={24}
@@ -237,7 +235,7 @@ const EditProfileForm = () => {
               </div>
               <button
                 type="submit"
-                className="mb-5 rounded-full bg-gradient-to-t  from-violet-500 to-violet-700 text-white w-44 py-2 font-semibold uppercase hover:font-bold hover:to-violet-900"
+                className="mb-5 w-44 rounded-full  bg-gradient-to-t from-violet-500 to-violet-700 py-2 font-semibold uppercase text-white hover:to-violet-900 hover:font-bold"
               >
                 Update Profile
               </button>

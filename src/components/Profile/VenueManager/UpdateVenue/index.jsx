@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { createApiKey } from "../../../API/ApiKey";
 import { IoCloseOutline } from "react-icons/io5";
-
 import { useNavigate } from "react-router-dom";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { updateVenue } from "../../../API/Venue";
@@ -99,10 +98,6 @@ const UpdateVenueForm = ({ venueData }) => {
 
   const closeModal = () => {
     setIsModalOpen(false);
-  };
-
-  const handleSave = () => {
-    console.log("Save button clicked");
   };
 
   const handleMediaChangeAtIndex = (e, index) => {

@@ -9,7 +9,6 @@ import { createBooking } from "../../API/Bookings";
 const BookingForm = ({ price, venueId }) => {
   const isLoggedIn = Boolean(localStorage.getItem("accessToken"));
   const navigate = useNavigate();
-
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(
     new Date(startDate.getTime() + 24 * 60 * 60 * 1000),
