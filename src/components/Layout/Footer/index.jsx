@@ -52,7 +52,7 @@ const Footer = () => {
                 to="/listings"
                 className="hover:font-bold hover:text-violet-400"
               >
-                Listings
+                Venues
               </NavLink>
             </li>
             <li>
@@ -83,7 +83,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="mt-8 text-center text-sm md:mt-3">
-        &copy; 2024 Designed by Charlotte Lund
+        &copy; Holidaze 2024. Designed by Charlotte Lund. API provided by Noroff.
       </div>
     </div>
   );

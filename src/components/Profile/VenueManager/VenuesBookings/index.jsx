@@ -168,7 +168,7 @@ const VenueBookings = () => {
               id="expired"
               className="tab-content rounded-b-xl border bg-white p-3 text-gray-700 md:p-6"
             >
-              <div className="ms-6 text-red-700 md:text-lg">
+              <div className="md:ms-6 text-red-700 md:text-lg">
                 You have {sortedExpiredBookings.length} expired bookings
               </div>
               {showAllBookings

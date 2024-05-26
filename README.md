@@ -38,7 +38,7 @@ https://github.com/chalund/exam-2.git
 2. Install NPM packages
 
 ```
-npm install
+npm install or yarn install
 ```
 
 3. Start the project
