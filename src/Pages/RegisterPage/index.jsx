@@ -154,12 +154,16 @@ const RegisterPage = () => {
       </div>
       <div className="mb-6">
         <h1 className="py-2 text-lg font-semibold">Create a new account</h1>
-        <p>Welcome! Please complete your registration to access your account.</p>
+        <p>
+          Welcome! Please complete your registration to access your account.
+        </p>
       </div>
       <form onSubmit={handleSubmit}>
         <div>
           <div>
-            <div className={`relative flex flex-col ${nameError ? "mb-2" : "mb-5"}`}>
+            <div
+              className={`relative flex flex-col ${nameError ? "mb-2" : "mb-5"}`}
+            >
               <AiOutlineUser className="absolute ml-4 mt-2" size={24} />
               <input
                 type="text"
@@ -183,7 +187,9 @@ const RegisterPage = () => {
               )}
             </div>
 
-            <div className={`relative flex flex-col ${emailError ? "mb-2" : "mb-5"}`}>
+            <div
+              className={`relative flex flex-col ${emailError ? "mb-2" : "mb-5"}`}
+            >
               <MdOutlineEmail className="absolute ml-4 mt-2" size={24} />
               <input
                 type="email"
@@ -204,7 +210,9 @@ const RegisterPage = () => {
               {emailError && <p className="mt-1 text-red-700">{emailError}</p>}
             </div>
 
-            <div className={`relative flex flex-col ${passwordError ? "mb-2" : "mb-5"}`}>
+            <div
+              className={`relative flex flex-col ${passwordError ? "mb-2" : "mb-5"}`}
+            >
               <FaLock className="absolute ml-4 mt-2" size={24} />
               <input
                 type="password"
@@ -222,10 +230,14 @@ const RegisterPage = () => {
                 onClick={() => handleClearField(setPassword, validatePassword)}
                 className="absolute right-3 top-2 cursor-pointer text-gray-800"
               />
-              {passwordError && <p className="mt-1 text-red-700">{passwordError}</p>}
+              {passwordError && (
+                <p className="mt-1 text-red-700">{passwordError}</p>
+              )}
             </div>
 
-            <div className={`relative flex flex-col ${confirmPasswordError ? "mb-2" : "mb-5"}`}>
+            <div
+              className={`relative flex flex-col ${confirmPasswordError ? "mb-2" : "mb-5"}`}
+            >
               <FaLock className="absolute ml-4 mt-2" size={24} />
               <input
                 type="password"
@@ -240,10 +252,14 @@ const RegisterPage = () => {
               />
               <IoClose
                 size={30}
-                onClick={() => handleClearField(setConfirmPassword, validateConfirmPassword)}
+                onClick={() =>
+                  handleClearField(setConfirmPassword, validateConfirmPassword)
+                }
                 className="absolute right-3 top-2 cursor-pointer text-gray-800"
               />
-              {confirmPasswordError && <p className="mt-1 text-red-700">{confirmPasswordError}</p>}
+              {confirmPasswordError && (
+                <p className="mt-1 text-red-700">{confirmPasswordError}</p>
+              )}
             </div>
 
             <div className="mb-3 flex gap-4">
@@ -280,14 +296,16 @@ const RegisterPage = () => {
           )}
           <button
             type="submit"
-            className="mb-2 w-full rounded-full bg-gradient-to-t from-orange-300 to-orange-400 p-2 font-semibold hover:font-bold uppercase text-black hover:to-orange-500"
+            className="mb-2 w-full rounded-full bg-gradient-to-t from-orange-300 to-orange-400 p-2 font-semibold uppercase text-black hover:to-orange-500 hover:font-bold"
           >
             Submit
           </button>
           {loggedIn && (
             <div className="mt-3">
-              <p className="text-xl text-center mb-2">Your account <b>{registeredEmail}</b> is successfully created!!</p>
-              <button className="mt-2 w-full rounded-full bg-gradient-to-t from-violet-500 to-violet-700 p-2 font-semibold hover:font-bold uppercase text-white hover:to-violet-900">
+              <p className="mb-2 text-center text-xl">
+                Your account <b>{registeredEmail}</b> is successfully created!!
+              </p>
+              <button className="mt-2 w-full rounded-full bg-gradient-to-t from-violet-500 to-violet-700 p-2 font-semibold uppercase text-white hover:to-violet-900 hover:font-bold">
                 <Link to="/login">Login</Link>
               </button>
             </div>

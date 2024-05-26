@@ -87,7 +87,7 @@ const BookingFormLink = ({ price, venueId }) => {
 
         await createBooking(newData, apiKey);
         navigate("/profile");
-        setIsModalOpen(false); 
+        setIsModalOpen(false);
       }
     } catch (error) {
       console.error("Error creating booking:", error);

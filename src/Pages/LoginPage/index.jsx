@@ -41,7 +41,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="mx-auto flex mb-16 max-w-sm flex-col px-6 mt-8">
+    <div className="mx-auto mb-16 mt-8 flex max-w-sm flex-col px-6">
       <div className="mb-2 flex justify-end">
         <button>
           <IoClose size={30} onClick={handleCloseIcon} />
@@ -51,9 +51,7 @@ const LoginPage = () => {
         <Logo />
       </div>
       <div className="mb-6">
-        <h1 className="py-2 text-lg font-semibold">
-        Sign in to your account
-        </h1>
+        <h1 className="py-2 text-lg font-semibold">Sign in to your account</h1>
         <p>
           Easily keep track of prices and plan your travels, or switch gears to
           become a Venue Manager and rent out your spaces hassle-free.
@@ -70,7 +68,7 @@ const LoginPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
-                className="w-full rounded-xl border py-2  pl-12  leading-tight focus:outline-none focus:bg-white  focus:border-violet-700"
+                className="w-full rounded-xl border py-2  pl-12  leading-tight focus:border-violet-700 focus:bg-white  focus:outline-none"
               />
               <IoClose
                 size={30}
@@ -86,7 +84,7 @@ const LoginPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
-                className="w-full rounded-xl border py-2  pl-12 focus:outline-none focus:bg-white  focus:border-violet-700"
+                className="w-full rounded-xl border py-2  pl-12 focus:border-violet-700 focus:bg-white  focus:outline-none"
               />
               <IoClose
                 size={30}
@@ -97,7 +95,7 @@ const LoginPage = () => {
           </div>
           {error && <p className="mb-2 text-red-700">{error}</p>}
 
-          <button className="mb-2 w-full rounded-full bg-gradient-to-t from-orange-300 to-orange-400 hover:to-orange-500 hover:font-bold p-2 font-medium uppercase text-black">
+          <button className="mb-2 w-full rounded-full bg-gradient-to-t from-orange-300 to-orange-400 p-2 font-medium uppercase text-black hover:to-orange-500 hover:font-bold">
             Login
           </button>
         </div>

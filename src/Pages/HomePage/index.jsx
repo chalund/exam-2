@@ -1,4 +1,4 @@
-import { BASE_URL} from "../../components/API";
+import { BASE_URL } from "../../components/API";
 import { useFetch } from "../../components/Hooks/useFetch";
 import Nyksund from "../../assets/nyksund.jpg";
 import Lofoten from "../../assets/lofoten.jpg";
@@ -64,7 +64,7 @@ const HomePage = () => {
             <Link to="/listings">
               <p>Search for your new favorite place</p>
               <div className="mt-2 flex items-center justify-center">
-              <BiSearch size={36}/>
+                <BiSearch size={36} />
               </div>
             </Link>
           </div>
@@ -81,7 +81,7 @@ const HomePage = () => {
             <Link to="/listings">
               <p>Explore available dates on venues</p>
               <div className="mt-2 flex items-center justify-center">
-              <IoCalendarNumberOutline size={36}/>
+                <IoCalendarNumberOutline size={36} />
               </div>
             </Link>
           </div>

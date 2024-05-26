@@ -82,7 +82,6 @@ const VenueDetailsPage = () => {
     },
   } = data.data;
 
-
   return (
     <div className="mx-auto max-w-screen-md rounded-xl border bg-white md:my-6">
       <div className="ms-4 mt-4">
@@ -153,7 +152,10 @@ const VenueDetailsPage = () => {
         <div className="grid grid-cols-1 break-all md:grid-cols-2">
           <div className="m-4 mt-4">
             <div className="flex flex-col md:flex-row md:gap-3">
-              <h1 className="text-xl font-bold"> <TruncateText text={name} maxLength={maxNameLength} /></h1>
+              <h1 className="text-xl font-bold">
+                {" "}
+                <TruncateText text={name} maxLength={maxNameLength} />
+              </h1>
               <div className="flex items-center py-1">
                 {rating ? (
                   <StarRate rating={rating} size={20} />
@@ -208,7 +210,13 @@ const VenueDetailsPage = () => {
             </div>
 
             <div className="mt-5 font-semibold">Description</div>
-            <div className="mb-3"> <TruncateText text={description} maxLength={maxDescriptionLength} /></div>
+            <div className="mb-3">
+              {" "}
+              <TruncateText
+                text={description}
+                maxLength={maxDescriptionLength}
+              />
+            </div>
             <div className="mt-1 flex items-center gap-1 font-medium">
               <FaBed size={24} />
               <p>{maxGuests} Guests</p>

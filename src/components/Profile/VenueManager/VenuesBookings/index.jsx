@@ -11,11 +11,11 @@ import Spinner from "../../../Spinner/Loader";
 const VenueBookings = () => {
   const { id } = useParams();
   const { data, loading, error } = useFetch(
-    `${BASE_URL}/venues/${id}?_bookings=true`
+    `${BASE_URL}/venues/${id}?_bookings=true`,
   );
   const [profileData, setProfileData] = useState(null);
-  const [activeTab, setActiveTab] = useState('current');
-  const [showAllBookings, setShowAllBookings] = useState(false); 
+  const [activeTab, setActiveTab] = useState("current");
+  const [showAllBookings, setShowAllBookings] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -56,19 +56,19 @@ const VenueBookings = () => {
   const today = new Date();
 
   const currentBookings = data.data.bookings.filter(
-    (booking) => new Date(booking.dateTo) >= today
+    (booking) => new Date(booking.dateTo) >= today,
   );
 
   const expiredBookings = data.data.bookings.filter(
-    (booking) => new Date(booking.dateTo) < today
+    (booking) => new Date(booking.dateTo) < today,
   );
 
   const sortedCurrentBookings = currentBookings.sort(
-    (a, b) => new Date(a.dateFrom) - new Date(b.dateFrom)
+    (a, b) => new Date(a.dateFrom) - new Date(b.dateFrom),
   );
 
   const sortedExpiredBookings = expiredBookings.sort(
-    (a, b) => new Date(a.dateFrom) - new Date(b.dateFrom)
+    (a, b) => new Date(a.dateFrom) - new Date(b.dateFrom),
   );
 
   const venueName = data.data.name;
@@ -79,7 +79,7 @@ const VenueBookings = () => {
   };
 
   const handleToggleBookings = () => {
-    setShowAllBookings(!showAllBookings); 
+    setShowAllBookings(!showAllBookings);
   };
 
   const renderBookings = (bookings) => {
@@ -88,7 +88,7 @@ const VenueBookings = () => {
         {bookings.map((booking) => (
           <li
             key={booking.id}
-            className="m-5 mx-10 flex flex-col md:flex-row items-center gap-4 rounded-xl border bg-white p-4"
+            className="m-5 mx-10 flex flex-col items-center gap-4 rounded-xl border bg-white p-4 md:flex-row"
           >
             <img
               src={booking.customer.avatar.url}
@@ -112,54 +112,74 @@ const VenueBookings = () => {
   };
 
   return (
-    <div className="mt-12 mb-6  bg-white  md:rounded-xl">
-      <h1 className="text-center text-2xl uppercase text-violet-700 mb-6">
+    <div className="mb-6 mt-12  bg-white  md:rounded-xl">
+      <h1 className="mb-6 text-center text-2xl uppercase text-violet-700">
         {venueName} Bookings
       </h1>
-      <div className="tab-section backdrop-filter  backdrop-blur-lg bg-opacity-40 mt-6">
+      <div className="tab-section mt-6  bg-opacity-40 backdrop-blur-lg backdrop-filter">
         <div className="flex flex-wrap">
           <button
-            className={`text-xs md:text-lg md:p-4 border-gray-300 hover:bg-gray-300 hover:bg-opacity-40 uppercase flex-grow ${
-              activeTab === 'current' ? 'font-bold border-l border-r border-t text-violet-700' : ''
+            className={`flex-grow border-gray-300 text-xs uppercase hover:bg-gray-300 hover:bg-opacity-40 md:p-4 md:text-lg ${
+              activeTab === "current"
+                ? "border-l border-r border-t font-bold text-violet-700"
+                : ""
             }`}
-            onClick={() => handleTabClick('current')}
+            onClick={() => handleTabClick("current")}
           >
             Current Bookings
           </button>
           <button
-            className={`text-xs md:text-lg p-4 hover:bg-zinc-200 hover:bg-opacity-40 uppercase flex-grow ${
-              activeTab === 'expired' ? 'font-bold border-l border-r border-t  text-violet-700' : ''
+            className={`flex-grow p-4 text-xs uppercase hover:bg-zinc-200 hover:bg-opacity-40 md:text-lg ${
+              activeTab === "expired"
+                ? "border-l border-r border-t font-bold  text-violet-700"
+                : ""
             }`}
-            onClick={() => handleTabClick('expired')}
+            onClick={() => handleTabClick("expired")}
           >
             Expired Bookings
           </button>
         </div>
         <div>
-          {activeTab === 'current' && (
-            <div id="current" className="tab-content bg-white text-gray-700 p-3 md:p-6 border rounded-b-xl">
+          {activeTab === "current" && (
+            <div
+              id="current"
+              className="tab-content rounded-b-xl border bg-white p-3 text-gray-700 md:p-6"
+            >
               <div className="md:ms-6 md:text-lg">
                 You have {sortedCurrentBookings.length} current bookings
               </div>
-              {showAllBookings ? renderBookings(sortedCurrentBookings) : renderBookings(sortedCurrentBookings.slice(0, 3))}
+              {showAllBookings
+                ? renderBookings(sortedCurrentBookings)
+                : renderBookings(sortedCurrentBookings.slice(0, 3))}
               {sortedCurrentBookings.length > 2 && (
-                <div className="text-center mt-4">
-                  <button className=" rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-4 py-2 mt-4 uppercase text-white hover:to-violet-900 hover:font-semibold" onClick={handleToggleBookings}>
+                <div className="mt-4 text-center">
+                  <button
+                    className=" mt-4 rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-4 py-2 uppercase text-white hover:to-violet-900 hover:font-semibold"
+                    onClick={handleToggleBookings}
+                  >
                     {showAllBookings ? "Show Less" : "View More"}
                   </button>
                 </div>
               )}
             </div>
           )}
-          {activeTab === 'expired' && (
-            <div id="expired" className="tab-content bg-white text-gray-700 p-3 md:p-6 border rounded-b-xl">
-              <div className="ms-6 text-red-700 md:text-lg">
+          {activeTab === "expired" && (
+            <div
+              id="expired"
+              className="tab-content rounded-b-xl border bg-white p-3 text-gray-700 md:p-6"
+            >
+              <div className="md:ms-6 text-red-700 md:text-lg">
                 You have {sortedExpiredBookings.length} expired bookings
               </div>
-              {showAllBookings ? renderBookings(sortedExpiredBookings) : renderBookings(sortedExpiredBookings.slice(0, 3))}
+              {showAllBookings
+                ? renderBookings(sortedExpiredBookings)
+                : renderBookings(sortedExpiredBookings.slice(0, 3))}
               {sortedExpiredBookings.length > 2 && (
-                <div className="text-center mt-4">
-                  <button className=" rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-4 py-2 mt-4 uppercase text-white hover:to-violet-900 hover:font-semibold" onClick={handleToggleBookings}>
+                <div className="mt-4 text-center">
+                  <button
+                    className=" mt-4 rounded-full bg-gradient-to-t from-violet-500 to-violet-700 px-4 py-2 uppercase text-white hover:to-violet-900 hover:font-semibold"
+                    onClick={handleToggleBookings}
+                  >
                     {showAllBookings ? "Show Less" : "View More"}
                   </button>
                 </div>

@@ -14,7 +14,7 @@ const VenueCard = ({ venue }) => {
   const { wifi, parking, breakfast, pets } = venue.meta;
 
   return (
-<Link to={`/venue/${venue.id}`} className="block h-full">
+    <Link to={`/venue/${venue.id}`} className="block h-full">
       <div className="flex h-full flex-col justify-between rounded-lg border bg-white p-4 py-4 hover:border-4 hover:border-violet-700">
         {venue.media && venue.media.length > 0 ? (
           <div className="relative block h-48 w-full">

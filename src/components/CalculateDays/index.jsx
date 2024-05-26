@@ -14,7 +14,6 @@
  * console.log(days); // Outputs: 5
  */
 
-
 export const calculateDaysDifference = (dateFrom, dateTo) => {
   const dateFromMs = new Date(dateFrom).getTime();
   const dateToMs = new Date(dateTo).getTime();

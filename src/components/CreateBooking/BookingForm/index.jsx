@@ -105,7 +105,6 @@ const BookingForm = ({ price, venueId }) => {
 
         await createBooking(newData, apiKey);
         navigate("/profile");
-
       }
     } catch (error) {
       console.error("Error creating booking:", error);
